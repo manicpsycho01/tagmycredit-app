@@ -1,0 +1,2091 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TagMyCredit Gulf Merged Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Figtree:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;700&display=swap">
+<style>
+/* Concept 4 · Gulf merged.
+   Gulf (concept 3) is the base theme. Borrowed: Ledger's credit-line document + how-it-works examples,
+   Signal's interactive NEOM map + working Trust Vault tabs. All restyled to Gulf tokens. */
+:root{
+  --ground:#F6F9F9; --surface:#FFFFFF; --ink:#0C1F1E; --muted:#4D6260; --line:#D5E1E0; --line-strong:#B7C9C7;
+  --teal:#0B3D3A; --teal-2:#135550; --teal-text:#135550; --on-teal:#ECF5F3; --on-teal-muted:#A8C6C1; --star:rgba(255,255,255,.07);
+  --amber:#E9A23B; --amber-ink:#8A5200; --amber-soft:#FCEFDA; --on-amber:#1E1300;
+  --ok:#157046; --warn:#8A6100; --bad:#B02E23; --ok-soft:#E1F2E8; --warn-soft:#FBF0D3; --bad-soft:#F9E2DF;
+  --crit:#D2691E; --crit-text:#A2480C;
+  --focus:#9A5B00;
+  --display:"Schibsted Grotesk","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --ar:"Noto Kufi Arabic","Segoe UI",Tahoma,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#061211; --surface:#0C1D1C; --ink:#E3EFED; --muted:#93ACA8; --line:#1C3432; --line-strong:#2B4A47;
+  --teal:#0E2C2A; --teal-2:#17423F; --teal-text:#7FD1C6; --on-teal:#E3F0EE; --on-teal-muted:#93B5B0; --star:rgba(255,255,255,.05);
+  --amber:#F2B65A; --amber-ink:#F2B65A; --amber-soft:#2A1E0B; --on-amber:#1E1300;
+  --ok:#45C98B; --warn:#E6BA4C; --bad:#F2725F; --ok-soft:#0E2A1E; --warn-soft:#2A220C; --bad-soft:#2E1512;
+  --crit:#F08A3E; --crit-text:#F29A55;
+  --focus:#F2B65A;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#061211; --surface:#0C1D1C; --ink:#E3EFED; --muted:#93ACA8; --line:#1C3432; --line-strong:#2B4A47;
+  --teal:#0E2C2A; --teal-2:#17423F; --teal-text:#7FD1C6; --on-teal:#E3F0EE; --on-teal-muted:#93B5B0; --star:rgba(255,255,255,.05);
+  --amber:#F2B65A; --amber-ink:#F2B65A; --amber-soft:#2A1E0B; --on-amber:#1E1300;
+  --ok:#45C98B; --warn:#E6BA4C; --bad:#F2725F; --ok-soft:#0E2A1E; --warn-soft:#2A220C; --bad-soft:#2E1512;
+  --crit:#F08A3E; --crit-text:#F29A55;
+  --focus:#F2B65A;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-padding-top:72px}
+body{background:var(--ground);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.04;letter-spacing:-.025em;text-wrap:balance}
+h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+code{overflow-wrap:anywhere}
+.ar{font-family:var(--ar);font-weight:500;letter-spacing:0;line-height:1.7}
+.kicker{font:700 .74rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--amber-ink);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.kicker .ar{font-size:.85rem;text-transform:none;color:var(--muted);font-weight:500}
+.plain{display:flex;gap:10px;align-items:flex-start;max-width:62ch;font-size:1.02rem;color:var(--ink);background:var(--amber-soft);border-left:3px solid var(--amber);padding:10px 14px;border-radius:0 6px 6px 0}
+.plain b{font:700 .7rem/1.9 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--amber-ink);flex:none}
+.lede{color:var(--muted);font-size:1.08rem;max-width:60ch}
+.num{font-variant-numeric:tabular-nums}
+dfn{font-style:normal;font-weight:700;border-bottom:1px dotted currentColor}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+.band :focus-visible,header :focus-visible,.picker :focus-visible,.priv .no :focus-visible{outline-color:var(--amber)}
+section{padding-block:clamp(60px,8vw,104px)}
+.head{display:grid;gap:14px;margin-bottom:40px;max-width:820px}
+.rule{border-top:1px solid var(--line)}
+
+/* teal bands with the 8-point star */
+.band{background-color:var(--teal);color:var(--on-teal);background-size:56px 56px;position:relative}
+.band::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--teal) 25%,color-mix(in srgb,var(--teal) 35%,transparent));pointer-events:none}
+.band>*{position:relative}
+.band .kicker{color:var(--amber)}
+.band .kicker .ar,.band .lede{color:var(--on-teal-muted)}
+.band .plain{background:rgba(255,255,255,.07);color:var(--on-teal)}
+.band .plain b{color:var(--amber)}
+.band{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.09' stroke-width='1'%3E%3Crect x='18' y='18' width='20' height='20'/%3E%3Crect x='18' y='18' width='20' height='20' transform='rotate(45 28 28)'/%3E%3C/g%3E%3C/svg%3E")}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 20px;border-radius:8px;font:700 .95rem/1.1 var(--body);text-decoration:none;border:1.5px solid transparent;cursor:pointer;text-align:center}
+.btn-amber{background:var(--amber);color:var(--on-amber)}
+.btn-amber:hover{filter:brightness(1.06)}
+.btn-line{border-color:var(--line-strong);color:var(--ink);background:transparent}
+.btn-line:hover{border-color:var(--ink)}
+.band .btn-line{border-color:rgba(255,255,255,.35);color:var(--on-teal)}
+.band .btn-line:hover{border-color:var(--on-teal)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;filter:none}
+
+/* header + mobile menu */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--teal) 94%,transparent);backdrop-filter:blur(10px);color:var(--on-teal);border-bottom:1px solid rgba(255,255,255,.08);padding-top:env(safe-area-inset-top,0px)}
+.nav{display:flex;align-items:center;gap:20px;min-height:64px}
+.logo{font:800 1.2rem/1 var(--display);letter-spacing:-.03em;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo svg{flex:none}
+.logo b{color:var(--amber)}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0 0 0 auto;padding:0;font-size:.92rem}
+.nav ul a{text-decoration:none;color:var(--on-teal-muted)}
+.nav ul a:hover{color:var(--on-teal)}
+.nav-r{display:flex;gap:10px;align-items:center}
+.nav .btn{min-height:40px;padding:9px 14px;font-size:.88rem}
+.theme,.menu-btn{background:none;border:1px solid rgba(255,255,255,.25);color:var(--on-teal);border-radius:8px;width:40px;height:40px;display:grid;place-items:center;cursor:pointer;flex:none}
+.menu-btn{display:none}
+.menu-btn[aria-expanded="true"]{background:rgba(255,255,255,.1)}
+.mnav{border-top:1px solid rgba(255,255,255,.1)}
+.mnav ul{list-style:none;margin:0;padding:6px 0 14px;display:grid}
+.mnav a{display:block;padding:12px 4px;text-decoration:none;color:var(--on-teal);font-weight:600;border-bottom:1px solid rgba(255,255,255,.08)}
+.mnav li:last-child a{border-bottom:0}
+.mnav a:hover{color:var(--amber)}
+@media (max-width:900px){.nav ul{display:none}.nav-r{margin-left:auto}.menu-btn{display:grid}}
+@media (min-width:901px){.mnav{display:none!important}}
+@media (max-width:420px){.nav{gap:12px}.nav-r{gap:8px}.logo{font-size:1.05rem}.nav .btn{padding:9px 10px;font-size:.82rem}}
+
+/* hero */
+.hero{padding-block:clamp(48px,7vw,96px) clamp(56px,7vw,96px)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(36px,5vw,72px);align-items:center}
+.hero-grid>*{min-width:0}
+.hero h1{font-size:clamp(2.6rem,6.2vw,5rem);font-weight:800;letter-spacing:-.035em}
+.hero h1 span{display:block}
+.hero h1 .hl{color:var(--amber)}
+.hero .ar-h{font-family:var(--ar);font-size:clamp(1rem,1.8vw,1.25rem);color:var(--on-teal-muted);margin-top:14px;font-weight:500}
+.hero .sub{margin-top:22px;font-size:clamp(1.08rem,1.6vw,1.24rem);max-width:54ch;color:var(--on-teal)}
+.hero .sub span{color:var(--on-teal-muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.fine{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:18px;font-size:.86rem;color:var(--on-teal-muted)}
+.fine span{display:inline-flex;gap:6px;align-items:center}
+.fine span::before{content:"";width:6px;height:6px;background:var(--amber);transform:rotate(45deg)}
+@media (max-width:920px){.hero-grid{grid-template-columns:1fr}}
+
+/* credit-line document (from Ledger, restyled) */
+.doc{position:relative;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 40px 80px -40px rgba(0,0,0,.6);max-width:500px;width:100%;justify-self:end;overflow:hidden}
+.doc::after{content:"";position:absolute;right:-70px;top:-70px;width:180px;height:180px;border-radius:50%;background:var(--amber-soft);pointer-events:none}
+.doc>*{position:relative;z-index:1}
+.doc-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px 0}
+.doc-top small,.dlabel{font:700 .7rem/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.eg-tag{font:700 .64rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-soft);border:1px solid color-mix(in srgb,var(--amber) 60%,transparent);border-radius:4px;padding:5px 7px;flex:none}
+.doc-id{padding:8px 22px 16px;border-bottom:1px dashed var(--line);font-size:.84rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline}
+.doc-id code{font:600 .9rem var(--mono);color:var(--ink)}
+.doc-body{position:relative;padding:20px 22px 22px;display:grid;gap:18px}
+.dparties{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center}
+.dparty{display:grid;gap:3px;min-width:0}
+.dparty strong{font:700 1.05rem/1.2 var(--display)}
+.dparty span{font-size:.8rem;color:var(--muted)}
+.dparty.r{text-align:right}
+.darrow{display:grid;justify-items:center;gap:6px;font:700 .66rem/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-text)}
+.darrow i{display:block;width:52px;height:2px;background:var(--amber);position:relative}
+.darrow i::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:7px solid var(--amber);border-right:0}
+.doc-tmc{font-size:.78rem;color:var(--muted);margin-top:-8px}
+.doc-tmc code{font:600 .78rem var(--mono)}
+.damount{display:flex;align-items:baseline;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;padding:14px 0;border-block:1px solid var(--line)}
+.damount b{font:800 clamp(1.7rem,3.4vw,2.3rem)/1 var(--display);letter-spacing:-.02em}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ticks li{display:flex;align-items:center;gap:12px;font-size:.92rem}
+.tick{width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;flex:none}
+.stamp{--rot:-4deg;position:static;justify-self:end;align-self:start;transform:rotate(var(--rot));border:2px solid var(--ok);color:var(--ok);background:color-mix(in srgb,var(--surface) 80%,transparent);font:800 .72rem/1 var(--display);letter-spacing:.16em;padding:8px 10px;border-radius:6px}
+.doc-foot{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap;padding:14px 22px;background:var(--ground);border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+@media (max-width:920px){.doc{justify-self:start}}
+@media (max-width:540px){.stamp{--rot:-3deg;position:static;justify-self:start}}
+@media (max-width:420px){.doc-top,.doc-id,.doc-body,.doc-foot{padding-left:16px;padding-right:16px}.dparties{grid-template-columns:1fr}.dparty.r{text-align:left}.darrow{display:flex;align-items:center;gap:8px}}
+
+/* how it works (from Ledger, restyled) */
+.hw{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:14px;background:var(--surface);counter-reset:s;overflow:hidden}
+.hw li{counter-increment:s;padding:clamp(20px,3vw,30px);display:grid;gap:14px;align-content:start;min-width:0}
+.hw li+li{border-left:1px solid var(--line)}
+.hw li::before{content:counter(s);width:40px;height:40px;display:grid;place-items:center;font:800 1.05rem/1 var(--display);background:var(--teal-text);color:var(--surface);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+.hw li:last-child::before{background:var(--amber);color:var(--on-amber)}
+.hw h3{font-size:1.15rem}
+.hw p{color:var(--muted);font-size:.95rem}
+.hw-vis{min-height:96px;border-radius:10px;background:var(--ground);border:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:12px}
+.hw-field{background:var(--surface);border:1px solid var(--line-strong);border-radius:6px;padding:8px 10px;display:grid;gap:3px;font-weight:600;font-size:.9rem;min-width:0}
+.hw-field small{font:700 .62rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hw-otp{display:flex;gap:6px}
+.hw-otp i{font:700 1rem/1 var(--mono);font-style:normal;width:30px;height:36px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);display:grid;place-items:center}
+.hw-otp i:last-child{border-color:var(--amber);box-shadow:0 0 0 2px color-mix(in srgb,var(--amber) 35%,transparent)}
+.hw-score{font:800 1.9rem/1 var(--display);letter-spacing:-.03em}
+@media (max-width:820px){.hw{grid-template-columns:1fr}.hw li+li{border-left:0;border-top:1px solid var(--line)}}
+
+/* who it's for */
+.who{display:grid;grid-template-columns:1.6fr 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.who-main{padding:clamp(24px,4vw,40px);display:grid;gap:20px;align-content:start;border-right:1px solid var(--line)}
+.who-side{padding:clamp(24px,4vw,40px);display:grid;gap:16px;align-content:start;background:var(--ground)}
+.tag-pill{display:inline-flex;align-self:start;justify-self:start;font:700 .7rem/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;padding:7px 10px;border-radius:4px;background:var(--teal);color:var(--on-teal)}
+.tag-pill.sec{background:transparent;color:var(--muted);border:1px solid var(--line-strong)}
+.who h3{font-size:clamp(1.4rem,2.4vw,1.8rem)}
+.gets{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gets div{border-top:3px solid var(--amber);padding-top:12px}
+.gets b{display:block;font-family:var(--display)}
+.gets span{font-size:.9rem;color:var(--muted)}
+.sectors{display:flex;flex-wrap:wrap;gap:8px}
+.sectors span{font-size:.82rem;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.who-side ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.who-side li{font-size:.94rem;padding-left:18px;position:relative}
+.who-side li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;background:var(--teal-text);transform:rotate(45deg)}
+.who-also{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;font-size:.9rem;color:var(--muted)}
+.who-also b{color:var(--ink);display:block}
+@media (max-width:900px){.who{grid-template-columns:1fr}.who-main{border-right:0;border-bottom:1px solid var(--line)}.gets,.who-also{grid-template-columns:1fr}}
+
+/* check a buyer */
+.check{display:grid;grid-template-columns:300px 1fr;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 30px 60px -45px rgba(11,61,58,.5)}
+.picker{background:var(--teal);color:var(--on-teal);padding:20px;display:grid;gap:10px;align-content:start}
+.picker .lbl{font:700 .7rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+.picker button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.14);cursor:pointer}
+.picker button:hover{background:rgba(255,255,255,.06)}
+.picker button[aria-checked="true"]{background:var(--surface);color:var(--ink);border-color:var(--surface)}
+.picker button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.picker button b{font-weight:700}
+.picker button small{grid-column:1;font-size:.75rem;opacity:.75}
+.picker button .sc{grid-row:1/3;grid-column:2;align-self:center;font:800 1.15rem/1 var(--display)}
+.picker .note{font-size:.78rem;color:var(--on-teal-muted);margin-top:6px}
+.readout{padding:clamp(20px,3vw,32px);display:grid;grid-template-columns:minmax(220px,280px) 1fr;gap:24px 32px;align-content:start;min-width:0}
+.gauge{display:grid;justify-items:center;gap:6px}
+.gauge svg{width:100%;max-width:280px;height:auto;overflow:visible}
+.gauge .g-bg{stroke:var(--line)}
+.gauge .g-val{transition:stroke-dasharray .2s cubic-bezier(.2,.8,.2,1),stroke .16s}
+.gauge .g-tick{stroke:var(--muted)}
+.gauge text{fill:var(--muted);font:600 11px var(--body)}
+.gauge .g-score{fill:var(--ink);font:800 46px var(--display);letter-spacing:-1.5px}
+.band-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font:800 .78rem/1 var(--body);letter-spacing:.1em}
+.c-ok{background:var(--ok-soft);color:var(--ok)}.c-warn{background:var(--warn-soft);color:var(--warn)}.c-bad{background:var(--bad-soft);color:var(--bad)}
+.signals{display:grid;gap:0;align-content:start;min-width:0;margin:0}
+.sig{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);align-items:center}
+.sig:first-child{padding-top:0}
+.sig dt{font-size:.8rem;color:var(--muted);font-weight:600}
+.sig dd{margin:0;font-weight:600}
+.light{display:inline-flex;gap:5px;padding:5px 7px;background:var(--ink);border-radius:999px;vertical-align:middle;margin-right:10px}
+.light i{width:12px;height:12px;border-radius:50%;background:#4a5554;opacity:.45}
+.light[data-l="red"] i:nth-child(1){background:#F05A4B;opacity:1;box-shadow:0 0 8px #F05A4B}
+.light[data-l="yellow"] i:nth-child(2){background:#F4C23D;opacity:1;box-shadow:0 0 8px #F4C23D}
+.light[data-l="green"] i:nth-child(3){background:#3DCB83;opacity:1;box-shadow:0 0 8px #3DCB83}
+.pb{display:inline-flex;gap:3px;margin-right:10px;vertical-align:middle}
+.pb i{width:18px;height:8px;border-radius:2px;background:var(--line)}
+.pb[data-p="3"] i{background:var(--ok)}.pb[data-p="2"] i:nth-child(-n+2){background:var(--warn)}.pb[data-p="1"] i:nth-child(1){background:var(--bad)}
+.alert{grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:10px;border:1px solid var(--line);background:var(--ground)}
+.alert.on{background:var(--bad-soft);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}
+.alert svg{flex:none;margin-top:2px}
+.alert b{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.alert.on b{color:var(--bad)}
+.privacy-line{grid-column:1/-1;font-size:.85rem;color:var(--muted)}
+@media (max-width:960px){.check{grid-template-columns:1fr}.picker{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}.picker .lbl,.picker .note{grid-column:1/-1}}
+@media (max-width:700px){.readout{grid-template-columns:1fr}.sig{grid-template-columns:1fr;gap:4px}}
+
+/* privacy */
+.bridge{font:700 1.02rem/1.45 var(--display);color:var(--teal-text);display:flex;gap:10px;align-items:baseline}
+.bridge::before{content:"";flex:none;width:8px;height:8px;background:var(--amber);transform:rotate(45deg) translateY(-2px)}
+.priv{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.priv>div{padding:clamp(22px,3vw,32px);display:grid;gap:14px;align-content:start}
+.priv .yes{background:var(--surface)}
+.priv .no{background:var(--teal);color:var(--on-teal)}
+.priv h3{font-size:1.05rem}
+.priv ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.priv li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:.95rem;align-items:start}
+.priv li svg{margin-top:3px}
+.priv li small{display:block;color:var(--muted);font-size:.84rem}
+.priv .no li small{color:var(--on-teal-muted)}
+.quote{margin-top:28px;font:700 clamp(1.25rem,2.4vw,1.7rem)/1.3 var(--display);max-width:32ch;letter-spacing:-.01em}
+@media (max-width:820px){.priv{grid-template-columns:1fr}}
+
+/* gap: Ahmed */
+.gap-grid{display:grid;grid-template-columns:280px 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+.person{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--teal);color:var(--on-teal);display:grid;place-items:center;font:800 1.3rem/1 var(--display)}
+.person small{display:block;color:var(--muted);font-size:.82rem}
+.frames{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+.frame{padding:0 20px 0 0;display:grid;gap:12px;align-content:start;min-width:0}
+.frame+.frame{padding-left:20px;border-left:1px dashed var(--line-strong)}
+.frame .st{font:700 .72rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.frame .st em{font-style:normal;color:var(--amber-ink)}
+.frame p{font-size:.94rem;color:var(--muted)}
+.rows{display:grid;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:4px 14px}
+.rows div{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.rows div:last-child{border-bottom:0}
+.mini{font:800 .68rem/1 var(--body);letter-spacing:.1em;padding:5px 8px;border-radius:4px}
+.drop{display:grid;gap:6px}
+.drop div{padding:10px 12px;border-radius:8px;font-size:.88rem;border-left:4px solid var(--c);background:var(--surface);border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+@media (max-width:960px){.gap-grid{grid-template-columns:1fr}.frames{grid-template-columns:1fr;gap:22px}.frame,.frame+.frame{padding:0;border-left:0}}
+
+/* invisible market */
+.inv{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.tracked{display:grid;gap:14px}
+.tr{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:center}
+.tr span{font-size:.92rem;font-weight:600}
+.tr .meter{height:38px;border-radius:6px;background:repeating-linear-gradient(90deg,var(--teal-2) 0 10px,var(--teal) 10px 12px);display:flex;align-items:center;padding:0 12px;color:var(--on-teal);font:700 .72rem/1 var(--body);letter-spacing:.12em}
+.tr.blind .meter{background:repeating-linear-gradient(135deg,transparent 0 8px,var(--line) 8px 9px);border:1.5px dashed var(--amber);color:var(--amber-ink);justify-content:space-between}
+.tr.blind .meter b{font:800 1.3rem/1 var(--display);letter-spacing:-.02em}
+.four{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;counter-reset:f}
+.four li{counter-increment:f;display:grid;gap:4px;font-size:.92rem;color:var(--muted)}
+.four li b{color:var(--ink);font-family:var(--display);font-size:1rem}
+.four li b::before{content:"0" counter(f) "  ";color:var(--amber-ink);font-variant-numeric:tabular-nums}
+@media (max-width:900px){.inv{grid-template-columns:1fr}}
+@media (max-width:520px){.four{grid-template-columns:1fr}.tr{grid-template-columns:1fr;gap:6px}}
+
+/* tag: Fatima */
+.tagflow{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(28px,5vw,64px);align-items:center}
+.tagflow>*{min-width:0}
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,28px);display:grid;gap:16px}
+.lane{display:grid;grid-template-columns:1fr 92px 1fr;gap:10px;align-items:center}
+.party{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:2px;min-width:0}
+.party small{font:700 .66rem/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.party b{font-family:var(--display);font-size:1rem;line-height:1.2}
+.party span{font-size:.8rem;color:var(--muted)}
+.otp{display:grid;justify-items:center;gap:6px;font:700 .68rem/1 var(--body);letter-spacing:.1em;color:var(--amber-ink)}
+.otp .boxes{display:flex;gap:3px}
+.otp .boxes i{width:16px;height:20px;border:1px solid var(--line-strong);border-radius:3px;font:700 .72rem/18px var(--mono);font-style:normal;text-align:center;color:var(--ink);background:var(--ground)}
+.otp svg{width:92px;height:10px}
+.tcl{background:var(--teal);color:var(--on-teal);border-radius:12px;padding:18px;display:grid;gap:12px}
+.tcl .amt{font:800 clamp(1.6rem,3.6vw,2.2rem)/1 var(--display);letter-spacing:-.02em}
+.tcl small{color:var(--on-teal-muted);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.tcl .meta{display:flex;flex-wrap:wrap;gap:8px}
+.tcl .meta span{font-size:.78rem;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.22)}
+.tcl code{font:600 .9rem var(--mono);color:var(--amber)}
+.flow .flow-foot{font-size:.85rem;color:var(--muted)}
+@media (max-width:900px){.tagflow{grid-template-columns:1fr}}
+@media (max-width:480px){.lane{grid-template-columns:1fr;justify-items:stretch}.otp svg{transform:rotate(90deg);width:40px}}
+
+/* chain: header + stats (Gulf) */
+.chain-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:28px}
+.chain-stats{display:grid;grid-template-columns:repeat(4,auto);gap:0}
+.chain-stats div{padding:0 18px;border-left:1px solid var(--line);display:grid;gap:4px}
+.chain-stats div:first-child{border-left:0;padding-left:0}
+.chain-stats b{font:800 1.9rem/1 var(--display)}
+.chain-stats span{font-size:.75rem;color:var(--muted);max-width:11ch;line-height:1.25}
+@media (max-width:960px){.chain-top{grid-template-columns:1fr}}
+@media (max-width:520px){.chain-stats{grid-template-columns:1fr 1fr;gap:14px 0}.chain-stats div:nth-child(3){border-left:0;padding-left:0}}
+
+/* chain: interactive map (from Signal, restyled) */
+.mapbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 20px;margin-bottom:14px}
+.mapbar .kicker{color:var(--muted)}
+.mapbar .kicker span{font-weight:600;letter-spacing:0;text-transform:none}
+.mapbar .btns{display:flex;flex-wrap:wrap;gap:8px}
+.map-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;background:
+  linear-gradient(color-mix(in srgb,var(--line) 55%,transparent) 1px,transparent 1px) 0 0/100% 48px,
+  linear-gradient(90deg,color-mix(in srgb,var(--line) 55%,transparent) 1px,transparent 1px) 0 0/48px 100%,var(--surface)}
+.map{position:relative;min-width:880px;padding:30px 18px 30px;display:grid;gap:50px}
+.map-edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.map-edges path{fill:none;stroke:var(--line-strong);stroke-width:1.5;transition:stroke .35s,stroke-width .35s}
+.map-edges path.healthy{stroke:var(--ok)}
+.map-edges path.warning{stroke:var(--warn);stroke-dasharray:6 4}
+.map-edges path.critical{stroke:var(--crit);stroke-width:2;stroke-dasharray:6 4}
+.map-edges path.default{stroke:var(--bad);stroke-width:2.4;stroke-dasharray:1 5;stroke-linecap:round}
+.map-edges path{transition:opacity .2s cubic-bezier(.2,.8,.2,1),stroke .35s,stroke-width .35s}
+.map-edges path.dim{opacity:.16}
+.map-edges .map-arrows path{stroke:none;stroke-dasharray:none;fill:var(--ok);transition:opacity .2s}
+.map-edges .map-arrows path.warning{fill:var(--warn)}
+.map-edges .map-arrows path.critical{fill:var(--crit)}
+.map-edges .map-arrows path.default{fill:var(--bad)}
+.mt{position:relative;z-index:1;display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center}
+.mt-label{font:700 .66rem/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mt-label b{display:block;color:var(--ink)}
+.mt-nodes{display:flex;justify-content:space-around;gap:10px}
+[data-status]{--s:var(--line-strong);--st:var(--muted)}
+[data-status="healthy"]{--s:var(--ok);--st:var(--ok)}
+[data-status="warning"]{--s:var(--warn);--st:var(--warn)}
+[data-status="critical"]{--s:var(--crit);--st:var(--crit-text)}
+[data-status="default"]{--s:var(--bad);--st:var(--bad)}
+.mn{flex:0 1 124px;min-width:0;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--s);border-radius:8px;padding:8px 10px 10px;display:grid;gap:4px;cursor:pointer;position:relative;transition:border-color .35s,background .35s,box-shadow .35s}
+.mn:hover,.mn[aria-pressed="true"]{border-color:var(--ink);border-top-color:var(--s)}
+.mn[data-status="default"]{background:var(--bad-soft)}
+.mn .nm{font:700 .8rem/1.2 var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mn .row{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.mn .sc{font:800 1.05rem/1 var(--display);font-variant-numeric:tabular-nums}
+.mn .ex{font-size:.68rem;color:var(--muted)}
+.mn .ps{font:700 .62rem/1.1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--st)}
+.mn.is-shared{outline:2px dashed var(--amber);outline-offset:3px}
+.mt:has(.shared){padding-bottom:26px}
+.mn .shared{position:absolute;left:50%;top:auto;bottom:-25px;transform:translateX(-50%);font:700 .6rem/1 var(--body);color:var(--amber-ink);background:var(--amber-soft);border:1px solid var(--amber);border-radius:4px;padding:3px 5px;white-space:nowrap}
+.mn.hit{box-shadow:0 0 0 2px var(--s),0 0 18px -2px var(--s)}
+.map-foot{display:grid;grid-template-columns:minmax(0,1fr);border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:12px}
+.inspect{padding:18px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:14px 28px;align-items:start}
+.i-main,.i-side{display:grid;gap:8px;min-width:0}
+.i-side{border-left:1px solid var(--line);padding-left:24px}
+.inspect .i-why{font-size:.95rem;line-height:1.5;color:var(--ink)}
+@media (max-width:960px){.inspect{grid-template-columns:1fr}.i-side{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:12px}}
+.inspect .k,.simlog .k{font:700 .66rem/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.inspect .nm{font:800 1.05rem/1.2 var(--display)}
+.inspect dl{margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.inspect dt{font-size:.72rem;color:var(--muted);font-weight:600}
+.inspect dd{margin:2px 0 0;font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
+.inspect .i-shared{font-size:.86rem;color:var(--ink);background:var(--amber-soft);border-radius:8px;padding:10px 12px;line-height:1.45}
+.mapstatus{display:flex;align-items:center;gap:16px;padding:12px 16px;margin-bottom:12px;border:1px solid var(--line);border-radius:12px;background:var(--ground)}
+.mapstatus .cnt{display:flex;align-items:center;gap:10px;flex:none;padding:4px 16px 4px 0;border:0;border-right:1px solid var(--line);background:none;color:inherit;font:inherit;text-align:left;border-radius:0}
+.mapstatus .cnt:not(:disabled){cursor:pointer}
+.mapstatus .cnt:not(:disabled){border-radius:8px;padding:6px 16px 6px 8px;margin-left:-8px}
+@media (hover:hover) and (pointer:fine){.mapstatus .cnt:not(:disabled):hover{background:color-mix(in srgb,var(--bad) 10%,transparent)}}
+.mapstatus .cnt[aria-pressed="true"]{background:color-mix(in srgb,var(--bad) 16%,transparent);box-shadow:inset 0 0 0 1.5px var(--bad)}
+@media (hover:hover) and (pointer:fine){.mapstatus .cnt:not(:disabled):hover span{color:var(--ink)}}
+.mapstatus .cnt:focus-visible{outline:2.5px solid var(--amber);outline-offset:4px;border-radius:6px}
+.def-list{display:flex;flex-wrap:wrap;gap:6px}
+.def-list[hidden]{display:none}
+.def-list button{font:600 .84rem/1 var(--body);padding:8px 11px;border-radius:999px;background:var(--bad-soft);color:var(--bad);border:1px solid color-mix(in srgb,var(--bad) 45%,transparent);cursor:pointer}
+.def-list button[aria-pressed="true"]{background:var(--bad);color:var(--surface)}
+@media (hover:hover) and (pointer:fine){.def-list button[aria-pressed="false"]:hover{background:color-mix(in srgb,var(--bad) 28%,transparent)}}
+.def-list button:focus-visible{outline:2.5px solid var(--amber);outline-offset:2px}
+.map.flagging .mn:not([data-status="default"]),.tiers.flagging .node:not([data-status="default"]){opacity:.32;transition:opacity .2s}
+.mapstatus .cnt b{font:800 2rem/1 var(--display);color:var(--bad);font-variant-numeric:tabular-nums;min-width:1ch}
+.mapstatus .cnt span{font:700 .78rem/1.2 var(--body);color:var(--muted);max-width:9.5em}
+.mapstatus .sm{display:grid;gap:4px;min-width:0}
+.mapstatus p{color:var(--ink);font-size:.92rem;line-height:1.45;min-width:0}
+@media (max-width:520px){.mapstatus{flex-direction:column;align-items:flex-start;gap:8px}.mapstatus .cnt{border-right:0;padding-right:0}}
+.simlog{padding:16px;display:grid;gap:8px;align-content:start}
+.simlog .cnt{display:flex;align-items:baseline;gap:10px}
+.simlog .cnt b{font:800 2rem/1 var(--display);color:var(--bad)}
+.simlog p{color:var(--muted);font-size:.9rem}
+.chain-list{display:none}
+.tiers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;align-items:start}
+.tier{display:grid;gap:8px;align-content:start;min-width:0}
+.tier h3{font:800 .72rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:2px solid var(--teal-text)}
+.tier ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.node{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 8px;padding:9px 10px 9px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--s);font-size:.86rem}
+.node b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.node .s{font:800 .95rem/1.2 var(--display);text-align:right;font-variant-numeric:tabular-nums}
+.node small{color:var(--muted);font-size:.74rem}
+.node small.pt{text-align:right;color:var(--st);font-weight:700}
+.node.sh{box-shadow:inset 0 0 0 1px var(--amber)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:20px;font-size:.82rem;color:var(--muted);align-items:center;list-style:none;padding:0}
+.legend li{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;background:var(--c)}
+.legend .ln{width:22px;height:0;border-top:3px solid var(--c);border-radius:0;background:none}
+.legend .ln.dash{border-top-style:dashed}.legend .ln.dot{border-top-style:dotted}
+.flowline{margin-top:14px;font:700 .72rem/1.4 var(--body);letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+@media (max-width:700px){.chain-map{display:none}.chain-list{display:block}.map-foot{margin-top:12px}.inspect dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tier .node{cursor:pointer}
+.tier .node[aria-pressed="true"]{box-shadow:0 0 0 2px var(--amber)}
+.tier .node:focus-visible{outline:2.5px solid var(--amber);outline-offset:2px}
+@media (max-width:520px){.tiers{grid-template-columns:1fr}}
+
+/* market size band */
+.size-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,5vw,64px);align-items:end}
+.size h2 .big{display:block;font-size:clamp(3.4rem,9vw,6.6rem);color:var(--amber);letter-spacing:-.045em;line-height:.95;margin-top:6px}
+.stack{display:grid;gap:10px}
+.stack .bar{display:flex;height:56px;border-radius:8px;overflow:hidden}
+.stack .bar div{display:flex;align-items:center;padding:0 14px;font:800 1.05rem/1 var(--display);white-space:nowrap}
+.stack .bar .sa{background:var(--amber);color:var(--on-amber)}
+.stack .bar .gcc{background:rgba(255,255,255,.16);color:var(--on-teal)}
+.stack .cap{display:flex;justify-content:space-between;gap:12px;font-size:.84rem;color:var(--on-teal-muted)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:40px;border-top:1px solid rgba(255,255,255,.16)}
+.facts div{padding:20px 20px 0 0;display:grid;gap:4px}
+.facts div+div{padding-left:20px;border-left:1px solid rgba(255,255,255,.16)}
+.facts b{font:800 2rem/1 var(--display);color:var(--on-teal)}
+.facts span{font-size:.86rem;color:var(--on-teal-muted)}
+.ppm{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.ppm div{display:grid;gap:6px;font-size:.9rem;color:var(--on-teal-muted)}
+.ppm b{color:var(--on-teal);font-family:var(--display)}
+@media (max-width:900px){.size-grid{grid-template-columns:1fr}.ppm{grid-template-columns:1fr}}
+@media (max-width:600px){.facts{grid-template-columns:1fr}.facts div+div{padding-left:0;border-left:0}.facts div{border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:16px}}
+
+/* paradigm table */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+thead th{font:800 .72rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:var(--ground)}
+.shift td:first-child{color:var(--muted);width:24%;font-weight:600;font-size:.9rem}
+.shift td:nth-child(2){color:var(--muted);}
+.shift td:nth-child(3){font-weight:700}
+.shift td:nth-child(3)::before{content:"";display:inline-block;width:8px;height:8px;background:var(--amber);transform:rotate(45deg);margin-right:10px;vertical-align:1px}
+.shift thead th:nth-child(3){color:var(--teal-text)}
+.foot-note{margin-top:12px;font-size:.82rem;color:var(--muted)}
+
+/* trust vault */
+.vstats{display:grid;grid-template-columns:repeat(4,1fr);border-block:2px solid var(--teal-text);margin-bottom:28px}
+.vstats div{padding:22px 18px;display:grid;gap:6px}
+.vstats div+div{border-left:1px solid var(--line)}
+.vstats b{font:800 clamp(2rem,4vw,2.8rem)/1 var(--display);letter-spacing:-.03em}
+.vstats span{font-size:.82rem;color:var(--muted);font-weight:600}
+.vault{display:grid;grid-template-columns:.95fr 1.05fr;gap:20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;min-width:0}
+.panel .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.panel .ph small,.pk{font:800 .7rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.tabs{display:flex;gap:4px;padding:3px;background:var(--ground);border:1px solid var(--line);border-radius:9px}
+.tabs button{all:unset;box-sizing:border-box;cursor:pointer;font:600 .84rem/1 var(--body);padding:8px 12px;border-radius:6px;color:var(--muted)}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.tabs button:focus-visible{outline:3px solid var(--focus);outline-offset:1px}
+[role="tabpanel"]:focus-visible{outline-offset:6px}
+.eg-row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.eg-row b{font-family:var(--display)}
+.bigscore{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.bigscore b{font:800 3.6rem/1 var(--display);letter-spacing:-.04em}
+.bigscore small{color:var(--muted);font-weight:600}
+.comp{display:grid;gap:12px}
+.comp div{display:grid;grid-template-columns:minmax(0,130px) 1fr 40px;gap:10px;align-items:center;font-size:.86rem}
+.comp .tk{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.comp .tk i{display:block;height:100%;background:var(--teal-2)}
+:root[data-theme="dark"] .comp .tk i.dflt{background:var(--amber)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .comp .tk i.dflt{background:var(--amber)}}
+.comp .n{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.alerts{list-style:none;margin:0;padding:0;display:grid}
+.alerts li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.alerts li:last-child{border-bottom:0}
+.alerts .t{color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums}
+.panel table{min-width:420px}
+.panel .tbl-wrap{border:0;border-radius:0}
+.panel th,.panel td{padding:11px 10px}
+@media (max-width:900px){.vault{grid-template-columns:1fr}.vstats{grid-template-columns:1fr 1fr}.vstats div:nth-child(3){border-left:0}.vstats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* platform */
+.plat{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,64px);align-items:start}
+.count{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:22px 0}
+.count b{font:800 4.4rem/1 var(--display);color:var(--teal-2);letter-spacing:-.04em}
+:root[data-theme="dark"] .count b{color:var(--amber)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .count b{color:var(--amber)}}
+.cats{display:flex;flex-wrap:wrap;gap:8px}
+.cats span{font-size:.84rem;font-weight:600;padding:7px 12px;border-radius:6px;background:var(--surface);border:1px solid var(--line)}
+.cats button{font:600 .84rem/1.2 var(--body);padding:8px 12px;border-radius:6px;background:var(--surface);color:var(--ink);border:1px solid var(--line);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.cats button i{font-style:normal;font-size:.72rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.cats button[aria-selected="true"]{background:var(--amber);color:var(--on-amber);border-color:var(--amber)}
+.cats button[aria-selected="true"] i{color:var(--on-amber);opacity:.75}
+@media (hover:hover) and (pointer:fine){.cats button[aria-selected="false"]:hover{border-color:var(--line-strong)}}
+.cats button:focus-visible{outline:2.5px solid var(--amber);outline-offset:2px}
+.svc-panels{min-width:0}
+
+.svc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.svc li{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line)}
+.svc .i{font:800 .9rem/1 var(--display);color:var(--amber-ink)}
+.svc b{font:700 1.08rem/1.3 var(--display);display:block}
+.svc span{color:var(--muted);font-size:.93rem}
+.svc em{font-style:normal;font-size:.74rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:3px 7px;white-space:nowrap}
+@media (max-width:900px){.plat{grid-template-columns:1fr}}
+@media (max-width:480px){.svc li{grid-template-columns:32px 1fr}.svc em{grid-column:2;justify-self:start}}
+
+/* identity */
+.ident{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.ident>*{min-width:0}
+.anat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.anat .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.anat button{all:unset;box-sizing:border-box;cursor:pointer;font:700 clamp(1rem,2.8vw,1.4rem)/1 var(--mono);padding:10px 9px;border-radius:6px;border:1px solid var(--line);background:var(--ground)}
+.anat button.on,.anat button[aria-pressed="true"]{background:var(--amber);color:var(--on-amber);border-color:var(--amber)}
+.anat button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--amber)}
+.anat button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.anat .dash{color:var(--muted)}
+.anat .out{margin-top:14px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;min-height:28px}
+.anat .out b{font-family:var(--display)}
+.anat .out span{color:var(--muted);font-size:.92rem}
+.anat .hint{font-size:.8rem;color:var(--muted);margin-top:6px}
+.fico{margin-top:24px;font:700 1.15rem/1.4 var(--display)}
+.fico em{font-style:normal;color:var(--amber-ink)}
+@media (max-width:900px){.ident{grid-template-columns:1fr}}
+
+/* join */
+.join{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:start}
+.join>*{min-width:0}
+.perks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.perks div{display:grid;gap:2px;font-size:.88rem;color:var(--muted)}
+.perks b{color:var(--ink);font-family:var(--display);font-size:1rem}
+form{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--amber);border-radius:14px;padding:clamp(20px,3vw,30px);display:grid;gap:14px}
+form h3{font-size:1.3rem}
+label{display:grid;gap:6px;font-size:.84rem;font-weight:600;color:var(--muted)}
+input,select{font:500 1rem/1.3 var(--body);color:var(--ink);background:var(--ground);border:1px solid var(--line-strong);border-radius:8px;padding:12px;width:100%;min-width:0}
+input:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--focus)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-note{font-size:.78rem;color:var(--muted);text-align:center;margin-top:-6px}
+.form-fine{font-size:.82rem;color:var(--muted);text-align:center}
+.form-msg{padding:12px;border-radius:8px;background:var(--amber-soft);color:var(--ink);font-size:.9rem;font-weight:600}
+@media (max-width:900px){.join{grid-template-columns:1fr}}
+@media (max-width:440px){.row2,.perks{grid-template-columns:1fr}}
+
+/* faq */
+.faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(28px,5vw,64px);align-items:start}
+.faq{border-top:1px solid var(--line)}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font:700 1.05rem/1.35 var(--display);position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:24px;width:10px;height:10px;border-right:2px solid var(--amber-ink);border-bottom:2px solid var(--amber-ink);transform:rotate(45deg);transition:transform .2s}
+details[open] summary::after{transform:rotate(-135deg);top:28px}
+details p{padding:0 0 18px;color:var(--muted);max-width:64ch}
+@media (max-width:900px){.faq-grid{grid-template-columns:1fr}}
+
+/* final */
+.final-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:end}
+.final h2{font-size:clamp(2.2rem,5.4vw,4.2rem)}
+.final h2 em{font-style:normal;color:var(--amber)}
+.final .ar-h{font-family:var(--ar);color:var(--on-teal-muted);margin-top:12px;font-size:1.05rem}
+footer{padding-block:48px 40px;background:var(--ground);border-top:1px solid var(--line)}
+.foot{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:28px}
+.foot p{color:var(--muted);font-size:.9rem;max-width:34ch;margin-top:12px}
+.foot h4{margin:0 0 10px;font:800 .72rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:.9rem}
+.foot ul a{text-decoration:none;color:var(--ink)}
+.foot ul a:hover{color:var(--amber-ink)}
+.legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.legal a{color:var(--muted)}
+@media (max-width:900px){.final-grid{grid-template-columns:1fr}.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
+
+@media (prefers-reduced-motion:no-preference){
+  /* One signature moment: the credit line assembles itself (~1.65s, once). Transform + opacity only. */
+  .doc{animation:docin .5s cubic-bezier(.2,.8,.2,1) both}
+  .dparties{animation:up .24s .2s cubic-bezier(.2,.8,.2,1) both}
+  .doc-tmc,.damount{animation:up .24s .36s cubic-bezier(.2,.8,.2,1) both}
+  .ticks li{animation:up .22s cubic-bezier(.2,.8,.2,1) both}
+  .ticks li:nth-child(1){animation-delay:.56s}
+  .ticks li:nth-child(2){animation-delay:.76s}
+  .ticks li:nth-child(3){animation-delay:.96s}
+  .stamp{animation:stamp .22s 1.2s cubic-bezier(.2,.8,.2,1) both}
+  .doc-foot .band-chip{animation:pop .2s 1.45s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes docin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @keyframes up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @keyframes stamp{from{opacity:0;transform:rotate(var(--rot)) scale(.97)}to{opacity:1;transform:rotate(var(--rot)) scale(1)}}
+  @keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+  /* Feedback: press, and the phone menu entering from its bar */
+  .btn{transition:transform .08s cubic-bezier(.2,.8,.2,1),filter .15s}
+  .btn:active{transform:scale(.98);transition-duration:.12s}
+  .mnav:not([hidden]){animation:navin .18s cubic-bezier(.2,.8,.2,1) both}
+  .readout.swap>*{animation:rofade .16s cubic-bezier(.2,.8,.2,1)}
+  .svc.enter{animation:rofade .16s cubic-bezier(.2,.8,.2,1)}
+  @keyframes rofade{from{opacity:.35}to{opacity:1}}
+  @keyframes navin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ---- Why defaults happen (chain explainer) ---- */
+.why-def{margin-top:44px;padding-top:36px;border-top:1px solid var(--line);display:grid;gap:26px}
+.why-head{display:grid;gap:12px;max-width:760px}
+.why-head h3{font-size:clamp(1.35rem,2.4vw,1.8rem);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.why-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+@media (max-width:900px){.why-grid{grid-template-columns:1fr}}
+.why-steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:w}
+.why-steps li{counter-increment:w;display:grid;grid-template-columns:40px 1fr;gap:2px 14px;padding:14px 0;border-top:1px solid var(--line);position:relative}
+.why-steps li:first-child{border-top:0;padding-top:0}
+.why-steps li::before{content:counter(w);grid-row:1/3;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;font:800 .9rem/1 var(--display);background:var(--ground);border:2px solid var(--c,var(--line-strong));color:var(--ink)}
+.why-steps li:nth-child(1){--c:var(--warn)}
+.why-steps li:nth-child(2){--c:var(--crit)}
+.why-steps li:nth-child(3){--c:var(--crit)}
+.why-steps li:nth-child(4){--c:var(--bad)}
+.why-steps b{font:700 1.02rem/1.3 var(--display)}
+.why-steps span{color:var(--muted);font-size:.93rem;line-height:1.5}
+.why-signals{background:var(--ground);border:1px solid var(--line);border-radius:12px;padding:clamp(18px,2.6vw,26px);display:grid;gap:12px;min-width:0}
+.why-t{font:700 1rem/1.3 var(--display);color:var(--amber-ink)}
+.why-signals ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.why-signals li{font-size:.93rem;color:var(--muted);line-height:1.5;padding-left:18px;position:relative}
+.why-signals li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;background:var(--amber);transform:rotate(45deg)}
+.why-signals li b{color:var(--ink)}
+.why-note{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+/* ---- The opportunity (tabs) ---- */
+.opp-head{display:grid;grid-template-columns:1.3fr 1fr;gap:16px 48px;align-items:end;margin-bottom:32px}
+.opp-head h2{font-size:clamp(1.8rem,3.6vw,2.8rem)}
+@media (max-width:900px){.opp-head{grid-template-columns:1fr}}
+.opp-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:36px}
+.opp-tabs button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:3px;padding:14px 16px;border-radius:10px;background:rgba(255,255,255,.06);color:var(--on-teal);border:1px solid rgba(255,255,255,.14);min-width:0}
+.opp-tabs button b{font:700 1.02rem/1.2 var(--display)}
+.opp-tabs button span{font-size:.82rem;color:var(--on-teal-muted)}
+.opp-tabs button[aria-selected="true"]{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.opp-tabs button[aria-selected="true"] span{color:color-mix(in srgb,var(--on-amber) 75%,transparent)}
+.opp-tabs button:focus-visible{outline:2.5px solid var(--amber);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){.opp-tabs button[aria-selected="false"]:hover{background:rgba(255,255,255,.1)}}
+@media (max-width:560px){.opp-tabs{grid-template-columns:1fr}.opp-tabs button span{display:none}}
+.opp-h{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.opp-h .big{display:block;font-size:clamp(3rem,7.6vw,5.6rem);color:var(--amber);letter-spacing:-.045em;line-height:.95;margin-top:6px}
+.opp-close{margin-top:28px;font:700 1.15rem/1.4 var(--display);color:var(--on-teal)}
+.prec-grid,.moat-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+@media (max-width:900px){.prec-grid,.moat-grid{grid-template-columns:1fr}}
+.vs40{display:grid;gap:22px}
+.vs-row{display:grid;grid-template-columns:minmax(0,170px) 1fr auto;gap:16px;align-items:center}
+.vs-lbl{display:grid;gap:2px;min-width:0}
+.vs-lbl b{font:700 .98rem/1.25 var(--display)}
+.vs-lbl span{font-size:.82rem;color:var(--on-teal-muted)}
+.vs-bar{height:44px;border-radius:8px;position:relative;overflow:hidden}
+.vs-bar .full{position:absolute;inset:0;background:var(--amber);transform-origin:left}
+.vs-bar .none{position:absolute;inset:0;border:1.5px dashed rgba(255,255,255,.35);border-radius:8px}
+.vs-val{font:800 clamp(1.6rem,3vw,2.2rem)/1 var(--display);min-width:3.2ch;text-align:right}
+@media (max-width:520px){.vs-row{grid-template-columns:1fr auto}.vs-lbl{grid-column:1/-1}}
+.parallel{margin-top:40px}
+.parallel-t{font:700 .98rem/1.3 var(--body);color:var(--amber);margin-bottom:12px}
+.par-wrap{overflow-x:auto;border-radius:12px;border:1px solid rgba(255,255,255,.14)}
+.par{width:100%;min-width:440px;border-collapse:collapse;background:rgba(255,255,255,.03)}
+.par th,.par td{padding:13px 18px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;color:var(--on-teal)}
+.par tr:last-child td{border-bottom:0}
+.par thead th{background:transparent;font:700 .95rem/1.2 var(--display);letter-spacing:0;text-transform:none;color:var(--on-teal-muted)}
+.par thead th:last-child{color:var(--amber)}
+.par td:first-child{color:var(--on-teal-muted);width:44%}
+.par td:last-child{font-weight:700}
+.strength{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:0}
+.strength li{display:grid;grid-template-columns:minmax(0,1fr) auto 7.5em;gap:14px;align-items:center;padding:12px 0;border-top:1px solid rgba(255,255,255,.12)}
+.strength li div{display:grid;gap:2px;min-width:0}
+.strength b{font:700 .98rem/1.25 var(--display)}
+.strength li div span{font-size:.84rem;color:var(--on-teal-muted)}
+.strength em{font-style:normal;font-weight:700;font-size:.86rem;text-align:right}
+.meter{display:inline-flex;gap:3px}
+.meter i{width:14px;height:8px;border-radius:2px;background:rgba(255,255,255,.16)}
+.meter[data-v="3"] i:nth-child(-n+3),.meter[data-v="4"] i{background:var(--on-teal)}
+.meter.crit i{background:var(--amber)}
+@media (max-width:480px){.strength li{grid-template-columns:1fr auto}.strength li div{grid-column:1/-1}.strength em{text-align:left}}
+.fw{margin:0;display:grid;gap:10px;justify-items:center}
+.fw svg{width:100%;max-width:460px;height:auto}
+.fw-arcs path{fill:none;stroke:var(--amber);stroke-width:2}
+.fw-head{fill:var(--amber)}
+.fw-mid{fill:var(--on-teal-muted);font:700 13px var(--body);letter-spacing:.02em}
+.fw-node rect{fill:var(--teal-2);stroke:rgba(255,255,255,.22);stroke-width:1;transition:fill .2s cubic-bezier(.2,.8,.2,1),stroke .2s}
+.fw-node text{fill:var(--on-teal);font:600 12.5px var(--body)}
+.fw-node .fw-n{fill:var(--amber);font:800 11px var(--display);letter-spacing:.06em}
+.fw-node.on rect{fill:var(--amber);stroke:var(--amber)}
+.fw-node.on text,.fw-node.on .fw-n{fill:var(--on-amber)}
+.fw figcaption{font-size:.86rem;color:var(--on-teal-muted);text-align:center}
+@media (prefers-reduced-motion:no-preference){
+  .opp-panel.enter{animation:oppin .18s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes oppin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .opp-panel.enter .vs-bar .full{animation:grow .5s .1s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:none}}
+}
+/* ---- Hero background: Gulf trade network (decorative, hero only) ---- */
+.hero{overflow:hidden}
+.hero>.hero-net{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity .6s cubic-bezier(.2,.8,.2,1);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,transparent 36%,#000 58%);mask-image:linear-gradient(90deg,transparent 0,transparent 36%,#000 58%)}
+.hero>.hero-net.on{opacity:1}
+.hero>.wrap{z-index:1}
+.btn[aria-disabled="true"]{cursor:not-allowed}
+.btn-line[aria-disabled="true"]:hover{border-color:inherit}
+/* ---- Appeal pass ---- */
+/* Section labels: sentence case, no tracking; they read as the start of the section, not as chrome. */
+.kicker{font:600 .98rem/1.35 var(--body);letter-spacing:0;text-transform:none}
+/* "In short" lines become the section's lead sentence instead of a repeated amber box. */
+.plain,.band .plain{display:block;background:none;border:0;padding:0;border-radius:0;max-width:56ch;font:600 clamp(1.08rem,1.5vw,1.28rem)/1.45 var(--display);letter-spacing:-.01em;color:var(--ink)}
+.band .plain{color:var(--on-teal)}
+.plain b,.band .plain b{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* Hero: three lines of headline, a larger document. */
+.hero-grid{grid-template-columns:1.12fr 1fr}
+.hero h1{font-size:clamp(2.3rem,4.6vw,4.3rem)}
+.hero h1 span{white-space:nowrap}
+.doc{max-width:540px}
+@media (max-width:920px){.hero-grid{grid-template-columns:1fr}}
+/* Chapters: paired sections share one spread; the map gets its own tone. */
+#chain{background:var(--surface)}
+.paired{border-top:0;padding-top:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="TagMyCredit home">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14"/><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)" stroke="#E9A23B"/></g></svg>
+      <span>tagmy<b>credit</b></span>
+    </a>
+    <ul>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#check">Check a buyer</a></li>
+      <li><a href="#opportunity">Opportunity</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-r">
+      <a class="btn btn-amber" href="#join">Get TMC-ID</a>
+      <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="mnav" aria-label="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Main menu" hidden>
+    <div class="wrap">
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#check">Check a buyer</a></li>
+        <li><a href="#opportunity">Opportunity</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- 1 HERO: Gulf copy + Ledger credit-line document -->
+  <section class="hero band">
+    <canvas class="hero-net" id="heroNet" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker">Trade Credit Intelligence</p>
+        <h1 style="margin-top:18px"><span>Tag Credit.</span><span class="hl">See Risk.</span><span>Protect Revenue.</span></h1>
+        <p class="ar-h" dir="rtl" lang="ar">سجّل الائتمان. اعرف المخاطر. احمِ إيراداتك.</p>
+        <p class="sub">When you deliver now and get paid later, you're lending to your buyer. TagMyCredit lets suppliers record that credit, have the buyer confirm it, and see a shared risk score <span>before</span> they ship again.</p>
+        <div class="cta">
+          <a class="btn btn-amber" href="#join">Get your TMC-ID</a>
+          <a class="btn btn-line" href="#how">See how it works</a>
+        </div>
+        <p class="fine"><span>No credit card</span><span>Free forever on Starter</span><span>3 min setup</span></p>
+      </div>
+
+      <article class="doc" aria-label="Example tagged credit line">
+        <div class="doc-top">
+          <small>Tagged credit line</small>
+          <span class="eg-tag">Example</span>
+        </div>
+        <p class="doc-id">Credit line ID · <code>TCL-AE-0847291</code></p>
+        <div class="doc-body">
+          <div class="dparties">
+            <div class="dparty"><span class="dlabel">Supplier</span><strong>Al Noor Distribution</strong><span>Dubai · FMCG</span></div>
+            <div class="darrow" aria-hidden="true">credit<i></i>Net 90</div>
+            <div class="dparty r"><span class="dlabel">Buyer</span><strong>Gulf Retail Co.</strong><span>Retail chain</span></div>
+          </div>
+          <p class="doc-tmc">Supplier TMC-ID · <code>TMC-AE-…</code></p>
+          <div class="damount"><span class="dlabel">Credit line · Net 90</span><b class="num">AED 2,400,000</b></div>
+          <ol class="ticks">
+            <li><span class="tick" aria-hidden="true">✓</span>Tagged by supplier CFO</li>
+            <li><span class="tick" aria-hidden="true">✓</span>Buyer confirmed via OTP</li>
+            <li><span class="tick" aria-hidden="true">✓</span>Added to network, anonymously</li>
+          </ol>
+          <span class="stamp">DUAL VERIFIED</span>
+        </div>
+        <div class="doc-foot"><span>Buyer Trade Risk Score</span><span class="band-chip c-ok">747 · GOOD</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 2 HOW IT WORKS: Ledger steps restyled -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">How it works <span class="ar" dir="rtl" lang="ar">كيف يعمل</span></p>
+        <h2>Three steps, from credit line to early warning.</h2>
+        <p class="lede">Supplier side, start to finish. The small screens are examples, not live fields.</p>
+      </div>
+      <ol class="hw">
+        <li>
+          <div class="hw-vis" role="img" aria-label="Example: buyer Gulf Retail Co., limit AED 2.4M"><div class="hw-field"><small>Buyer</small>Gulf Retail Co.</div><div class="hw-field"><small>Limit</small>AED 2.4M</div></div>
+          <h3>Tag the credit line</h3>
+          <p>Enter the buyer, the amount and the payment terms, e.g. AED 2.4M on Net 90.</p>
+        </li>
+        <li>
+          <div class="hw-vis" role="img" aria-label="Example: a four-digit one-time code"><div class="hw-otp"><i>4</i><i>8</i><i>2</i><i>9</i></div></div>
+          <h3>Your buyer confirms it</h3>
+          <p>They get a one-time code (OTP). Both sides confirm, so every tagged line is agreed by the buyer.</p>
+        </li>
+        <li>
+          <div class="hw-vis" role="img" aria-label="Example: Trade Risk Score 747, GOOD"><span class="hw-score">747</span><span class="band-chip c-ok">GOOD</span></div>
+          <h3>See risk. Get alerts.</h3>
+          <p>A 0–1000 score built from every supplier's tags, and an alert when a buyer defaults with another supplier.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3 WHO IT'S FOR -->
+  <section class="rule">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">Who it's for</p>
+        <h2>Built for the companies that sell on credit.</h2>
+      </div>
+      <div class="who">
+        <div class="who-main">
+          <span class="tag-pill">Suppliers &amp; distributors</span>
+          <h3>You ship first and invoice on Net 30–90. You need to know who will actually pay.</h3>
+          <div class="gets">
+            <div><b>Faster credit decisions</b><span>Check a buyer's score in minutes, not days of reference calls.</span></div>
+            <div><b>Fewer bad debts</b><span>See when a buyer is already late with other suppliers.</span></div>
+            <div><b>Early warning</b><span>Get an alert the moment another supplier reports a default.</span></div>
+          </div>
+          <div class="sectors" aria-label="Typical sectors"><span>Steel &amp; metals</span><span>Cement &amp; building materials</span><span>FMCG distribution</span><span>Electrical &amp; MEP</span><span>Industrial supply</span></div>
+        </div>
+        <div class="who-side">
+          <span class="tag-pill sec">Buyers</span>
+          <h3>Pay on time? Let it count.</h3>
+          <ul>
+            <li>Show new suppliers a GOOD score instead of chasing references.</li>
+            <li>Negotiate better terms on the strength of your record.</li>
+            <li>Stay anonymous: suppliers see a score, never your financials.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="who-also">
+        <div><b>CFOs &amp; credit managers</b>Your whole credit book on one screen, with a score you can cite.</div>
+        <div><b>Large-project players</b>Every tier of a NEOM-scale supply chain, mapped and scored.</div>
+        <div><b>Government, banks &amp; financiers</b>Planned services in later categories of the platform.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CHECK A BUYER -->
+  <section class="rule" id="check" style="padding-top:clamp(48px,6vw,80px)">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">Check a buyer <span class="ar" dir="rtl" lang="ar">افحص المشتري</span></p>
+        <h2>This is what you'd see before you ship.</h2>
+        <p class="lede">Pick an example buyer. The screen updates the way a supplier's view would: one score, four signals, no private numbers.</p>
+      </div>
+
+      <div class="check">
+        <div class="picker" role="radiogroup" aria-label="Example buyers" id="picker">
+          <p class="lbl">Example buyers</p>
+          <button type="button" role="radio" aria-checked="false" data-b="acme"><b>Acme Corp</b><small>FAIR</small><span class="sc">680</span></button>
+          <button type="button" role="radio" aria-checked="true" data-b="build"><b>BuildRight LLC</b><small>POOR</small><span class="sc">520</span></button>
+          <button type="button" role="radio" aria-checked="false" data-b="delta"><b>Delta Supplies</b><small>EXCELLENT</small><span class="sc">810</span></button>
+          <button type="button" role="radio" aria-checked="false" data-b="epc"><b>EPC Holdings</b><small>GOOD</small><span class="sc">740</span></button>
+          <button type="button" role="radio" aria-checked="false" data-b="gulf"><b>Gulf Retail Co.</b><small>GOOD</small><span class="sc">747</span></button>
+          <p class="note">Illustrative companies and figures.</p>
+        </div>
+
+        <div class="readout" aria-live="polite">
+          <div class="gauge">
+            <svg viewBox="0 0 240 140" role="img" aria-labelledby="g-label">
+              <title id="g-label">Trade Risk Score</title>
+              <path class="g-bg" d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke-width="18" stroke-linecap="butt" pathLength="1000"/>
+              <path class="g-val" id="g-val" d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke-width="18" stroke-linecap="butt" pathLength="1000" stroke-dasharray="520 1000"/>
+              <g class="g-tick" stroke-width="1.5">
+                <line x1="2" y1="120" x2="8" y2="120"/>
+                <line x1="36.6" y1="36.6" x2="40.8" y2="40.8"/>
+                <line x1="120" y1="2" x2="120" y2="8"/>
+                <line x1="203.4" y1="36.6" x2="199.2" y2="40.8"/>
+                <line x1="238" y1="120" x2="232" y2="120"/>
+              </g>
+              <text x="20" y="138" text-anchor="middle">0</text>
+              <text x="220" y="138" text-anchor="middle">1000</text>
+              <text class="g-score" id="g-score" x="120" y="112" text-anchor="middle">520</text>
+            </svg>
+            <span class="band-chip c-bad" id="g-band">POOR</span>
+            <span style="font-size:.8rem;color:var(--muted)" id="g-name">BuildRight LLC · Trade Risk Score</span>
+          </div>
+
+          <dl class="signals">
+            <div class="sig"><dt>Capacity Traffic Light</dt><dd><span class="light" id="s-light" data-l="red" aria-hidden="true"><i></i><i></i><i></i></span><span id="s-light-t">RED · no room for more credit</span></dd></div>
+            <div class="sig"><dt>Exposure range</dt><dd id="s-exp">$1M–$2.5M from 10–20 suppliers</dd></div>
+            <div class="sig"><dt>Payment behavior</dt><dd><span class="pb" id="s-pb" data-p="1" aria-hidden="true"><i></i><i></i><i></i></span><span id="s-pb-t">Low on-time</span></dd></div>
+          </dl>
+
+          <div class="alert on" id="s-alert">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 21h20L12 3z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 10v5M12 17.5v.5" stroke="currentColor" stroke-width="2"/></svg>
+            <div><b>Network alert</b><span id="s-alert-t">Default reported by another supplier — review before shipping.</span></div>
+          </div>
+          <p class="privacy-line">You never see which other suppliers are involved or exactly what they're owed. That's the <dfn>AAI</dfn> rule: Anonymous Aggregated Intelligence, only combined, anonymous signals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 PRIVACY (moved directly after the demo) -->
+  <section class="rule" id="privacy">
+    <div class="wrap">
+      <div class="head">
+        <p class="bridge">The obvious question after seeing that demo: what do other members see about you?</p>
+        <p class="kicker">Privacy by design <span class="ar" dir="rtl" lang="ar">ذكاء بلا انكشاف</span></p>
+        <h2>Intelligence without exposure.</h2>
+        <p class="lede">Your competitors never see your data. The network sees only what protects everyone.</p>
+      </div>
+      <div class="priv">
+        <div class="yes">
+          <h3>What the network shows you</h3>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12l8-8" fill="none" stroke="var(--ok)" stroke-width="2.2"/></svg><span>Trade Risk Score (745 — GOOD)</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12l8-8" fill="none" stroke="var(--ok)" stroke-width="2.2"/></svg><span>Capacity Traffic Light (GREEN / YELLOW / RED)<small>Can this buyer safely take on more credit?</small></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12l8-8" fill="none" stroke="var(--ok)" stroke-width="2.2"/></svg><span>Exposure Range ($250K–$500K from 5–10 suppliers)<small>Roughly how much the buyer owes in total.</small></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12l8-8" fill="none" stroke="var(--ok)" stroke-width="2.2"/></svg><span>Payment Behavior (On-time: High / Medium / Low)</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12l8-8" fill="none" stroke="var(--ok)" stroke-width="2.2"/></svg><span>Network Alerts (Default reported — take action)</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12l8-8" fill="none" stroke="var(--ok)" stroke-width="2.2"/></svg><span>Your own credit lines (full detail)</span></li>
+          </ul>
+        </div>
+        <div class="no">
+          <h3>What stays protected</h3>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="#E9A23B" stroke-width="1.8"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#E9A23B" stroke-width="1.8"/></svg><span>Exact receivables or payables</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="#E9A23B" stroke-width="1.8"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#E9A23B" stroke-width="1.8"/></svg><span>Bank balances or cash reserves</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="#E9A23B" stroke-width="1.8"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#E9A23B" stroke-width="1.8"/></svg><span>Other suppliers' names or amounts</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="#E9A23B" stroke-width="1.8"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#E9A23B" stroke-width="1.8"/></svg><span>Internal financial statements</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="#E9A23B" stroke-width="1.8"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#E9A23B" stroke-width="1.8"/></svg><span>Salary, rent, or operating costs</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="#E9A23B" stroke-width="1.8"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#E9A23B" stroke-width="1.8"/></svg><span>Individual transaction details</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="quote">“You deposit data into a trust vault. You receive intelligence in return.”</p>
+    </div>
+  </section>
+
+  <!-- 9 SUPPLY CHAIN: Signal map restyled + Gulf tier list on phones -->
+  <section class="rule" id="chain">
+    <div class="wrap">
+      <div class="chain-top">
+        <div class="head" style="margin:0">
+          <p class="kicker">Supply chain intelligence</p>
+          <h2>Every tier, every link.</h2>
+          <p class="plain"><b>In short</b>Big projects pay down a chain of companies; if the top pays late, everyone below feels it. Press the button to watch it happen.</p>
+          <p class="lede">A real NEOM scale project. 14 companies across 4 tiers. 18 credit relationships. One government payment delay at Tier 0 cascades through the entire chain. TagMyCredit maps every connection, scores every node, and detects concentration risk before it becomes a cascade.</p>
+        </div>
+        <div class="chain-stats">
+          <div><b>14</b><span>Companies tracked</span></div>
+          <div><b>18</b><span>Credit relationships</span></div>
+          <div><b>4</b><span>Tiers deep</span></div>
+          <div><b>5</b><span>Concentration risks</span></div>
+        </div>
+      </div>
+
+      <div class="mapbar">
+        <p class="kicker">Live Chain Map · NEOM Infrastructure Project <span>(example scores)</span></p>
+        <div class="btns">
+          <button class="btn btn-amber" type="button" id="simBtn">Simulate a payment delay at the top</button>
+          <button class="btn btn-line" type="button" id="resetBtn" disabled>Reset</button>
+        </div>
+      </div>
+
+      <div class="mapstatus">
+        <button class="cnt" type="button" id="defBtn" aria-pressed="false" aria-label="Highlight defaulted companies on the map" disabled><b id="defCount">0</b><span>defaults detected</span></button>
+        <div class="sm" aria-live="polite">
+          <p id="simMsg">Payments are flowing normally. Press Simulate to send a 60-day payment delay down from the project owner.</p>
+          <div class="def-list" id="defList" hidden aria-label="Companies in default"></div>
+          <p class="sr" id="simAnnounce" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="chain-map">
+        <div class="map-scroll" tabindex="0" role="region" aria-label="NEOM supply chain map, scrolls sideways">
+          <div class="map" id="map">
+            <svg class="map-edges" id="edges" aria-hidden="true"></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="chain-list" id="chainList" aria-label="NEOM supply chain, tier by tier">
+        <div class="tiers" id="tierList"></div>
+      </div>
+
+      <div class="map-foot">
+        <div class="inspect">
+          <div class="i-main">
+            <p class="k">Selected company · hover, tap or focus any box</p>
+            <p class="nm" id="i-name">PIF Authority</p>
+            <dl>
+              <div><dt>Tier</dt><dd id="i-tier">Client · Tier 0</dd></div>
+              <div><dt>Score</dt><dd id="i-score">850 / 1000</dd></div>
+              <div><dt>Exposure</dt><dd id="i-exp">SAR 50B</dd></div>
+              <div><dt>Payment</dt><dd id="i-pay">Payment flowing</dd></div>
+            </dl>
+          </div>
+          <div class="i-side">
+            <p class="k">Why</p>
+            <p class="i-why" id="i-why">The project owner. It pays the three main contractors, so every payment on this map starts here.</p>
+            <p class="i-shared" id="i-shared" hidden></p>
+          </div>
+        </div>
+      </div>
+
+      <p class="flowline">Payment flows down · credit risk flows up</p>
+      <ul class="legend" aria-label="Map legend">
+        <li><i style="--c:var(--ok)"></i>Healthy</li>
+        <li><i style="--c:var(--warn)"></i>Warning</li>
+        <li><i style="--c:var(--crit)"></i>Critical</li>
+        <li><i style="--c:var(--bad)"></i>Default</li>
+        <li><i class="ln" style="--c:var(--line-strong)"></i>Credit relationship</li>
+        <li><i class="ln" style="--c:var(--ok)"></i>Payment flowing</li>
+        <li><i class="ln dash" style="--c:var(--warn)"></i>Payment delayed</li>
+        <li><i class="ln dash" style="--c:var(--crit)"></i>Badly delayed</li>
+        <li><i class="ln dot" style="--c:var(--bad)"></i>Payment blocked</li>
+        <li><i style="--c:var(--ok);clip-path:polygon(0 0,100% 50%,0 100%);border-radius:0"></i>Moving arrows: money on its way. Fast = paid on time, slow = late, none = stopped. They run after a simulation, or for one company when you hover it.</li>
+        <li><i style="--c:transparent;outline:2px dashed var(--amber);outline-offset:1px"></i>Shared supplier: sells to 2 buyers on the project, so it can be hit twice</li>
+      </ul>
+
+      <div class="why-def" id="why-default">
+        <div class="why-head">
+          <h3>Why the bottom of the chain defaults, even though it's owed money</h3>
+          <p class="lede">A material supplier isn't only a lender. It's also a borrower: it buys raw materials on credit, pays wages and rent every month, and draws on a bank working-capital line. When its buyers pay late, the cash it was counting on doesn't arrive, but its own bills still fall due.</p>
+        </div>
+        <div class="why-grid">
+          <ol class="why-steps" aria-label="How a supplier slides into default">
+            <li><b>It gets paid late</b><span>Emirates Steel ships SAR 750M of steel. Its Tier 2 buyers, squeezed from above, stretch payment toward 90 days.</span></li>
+            <li><b>Its cash runs short</b><span>Its own costs keep coming: scrap and billets bought on 30-day terms, payroll, interest on the bank line.</span></li>
+            <li><b>It starts paying its own creditors late</b><span>To survive, it delays its suppliers and its bank. Now it is the late-paying buyer.</span></li>
+            <li><b>It defaults</b><span>It can no longer meet what it owes. On this map, "default" means a company has stopped paying its own debts, not that it went unpaid.</span></li>
+          </ol>
+          <div class="why-signals">
+            <p class="why-t">How the network spots it</p>
+            <ul>
+              <li><b>Money coming in slows.</b> Tags where the company is the supplier show its buyers paying later and later. That's the early warning.</li>
+              <li><b>Money going out slows.</b> Tags where the company is the buyer show it paying its own suppliers late. That's the decisive signal.</li>
+              <li><b>A default is reported.</b> When one supplier marks a line as defaulted, every other connected supplier gets a network alert.</li>
+              <li><b>It has nowhere else to turn.</b> Shared suppliers like Emirates Steel and National Tube depend on two buyers. When both slow down at once, there's no other income.</li>
+            </ul>
+            <p class="why-note">In this example, a company is marked default once it is 50 or more days late paying what it owes. Companies and scores are illustrative.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 THE GAP: AHMED -->
+  <section class="rule" id="gap">
+    <div class="wrap gap-grid">
+      <div style="display:grid;gap:18px">
+        <p class="kicker">The gap · why this exists</p>
+        <h2>Ahmed ships $400K in steel. Rational.</h2>
+        <p class="plain"><b>In short</b>A supplier can check a buyer's licence and references, but not what that buyer owes everyone else.</p>
+        <div class="person"><span class="avatar" aria-hidden="true">A</span><div><b>Ahmed Al-Rashidi</b><small>Steel Supplier · Muscat, Oman</small></div></div>
+      </div>
+      <div class="frames">
+        <div class="frame">
+          <p class="st"><em>1/3</em> · The decision</p>
+          <div class="rows">
+            <div>Trade license <span class="mini c-ok">VERIFIED</span></div>
+            <div>References <span class="mini c-ok">SOLID</span></div>
+            <div>Payment history <span class="mini c-ok">CLEAN</span></div>
+            <div>Credit extended <b class="num">$400,000</b></div>
+          </div>
+          <p>His buyer, a Tier 1 EPC contractor, passed every check. He extends 90-day credit. Ahmed's assessment: <b style="color:var(--ok)">LOW RISK</b>.</p>
+        </div>
+        <div class="frame">
+          <p class="st"><em>2/3</em> · The hidden reality</p>
+          <div class="rows">
+            <div>Owed to Ahmed <b class="num">$0.4M</b></div>
+            <div>Owed to other suppliers <span class="mini c-bad">LATE</span></div>
+            <div>Project owner payments <span class="mini c-warn">DELAYED</span></div>
+            <div>Seen by any bureau <b>No</b></div>
+          </div>
+          <p>The contractor is already behind with other suppliers. No system records trade credit, so none of it shows up.</p>
+        </div>
+        <div class="frame">
+          <p class="st"><em>3/3</em> · The cascade</p>
+          <div class="drop">
+            <div style="--c:var(--warn)">Project owner delays payment</div>
+            <div style="--c:var(--crit)">Contractor stops paying suppliers</div>
+            <div style="--c:var(--bad)">Ahmed's $400K is overdue</div>
+          </div>
+          <p>A <dfn>cascade</dfn>: one late payment at the top travels down every tier. Ahmed finds out months later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 INVISIBLE MARKET -->
+  <section class="rule paired">
+    <div class="wrap inv">
+      <div class="head" style="margin:0">
+        <p class="kicker">The invisible market</p>
+        <h2>Credit bureaus track bank loans. Not trade credit.</h2>
+        <p class="plain"><b>In short</b>Nobody keeps a shared record of who owes suppliers money.</p>
+        <p class="lede">Globally, $11 trillion in B2B trade credit changes hands every year. Supplier to buyer, on trust. Credit bureaus don't track it. Banks don't see it. No system scores it. It's the largest unmonitored financial exposure on earth.</p>
+      </div>
+      <div>
+        <div class="tracked">
+          <div class="tr"><span>Bank loans</span><div class="meter">TRACKED</div></div>
+          <div class="tr"><span>Credit cards</span><div class="meter">TRACKED</div></div>
+          <div class="tr blind"><span>B2B trade credit</span><div class="meter"><span>INVISIBLE</span><b>$11T</b></div></div>
+        </div>
+        <p class="foot-note">Consumer credit: fully instrumented. B2B trade credit: zero infrastructure.</p>
+        <ol class="four">
+          <li><b>The Invisible Market</b>$11T a year moves on trust with no shared record.</li>
+          <li><b>The Privacy Paradox</b>Companies won't share raw numbers with rivals, so nobody pools them.</li>
+          <li><b>The GCC Reality</b>Gulf supply chains run on Net 60–90 credit at megaproject scale.</li>
+          <li><b>The Structural Solution</b>Pool tags anonymously and share only the intelligence.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 TAG: FATIMA -->
+  <section class="rule">
+    <div class="wrap tagflow">
+      <div class="head" style="margin:0">
+        <p class="kicker">01 Tag · 02 Score · 03 Protect</p>
+        <h2>One tag. Both verified.</h2>
+        <p class="plain"><b>In short</b>The supplier logs the credit; the buyer confirms it; the network learns it exists without learning who.</p>
+        <p class="lede">Fatima is CFO at Al Noor Distribution in Dubai. She tags a AED 2.4M credit line to a retail chain. The buyer confirms via OTP. Both parties are verified. Both stay anonymous.</p>
+        <div class="person" style="margin-top:6px"><span class="avatar" aria-hidden="true">F</span><div><b>Fatima Al-Mansouri</b><small>CFO, FMCG Distribution · Dubai, UAE</small></div></div>
+      </div>
+      <div class="flow" aria-label="Example tag flow">
+        <div class="lane">
+          <div class="party"><small>Supplier</small><b>Al Noor Distribution</b><span>Tags credit line</span></div>
+          <div class="otp">
+            <span>OTP</span>
+            <span class="boxes" aria-hidden="true"><i>4</i><i>8</i><i>2</i><i>1</i></span>
+            <svg viewBox="0 0 92 10" aria-hidden="true"><path d="M2 5h84" stroke="currentColor" stroke-width="2"/><path d="M82 1l6 4-6 4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div class="party"><small>Buyer</small><b>Gulf Retail Co.</b><span>Confirms via OTP</span></div>
+        </div>
+        <div class="tcl">
+          <small>Tagged Credit Line</small>
+          <span class="amt num">AED 2,400,000</span>
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><span style="font-size:.8rem;color:var(--on-teal-muted)">Credit line ID</span><code>TCL-AE-0847291</code></div>
+          <div class="meta"><span>Dual verified</span><span>Anonymous</span><span>Net 90</span></div>
+        </div>
+        <p class="flow-foot">Neither party's identity is exposed to the network. Only aggregated intelligence flows. If the retailer starts paying others late, its score drops and Fatima is alerted before her invoice is overdue.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 10 THE OPPORTUNITY: market size, the precedent, the moat (tabs, click to switch) -->
+  <section class="band opp" id="opportunity">
+    <div class="wrap">
+      <div class="opp-head">
+        <div>
+          <p class="kicker">The opportunity <span class="ar" dir="rtl" lang="ar">الفرصة</span></p>
+          <h2>A large market, a proven model, and a network that gets harder to copy.</h2>
+        </div>
+        <p class="plain"><b>In short</b>Consumer credit got a shared score decades ago. Gulf trade credit is bigger and still has none.</p>
+      </div>
+
+      <div class="opp-tabs" role="tablist" aria-label="The opportunity">
+        <button type="button" role="tab" id="ot-market" aria-controls="op-market" aria-selected="true"><b>Market size</b><span>How big the gap is</span></button>
+        <button type="button" role="tab" id="ot-prec" aria-controls="op-prec" aria-selected="false" tabindex="-1"><b>The precedent</b><span>Who already won this game</span></button>
+        <button type="button" role="tab" id="ot-moat" aria-controls="op-moat" aria-selected="false" tabindex="-1"><b>The moat</b><span>Why it's hard to copy</span></button>
+      </div>
+
+      <!-- Panel 1: market size -->
+      <div class="opp-panel" role="tabpanel" id="op-market" aria-labelledby="ot-market">
+        <div class="size-grid">
+          <div style="display:grid;gap:14px">
+            <h3 class="opp-h">The GCC is building <span class="big">$4.6 trillion.</span></h3>
+          </div>
+          <div class="stack" aria-label="$4.6 trillion split: $3.3 trillion Saudi Vision 2030, $1.3 trillion rest of GCC">
+            <p class="lede" style="color:var(--on-teal-muted)">Saudi Vision 2030 alone commits $3.3 trillion. UAE, Qatar, Oman, Bahrain, and Kuwait add $1.3 trillion more. 80% of UAE commerce is B2B. Every dirham flows through supply chains with zero credit visibility. This is the largest addressable market for B2B credit intelligence on earth, and it has no incumbent.</p>
+            <div class="bar"><div class="sa" style="width:71.7%">$3.3T</div><div class="gcc" style="width:28.3%">$1.3T</div></div>
+            <div class="cap"><span>Saudi Vision 2030</span><span>GCC construction pipeline</span></div>
+          </div>
+        </div>
+        <div class="facts">
+          <div><b>80%</b><span>of UAE commerce is B2B</span></div>
+          <div><b>$500B</b><span>NEOM alone</span></div>
+          <div><b>$850B+</b><span>Annual GCC trade credit</span></div>
+        </div>
+        <p class="opp-close">Zero B2B credit intelligence infrastructure exists in this market.</p>
+      </div>
+
+      <!-- Panel 2: the precedent -->
+      <div class="opp-panel" role="tabpanel" id="op-prec" aria-labelledby="ot-prec">
+        <div class="prec-grid">
+          <div style="display:grid;gap:16px;align-content:start">
+            <h3 class="opp-h">FICO built $40B from <span class="big">consumer credit.</span></h3>
+            <p class="lede" style="color:var(--on-teal-muted)">In 1989, FICO created a standard score for consumer credit. Today that score underpins a $40 billion industry. Banks, lenders, and insurers all depend on it. But FICO only scores consumer borrowing: personal loans, credit cards, mortgages. B2B trade credit, the $11 trillion market where businesses extend credit to each other, has no equivalent. No score. No standard. No infrastructure. TagMyCredit is building that layer.</p>
+          </div>
+          <div class="vs40" aria-label="FICO market cap $40B versus B2B trade credit score $0">
+            <div class="vs-row">
+              <div class="vs-lbl"><b>FICO market cap</b><span>Consumer credit scoring</span></div>
+              <div class="vs-bar"><i class="full"></i></div>
+              <b class="vs-val">$40B</b>
+            </div>
+            <div class="vs-row">
+              <div class="vs-lbl"><b>B2B trade credit score</b><span>No equivalent exists</span></div>
+              <div class="vs-bar"><i class="none"></i></div>
+              <b class="vs-val">$0</b>
+            </div>
+          </div>
+        </div>
+        <div class="parallel">
+          <p class="parallel-t">The parallel</p>
+          <div class="par-wrap">
+            <table class="par">
+              <thead><tr><th scope="col">FICO</th><th scope="col">TagMyCredit</th></tr></thead>
+              <tbody>
+                <tr><td>Consumer loans</td><td>B2B trade credit</td></tr>
+                <tr><td>Bank reported data</td><td>Supplier tagged data</td></tr>
+                <tr><td>Individual score</td><td>Company trade risk score</td></tr>
+                <tr><td>Lender decisions</td><td>Credit extension decisions</td></tr>
+                <tr><td>Credit bureaus</td><td>Anonymous Aggregated Intelligence</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="opp-close">Same thesis. Larger market. No incumbent.</p>
+        </div>
+      </div>
+
+      <!-- Panel 3: the moat -->
+      <div class="opp-panel" role="tabpanel" id="op-moat" aria-labelledby="ot-moat">
+        <div class="moat-grid">
+          <div style="display:grid;gap:16px;align-content:start">
+            <h3 class="opp-h">Network effects <span class="big">compound.</span></h3>
+            <p class="lede" style="color:var(--on-teal-muted)">Every tagged credit line makes the network more valuable for every other participant. More data means better scores. Better scores attract more suppliers. More suppliers create denser coverage. This is a classic network effects business, and in B2B credit, once the network reaches critical mass, switching costs become prohibitive. First mover in the GCC owns the standard.</p>
+            <ul class="strength">
+              <li><div><b>Data Network Effects</b><span>Each participant improves the score for all others</span></div><span class="meter" data-v="4" aria-label="Very Strong"><i></i><i></i><i></i><i></i></span><em>Very Strong</em></li>
+              <li><div><b>Switching Costs</b><span>Leaving means losing network intelligence</span></div><span class="meter" data-v="3" aria-label="Strong"><i></i><i></i><i></i><i></i></span><em>Strong</em></li>
+              <li><div><b>Regulatory Positioning</b><span>Privacy-first AAI aligns with GCC data sovereignty</span></div><span class="meter" data-v="3" aria-label="Strong"><i></i><i></i><i></i><i></i></span><em>Strong</em></li>
+              <li><div><b>First Mover in GCC</b><span>No B2B credit infrastructure exists to compete with</span></div><span class="meter crit" data-v="4" aria-label="Critical"><i></i><i></i><i></i><i></i></span><em>Critical</em></li>
+            </ul>
+          </div>
+          <figure class="fw">
+            <svg viewBox="0 0 440 400" role="img" aria-labelledby="fw-t">
+              <title id="fw-t">Network effects flywheel: more suppliers tag credit lines, richer data improves scoring accuracy, better scores attract more users, a denser network raises switching cost, and the loop repeats.</title>
+              <defs><marker id="fw-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fw-head"/></marker></defs>
+              <g class="fw-arcs">
+                <path d="M300.3 85.3A140 140 0 0 1 334.7 119.7" marker-end="url(#fw-arr)"/>
+                <path d="M334.7 280.3A140 140 0 0 1 300.3 314.7" marker-end="url(#fw-arr)"/>
+                <path d="M139.7 314.7A140 140 0 0 1 105.3 280.3" marker-end="url(#fw-arr)"/>
+                <path d="M105.3 119.7A140 140 0 0 1 139.7 85.3" marker-end="url(#fw-arr)"/>
+              </g>
+              <text x="220" y="194" class="fw-mid" text-anchor="middle">Network effects</text>
+              <text x="220" y="216" class="fw-mid" text-anchor="middle">flywheel</text>
+              <g class="fw-node" data-i="0"><rect x="150" y="28" width="140" height="64" rx="10"/><text x="220" y="50" text-anchor="middle" class="fw-n">01</text><text x="220" y="68" text-anchor="middle">More suppliers tag</text><text x="220" y="84" text-anchor="middle">credit lines</text></g>
+              <g class="fw-node" data-i="1"><rect x="290" y="168" width="146" height="64" rx="10"/><text x="363" y="190" text-anchor="middle" class="fw-n">02</text><text x="363" y="208" text-anchor="middle">Richer data improves</text><text x="363" y="224" text-anchor="middle">scoring accuracy</text></g>
+              <g class="fw-node" data-i="2"><rect x="150" y="308" width="140" height="64" rx="10"/><text x="220" y="330" text-anchor="middle" class="fw-n">03</text><text x="220" y="348" text-anchor="middle">Better scores attract</text><text x="220" y="364" text-anchor="middle">more users</text></g>
+              <g class="fw-node" data-i="3"><rect x="4" y="168" width="146" height="64" rx="10"/><text x="77" y="190" text-anchor="middle" class="fw-n">04</text><text x="77" y="208" text-anchor="middle">Denser network =</text><text x="77" y="224" text-anchor="middle">higher switching cost</text></g>
+            </svg>
+            <figcaption>Each participant improves the score for all others.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 12 TRUST VAULT: Gulf stats + Signal working tabs -->
+  <section class="rule" id="vault">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">The Trust Vault</p>
+        <h2>Intelligence over data.</h2>
+        <p class="plain"><b>In short</b>The <dfn>Trust Vault</dfn> is the shared, private store where every tag goes. You put data in; you get scores and alerts out.</p>
+        <p class="lede">TMC aggregates the network and calculates an 8-component risk score, exposing intelligence without leaking raw financials.</p>
+      </div>
+      <div class="vstats">
+        <div><b class="num">847</b><span>Companies Protected</span></div>
+        <div><b class="num">4,892</b><span>Active Credit Tags</span></div>
+        <div><b>GOOD</b><span>Avg Score Band</span></div>
+        <div><b class="num">&lt;10s</b><span>Alert Speed</span></div>
+      </div>
+      <div class="vault">
+        <div class="panel">
+          <div class="ph">
+            <small>Live Dashboard</small>
+            <div class="tabs" role="tablist" aria-label="Dashboard view">
+              <button type="button" role="tab" id="t-score" aria-selected="true" aria-controls="p-score">Score</button>
+              <button type="button" role="tab" id="t-aging" aria-selected="false" aria-controls="p-aging" tabindex="-1">Aging</button>
+              <button type="button" role="tab" id="t-alerts" aria-selected="false" aria-controls="p-alerts" tabindex="-1">Alerts</button>
+            </div>
+          </div>
+          <div role="tabpanel" id="p-score" aria-labelledby="t-score" tabindex="0">
+            <div class="eg-row"><span><b>Gulf Retail Co.</b> <span style="color:var(--muted)">· Trade Risk Score</span></span></div>
+            <div class="bigscore"><b class="num">747</b><span class="band-chip c-ok">GOOD</span><small>/ 1000</small></div>
+            <div class="comp">
+              <div><span>Payment Discipline</span><span class="tk"><i class="dflt" style="width:83%"></i></span><span class="n">83</span></div>
+              <div><span>Utilization</span><span class="tk"><i class="dflt" style="width:56%"></i></span><span class="n">56</span></div>
+              <div><span>Bad Debt History</span><span class="tk"><i class="dflt" style="width:76%"></i></span><span class="n">76</span></div>
+              <div><span>Financial Strength</span><span class="tk"><i class="dflt" style="width:64%"></i></span><span class="n">64</span></div>
+            </div>
+            <p class="foot-note">4 of the 8 score components shown. <dfn>Utilization</dfn> = how much of its available credit the buyer is already using.</p>
+          </div>
+          <div role="tabpanel" id="p-aging" aria-labelledby="t-aging" tabindex="0" hidden>
+            <div class="eg-row"><span class="pk">Receivables aging</span><span class="eg-tag">Example data</span></div>
+            <div class="comp">
+              <div><span>Current</span><span class="tk"><i style="width:62%;background:var(--ok)"></i></span><span class="n">62%</span></div>
+              <div><span>1–30 days</span><span class="tk"><i style="width:21%;background:var(--warn)"></i></span><span class="n">21%</span></div>
+              <div><span>31–60 days</span><span class="tk"><i style="width:11%;background:var(--crit)"></i></span><span class="n">11%</span></div>
+              <div><span>60+ days</span><span class="tk"><i style="width:6%;background:var(--bad)"></i></span><span class="n">6%</span></div>
+            </div>
+            <p class="foot-note">How long the money your buyers owe you has been outstanding.</p>
+          </div>
+          <div role="tabpanel" id="p-alerts" aria-labelledby="t-alerts" tabindex="0" hidden>
+            <div class="eg-row"><span class="pk">Network alerts</span><span class="eg-tag">Example data</span></div>
+            <ul class="alerts">
+              <li><span class="mini c-bad">DEFAULT</span><span>Default reported on a buyer you supply. Take action.</span><span class="t">8s</span></li>
+              <li><span class="mini c-warn">SCORE</span><span>BuildRight LLC dropped to POOR</span><span class="t">2h</span></li>
+              <li><span class="mini c-ok">TAG</span><span>New credit line confirmed via OTP</span><span class="t">1d</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="ph"><small>Your buyers</small></div>
+          <div class="tbl-wrap" tabindex="0" role="region" aria-label="Your buyers table, scrolls sideways on small screens">
+            <table>
+              <thead><tr><th scope="col">Buyer</th><th scope="col">Score</th><th scope="col">Network Risk</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr><td>Acme Corp</td><td class="num">680</td><td>Medium</td><td><span class="mini c-warn">FAIR</span></td></tr>
+                <tr><td>BuildRight LLC</td><td class="num">520</td><td>High</td><td><span class="mini c-bad">POOR</span></td></tr>
+                <tr><td>Delta Supplies</td><td class="num">810</td><td>Low</td><td><span class="mini c-ok">EXCELLENT</span></td></tr>
+                <tr><td>EPC Holdings</td><td class="num">740</td><td>Low</td><td><span class="mini c-ok">GOOD</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 PARADIGM SHIFT -->
+  <section class="paired">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">Paradigm shift</p>
+        <h2>What changes when you join the network.</h2>
+        <p class="plain"><b>In short</b>Faster decisions, earlier warnings, fewer write-offs.</p>
+      </div>
+      <div class="tbl-wrap" tabindex="0" role="region" aria-label="Before and after comparison, scrolls sideways on small screens">
+        <table class="shift">
+          <thead><tr><th scope="col">Area</th><th scope="col">Without TMC</th><th scope="col">With TMC</th></tr></thead>
+          <tbody>
+            <tr><td>Credit decisions</td><td>Credit decisions take 3–7 days</td><td>Credit decisions in under 5 minutes</td></tr>
+            <tr><td>Finding defaults</td><td>Defaults discovered 6–12 months later</td><td>Alerts in under 30 seconds</td></tr>
+            <tr><td>Visibility</td><td>Zero cross-supplier visibility</td><td>Full network visibility</td></tr>
+            <tr><td>Bad debt</td><td>Bad debt rate: 5–12%</td><td>Bad debt rate: 2–5%</td></tr>
+            <tr><td>Supply chain</td><td>Supply chain: black box</td><td>Every tier tracked, every payment timed</td></tr>
+            <tr><td>Tax reconciliation</td><td>Tax reconciliation: 40–60 hours/month</td><td>Automated per-transaction reconciliation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 PLATFORM -->
+  <section class="rule">
+    <div class="wrap plat">
+      <div>
+        <p class="kicker">Platform</p>
+        <h2 style="margin-top:14px">Everything you need. One data layer.</h2>
+        <p class="plain" style="margin-top:16px"><b>In short</b>One shared record of trade credit, with many tools built on top. Pick a category to see its services.</p>
+        <div class="count"><b>28</b><span>services across <b style="font-size:inherit;color:inherit;letter-spacing:0">6</b> categories built on a single privacy-first trade credit network.</span></div>
+        <div class="cats" role="tablist" aria-label="Service categories"><button type="button" role="tab" id="pt-credit-risk" aria-controls="pp-credit-risk" aria-selected="true">Credit Risk <i>5</i></button><button type="button" role="tab" id="pt-trust" aria-controls="pp-trust" aria-selected="false" tabindex="-1">Trust &amp; Verification <i>5</i></button><button type="button" role="tab" id="pt-supply-chain" aria-controls="pp-supply-chain" aria-selected="false" tabindex="-1">Supply Chain <i>5</i></button><button type="button" role="tab" id="pt-government" aria-controls="pp-government" aria-selected="false" tabindex="-1">Government <i>4</i></button><button type="button" role="tab" id="pt-financial-intel" aria-controls="pp-financial-intel" aria-selected="false" tabindex="-1">Financial Intelligence <i>5</i></button><button type="button" role="tab" id="pt-ecosystem" aria-controls="pp-ecosystem" aria-selected="false" tabindex="-1">Ecosystem <i>4</i></button></div>
+      </div>
+      <div class="svc-panels">
+      <ol class="svc" role="tabpanel" id="pp-credit-risk" aria-labelledby="pt-credit-risk">
+        <li><span class="i">01</span><div><b>Trade Credit Tagger</b><span>Tag every credit line with a unique digital ID.</span></div><em>Credit Risk</em></li>
+        <li><span class="i">02</span><div><b>Real-Time Payment Intel</b><span>Track payment status across the network in seconds.</span></div><em>Credit Risk</em></li>
+        <li><span class="i">03</span><div><b>Trade Risk Score Engine</b><span>8-component score from 0–1000, updated live.</span></div><em>Credit Risk</em></li>
+        <li><span class="i">04</span><div><b>Network Alert Engine</b><span>Instant broadcast when any buyer defaults.</span></div><em>Credit Risk</em></li>
+        <li><span class="i">05</span><div><b>Receivables &amp; Payables Center</b><span>Your full credit book on one screen.</span></div><em>Credit Risk</em></li>
+      </ol>
+      <ol class="svc" role="tabpanel" id="pp-trust" aria-labelledby="pt-trust">
+        <li><span class="i">01</span><div><b>TMC-ID Registry</b><span>Permanent, anonymous trade identity for every company.</span></div><em>Trust &amp; Verification</em></li>
+        <li><span class="i">02</span><div><b>OTP-Verified Tagging</b><span>Buyer confirms every credit relationship via OTP.</span></div><em>Trust &amp; Verification</em></li>
+        <li><span class="i">03</span><div><b>Score Lookup Portal</b><span>Check any TMC-ID&#x27;s score before extending credit.</span></div><em>Trust &amp; Verification</em></li>
+        <li><span class="i">04</span><div><b>Capacity Traffic Light</b><span>GREEN / YELLOW / RED at-a-glance buyer status.</span></div><em>Trust &amp; Verification</em></li>
+        <li><span class="i">05</span><div><b>Exposure Range Viewer</b><span>See masked aggregate debt without revealing suppliers.</span></div><em>Trust &amp; Verification</em></li>
+      </ol>
+      <ol class="svc" role="tabpanel" id="pp-supply-chain" aria-labelledby="pt-supply-chain">
+        <li><span class="i">01</span><div><b>Chain Trace Ledger</b><span>Track credit through every tier of the supply chain.</span></div><em>Supply Chain</em></li>
+        <li><span class="i">02</span><div><b>Payment Waterfall Monitor</b><span>See where money is stuck between tiers.</span></div><em>Supply Chain</em></li>
+        <li><span class="i">03</span><div><b>SLA Breach Detection</b><span>Alert when pass-through timelines are violated.</span></div><em>Supply Chain</em></li>
+        <li><span class="i">04</span><div><b>Chain Health Score</b><span>Aggregate risk across the full project chain.</span></div><em>Supply Chain</em></li>
+        <li><span class="i">05</span><div><b>End-Client Credibility Check</b><span>Verify project funding and escrow health.</span></div><em>Supply Chain</em></li>
+      </ol>
+      <ol class="svc" role="tabpanel" id="pp-government" aria-labelledby="pt-government">
+        <li><span class="i">01</span><div><b>Tax Track ID</b><span>Per-transaction tax identifier for automated reconciliation.</span></div><em>Government</em></li>
+        <li><span class="i">02</span><div><b>GST/VAT Auto-Reconcile</b><span>Match invoices to tax filings automatically.</span></div><em>Government</em></li>
+        <li><span class="i">03</span><div><b>Compliance Dashboard</b><span>Real-time view of tax and regulatory compliance.</span></div><em>Government</em></li>
+        <li><span class="i">04</span><div><b>Audit-Ready Export</b><span>One-click export for regulatory audits.</span></div><em>Government</em></li>
+      </ol>
+      <ol class="svc" role="tabpanel" id="pp-financial-intel" aria-labelledby="pt-financial-intel">
+        <li><span class="i">01</span><div><b>Dynamic Credit Pricing</b><span>AI-suggested terms based on real-time risk.</span></div><em>Financial Intelligence</em></li>
+        <li><span class="i">02</span><div><b>Portfolio Risk Heatmap</b><span>Visual risk distribution across your entire book.</span></div><em>Financial Intelligence</em></li>
+        <li><span class="i">03</span><div><b>Benchmark Analytics</b><span>Compare your risk profile to industry averages.</span></div><em>Financial Intelligence</em></li>
+        <li><span class="i">04</span><div><b>Scenario Simulator</b><span>Model what-if scenarios on your credit portfolio.</span></div><em>Financial Intelligence</em></li>
+        <li><span class="i">05</span><div><b>Trend Forecasting</b><span>Predict payment behavior shifts before they happen.</span></div><em>Financial Intelligence</em></li>
+      </ol>
+      <ol class="svc" role="tabpanel" id="pp-ecosystem" aria-labelledby="pt-ecosystem">
+        <li><span class="i">01</span><div><b>ERP Integration</b><span>Connect to SAP, Oracle, Tally, and more.</span></div><em>Ecosystem</em></li>
+        <li><span class="i">02</span><div><b>REST API</b><span>Build custom integrations with the TMC data layer.</span></div><em>Ecosystem</em></li>
+        <li><span class="i">03</span><div><b>Webhook Alerts</b><span>Push risk events to Slack, Teams, or any endpoint.</span></div><em>Ecosystem</em></li>
+        <li><span class="i">04</span><div><b>White-Label Portal</b><span>Embed TMC intelligence in your own platform.</span></div><em>Ecosystem</em></li>
+      </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 YOUR IDENTITY (own section) -->
+  <section class="rule" id="identity">
+    <div class="wrap ident">
+      <div>
+        <p class="kicker">Your identity</p>
+        <h2 style="margin-top:14px">Get your universal trade credit identity.</h2>
+        <p class="plain" style="margin-top:16px"><b>In short</b>A <dfn>TMC-ID</dfn> is your company's permanent ID in the network, like a reference number on a credit file.</p>
+        <p class="lede" style="margin-top:14px">A unique, permanent identifier for every company. Anonymous to other members. Your details are never shown on the network.</p>
+        <p class="fico">Like a <em>FICO score</em> for B2B trade credit — built from live supplier data, not bank history.</p>
+      </div>
+      <div class="anat" role="group" aria-label="TMC-ID anatomy">
+        <div class="row" id="anat">
+          <button type="button" aria-pressed="false" data-k="Platform prefix">TMC</button><span class="dash" aria-hidden="true">-</span>
+          <button type="button" aria-pressed="false" data-k="Country code">OM</button><span class="dash" aria-hidden="true">-</span>
+          <button type="button" aria-pressed="false" data-k="Tax ID fragment">8397</button><span class="dash" aria-hidden="true">-</span>
+          <button type="button" aria-pressed="false" data-k="Registration fragment">4521</button><span class="dash" aria-hidden="true">-</span>
+          <button type="button" aria-pressed="false" data-k="Sequence">01</button><span class="dash" aria-hidden="true">-</span>
+          <button type="button" aria-pressed="false" data-k="Check digit">K</button>
+        </div>
+        <p class="out" aria-live="polite"><b id="anat-v"></b><span id="anat-k"></span></p>
+        <p class="hint">Hover, tap or tab to a segment to inspect it. The two middle numbers are short fragments of your registration details, used to keep each ID unique.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 JOIN -->
+  <section class="rule" id="join">
+    <div class="wrap join">
+      <div>
+        <p class="kicker">Get early access</p>
+        <h2 style="margin-top:14px">Join the network.</h2>
+        <p class="lede" style="margin-top:14px">Register your company and get your TMC-ID in under 3 minutes. No credit card required.</p>
+        <div class="perks">
+          <div><b>TMC-ID</b>Universal trade credit identity</div>
+          <div><b>Risk Score</b>Real-time credit intelligence</div>
+          <div><b>Network Alerts</b>Instant default notifications</div>
+          <div><b>Dashboard</b>Full portfolio visibility</div>
+        </div>
+      </div>
+      <form id="signup" novalidate>
+        <h3>Register your company</h3>
+        <label for="co">Company Name<input id="co" name="company" autocomplete="organization" placeholder="Al Noor Distribution"></label>
+        <div class="row2">
+          <label for="fn">First Name<input id="fn" name="first" autocomplete="given-name"></label>
+          <label for="ln">Last Name<input id="ln" name="last" autocomplete="family-name"></label>
+        </div>
+        <label for="em">Work Email<input id="em" type="email" name="email" autocomplete="email" placeholder="name@company.sa"></label>
+        <label for="role">Role<select id="role" name="role"><option value="">Select your role</option><option>CFO / Finance Director</option><option>Credit Manager</option><option>Owner / CEO</option><option>Procurement / Buyer</option><option>Other</option></select></label>
+        <button class="btn btn-amber" type="submit">Get your TMC-ID</button>
+        <p class="form-fine">No credit card · Free forever on Starter · 3 min setup</p>
+        <p class="form-msg" id="msg" role="status" hidden>Concept only: the form isn't connected.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- 16 FAQ -->
+  <section class="rule" id="faq">
+    <div class="wrap faq-grid">
+      <div class="head" style="margin:0">
+        <p class="kicker">FAQ</p>
+        <h2>Common questions.</h2>
+        <p class="lede">Everything you need to know about TagMyCredit, trade credit scoring, and the network.</p>
+      </div>
+      <div class="faq">
+        <details><summary>What is TagMyCredit?</summary><p>The world's first B2B Trade Credit Intelligence Network. Suppliers tag the credit they give buyers, buyers confirm, and everyone gets risk scores and alerts built from the whole network.</p></details>
+        <details><summary>How does the TMC-ID work?</summary><p>Every registered company gets a unique, permanent ID such as TMC-OM-8397-4521-01-K: prefix, country, tax-ID fragment, registration fragment, sequence and check digit. It is anonymous to other members: your company details are never shown on the network.</p></details>
+        <details><summary>What is AAI (Anonymous Aggregated Intelligence)?</summary><p>The privacy model. You see combined signals about a buyer, such as a score, an exposure range and payment behaviour, never which suppliers are involved or their exact amounts.</p></details>
+        <details><summary>Who can see my trade credit data?</summary><p>Only you see your own credit lines in full. The network sees aggregated intelligence; competitors never see your receivables, balances, statements or transactions.</p></details>
+        <details><summary>How is the Trade Risk Score calculated?</summary><p>An 8-component score from 0 to 1000, including payment discipline, utilization, bad debt history and financial strength, updated as tags and payments change.</p></details>
+        <details><summary>Is TagMyCredit available in my country?</summary><p>The network starts in the GCC, with Saudi Arabia and the UAE first.</p></details>
+        <details><summary>What does it cost?</summary><p>The Starter plan is free forever. No credit card required.</p></details>
+        <details><summary>How long does setup take?</summary><p>About 3 minutes to register and get your TMC-ID, then you can tag your first credit line.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 FINAL CTA -->
+  <section class="band final">
+    <div class="wrap final-grid">
+      <div>
+        <h2>Stop guessing who you can <em>trust.</em></h2>
+        <p class="ar-h" dir="rtl" lang="ar">توقّف عن التخمين: اعرف بمن تثق.</p>
+      </div>
+      <div>
+        <p style="color:var(--on-teal-muted)">Register in 3 minutes. Get your TMC-ID. Tag your first credit line — join the network.</p>
+        <div class="cta" style="margin-top:20px">
+          <a class="btn btn-amber" href="#join">Get your TMC-ID</a>
+          <button class="btn btn-line" type="button" aria-disabled="true" data-inert>Schedule a Demo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#top"><span>tagmy<b style="color:var(--amber-ink)">credit</b></span></a>
+        <p>The world's first B2B Trade Credit Intelligence Network. Built on privacy, secured by trust.</p>
+      </div>
+      <div><h4>Product</h4><ul><li><a href="#how">Features</a></li><li><a href="#faq">Pricing</a></li><li><a href="#vault">Score Engine</a></li><li><a href="#chain">Supply Chain</a></li><li><a href="#top">API</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#top">About</a></li><li><a href="#top">Careers</a></li><li><a href="#join">Contact</a></li><li><a href="#top">Partners</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="#top">Documentation</a></li><li><a href="#top">API Reference</a></li><li><a href="#top">Blog</a></li><li><a href="#faq">Help Center</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#top">Privacy</a></li><li><a href="#top">Terms</a></li><li><a href="#top">GDPR</a></li><li><a href="#top">Security</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 TagMyCredit. All rights reserved.</span><span><a href="#top">Privacy Policy</a> · <a href="#top">Terms &amp; Conditions</a> · <a href="#top">Security</a></span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function $(id){return document.getElementById(id);}
+  var reduceMQ=window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* mobile menu */
+  var mb=$('menuBtn'), mn=$('mnav');
+  function setMenu(open,focusBtn){
+    mb.setAttribute('aria-expanded',open?'true':'false'); mn.hidden=!open;
+    if(open){var f=mn.querySelector('a'); if(f) f.focus();}
+    else if(focusBtn){mb.focus();}
+  }
+  mb.addEventListener('click',function(){setMenu(mb.getAttribute('aria-expanded')!=='true');});
+  mn.addEventListener('click',function(e){if(e.target.closest('a')) setMenu(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!mn.hidden){setMenu(false,true);}});
+  document.addEventListener('click',function(e){if(!mn.hidden&&!e.target.closest('header')) setMenu(false);});
+  window.addEventListener('resize',function(){if(window.innerWidth>900&&!mn.hidden) setMenu(false);});
+
+  /* check a buyer */
+  var B={
+    acme:{n:'Acme Corp',s:680,band:'FAIR',c:'warn',l:'yellow',lt:'YELLOW · limit new credit',e:'$500K–$1M from 10–20 suppliers',p:2,pt:'Medium on-time',a:0,at:'No defaults reported. Utilization is rising — watch order size.'},
+    build:{n:'BuildRight LLC',s:520,band:'POOR',c:'bad',l:'red',lt:'RED · no room for more credit',e:'$1M–$2.5M from 10–20 suppliers',p:1,pt:'Low on-time',a:1,at:'Default reported by another supplier — review before shipping.'},
+    delta:{n:'Delta Supplies',s:810,band:'EXCELLENT',c:'ok',l:'green',lt:'GREEN · room for more credit',e:'$100K–$250K from 2–5 suppliers',p:3,pt:'High on-time',a:0,at:'No alerts in the network.'},
+    epc:{n:'EPC Holdings',s:740,band:'GOOD',c:'ok',l:'green',lt:'GREEN · room for more credit',e:'$2.5M–$5M from 20+ suppliers',p:3,pt:'High on-time',a:0,at:'No alerts in the network.'},
+    gulf:{n:'Gulf Retail Co.',s:747,band:'GOOD',c:'ok',l:'green',lt:'GREEN · room for more credit',e:'$250K–$500K from 5–10 suppliers',p:3,pt:'High on-time',a:0,at:'No alerts in the network.'}
+  };
+  var col={ok:'var(--ok)',warn:'var(--warn)',bad:'var(--bad)'};
+  var btns=[].slice.call(document.querySelectorAll('#picker [role=radio]'));
+  function pick(k,focus){
+    var d=B[k];
+    btns.forEach(function(b){var on=b.getAttribute('data-b')===k;b.setAttribute('aria-checked',on);b.tabIndex=on?0:-1;if(on&&focus)b.focus();});
+    var g=$('g-val'); g.setAttribute('stroke-dasharray',d.s+' 1000'); g.style.stroke=col[d.c];
+    $('g-score').textContent=d.s;
+    var bc=$('g-band'); bc.textContent=d.band; bc.className='band-chip c-'+d.c;
+    $('g-name').textContent=d.n+' · Trade Risk Score';
+    $('s-light').setAttribute('data-l',d.l); $('s-light-t').textContent=d.lt;
+    $('s-exp').textContent=d.e;
+    $('s-pb').setAttribute('data-p',d.p); $('s-pb-t').textContent=d.pt;
+    $('s-alert').classList.toggle('on',!!d.a); $('s-alert-t').textContent=d.at;
+  }
+  btns.forEach(function(b,i){
+    b.addEventListener('click',function(){pick(b.getAttribute('data-b')); swap();});
+    b.addEventListener('keydown',function(e){
+      var m={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];
+      if(m){e.preventDefault();var j=(i+m+btns.length)%btns.length;pick(btns[j].getAttribute('data-b'),true); swap();}
+    });
+  });
+  function swap(){ var r=document.querySelector('.readout'); if(!r) return; r.classList.remove('swap'); void r.offsetWidth; r.classList.add('swap'); }
+  pick('build');
+
+  /* NEOM chain: one data model drives the line map (wide screens) and the tier list (phones) */
+  (function(){
+    var map=$('map'), svg=$('edges'), list=$('tierList');
+    var tiers=[
+      {label:'Client',sub:'Tier 0',head:'Client · Tier 0',nodes:[['pif','PIF Authority',850,'SAR 50B',60]]},
+      {label:'Tier 1',sub:'Main contractors',head:'Tier 1 · Main contractors',nodes:[['ara','Aramco Eng.',620,'SAR 8.5B',45],['bin','Binladin Group',640,'SAR 12B',30],['kol','Kolin JV',780,'SAR 6.2B',0]]},
+      {label:'Tier 2',sub:'Subcontractors',head:'Tier 2 · Subcontractors',nodes:[['alm','Almabani',420,'SAR 2.1B',60],['pet','Petrofac',550,'SAR 1.8B',45],['alf','Alfanar Elec.',480,'SAR 1.5B',45],['alr','Al Rushaid',740,'SAR 1.2B',0]]},
+      {label:'Tier 3',sub:'Material suppliers',head:'Tier 3 · Material suppliers',nodes:[['gco','Gulf Concrete',430,'SAR 800M',50],['est','Emirates Steel',380,'SAR 750M',90],['gce','Gulf Cement',350,'SAR 420M',75],['sch','Schneider Dist.',500,'SAR 180M',40],['gru','Grundfos ME',820,'SAR 320M',0],['ntu','National Tube',390,'SAR 580M',55]]}
+    ];
+    var links=[['pif','ara'],['pif','bin'],['pif','kol'],
+      ['ara','alm'],['ara','pet'],['bin','alm'],['bin','alf'],['bin','pet'],['kol','alr'],['kol','alf'],
+      ['alm','gco'],['alm','est'],['pet','est'],['pet','ntu'],['alf','sch'],['alf','gce'],['alr','gru'],['alr','ntu']];
+    var FINAL={pif:'warning',ara:'warning',bin:'warning',kol:'healthy',alm:'default',pet:'critical',alf:'critical',alr:'healthy',gco:'default',est:'default',gce:'default',sch:'critical',gru:'healthy',ntu:'default'};
+    var shared={est:1,ntu:1};
+    var info={}, els={}, rows={}, paths=[];
+    function payText(id,st){
+      var d=info[id].days;
+      if(st==='idle') return 'Payment flowing';
+      if(st==='healthy') return 'On time';
+      if(id==='pif') return 'Delays '+d+'d';
+      if(st==='default') return 'Default · '+d+'d';
+      return d+'d late';
+    }
+    tiers.forEach(function(t,ti){
+      var row=document.createElement('div'); row.className='mt';
+      row.innerHTML='<p class="mt-label"><b>'+t.label+'</b>'+t.sub+'</p><div class="mt-nodes"></div>';
+      var box=row.querySelector('.mt-nodes');
+      var col=document.createElement('div'); col.className='tier';
+      col.innerHTML='<h3>'+t.head+'</h3><ul></ul>';
+      var ul=col.querySelector('ul');
+      t.nodes.forEach(function(n){
+        var id=n[0];
+        info[id]={name:n[1],score:n[2],exp:n[3],days:n[4],tierLabel:ti===0?'Client · Tier 0':'Tier '+ti};
+        var b=document.createElement('button'); b.type='button'; b.className='mn'; b.setAttribute('data-status','idle'); b.setAttribute('aria-pressed','false');
+        if(shared[id]) b.classList.add('is-shared');
+        b.innerHTML=(shared[id]?'<span class="shared">Shared · 2 buyers</span>':'')+'<span class="ps"></span><span class="nm"></span><span class="row"><span class="sc"></span><span class="ex"></span></span>';
+        b.querySelector('.nm').textContent=n[1]; b.querySelector('.sc').textContent=n[2]; b.querySelector('.ex').textContent=n[3];
+        b.querySelector('.ps').textContent='Payment flowing';
+        b.setAttribute('aria-label',n[1]+', '+info[id].tierLabel+', score '+n[2]+', exposure '+n[3]+(shared[id]?', shared supplier to 2 buyers':''));
+        b.addEventListener('mouseenter',function(){preview(id);}); b.addEventListener('focus',function(){preview(id);});
+        b.addEventListener('mouseleave',unpreview); b.addEventListener('blur',unpreview);
+        b.addEventListener('click',function(){togglePin(id);});
+        box.appendChild(b); els[id]=b;
+        var li=document.createElement('li'); li.className='node'+(shared[id]?' sh':''); li.setAttribute('data-status','idle');
+        li.innerHTML='<b></b><span class="s"></span><small></small><small class="pt"></small>';
+        li.querySelector('b').textContent=n[1]; li.querySelector('.s').textContent=n[2];
+        li.querySelector('small').textContent=n[3]+(shared[id]?' · shared: 2 buyers':'');
+        li.querySelector('.pt').textContent='Payment flowing';
+        li.setAttribute('role','button'); li.tabIndex=0; li.setAttribute('aria-pressed','false');
+        li.setAttribute('aria-label',b.getAttribute('aria-label'));
+        li.addEventListener('click',function(){togglePin(id);});
+        li.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); togglePin(id); } });
+        ul.appendChild(li); rows[id]=li;
+      });
+      map.appendChild(row); list.appendChild(col);
+    });
+    var ns='http://www.w3.org/2000/svg';
+    links.forEach(function(l){var p=document.createElementNS(ns,'path'); svg.appendChild(p); paths.push([p,l[0],l[1]]);});
+    function layout(){
+      var mr=map.getBoundingClientRect(); if(!mr.width) return;
+      svg.setAttribute('viewBox','0 0 '+mr.width+' '+mr.height);
+      paths.forEach(function(e){
+        var a=els[e[1]].getBoundingClientRect(), b=els[e[2]].getBoundingClientRect();
+        var x1=a.left+a.width/2-mr.left, y1=a.bottom-mr.top, x2=b.left+b.width/2-mr.left, y2=b.top-mr.top, my=(y1+y2)/2;
+        e[0].setAttribute('d','M'+x1+' '+y1+' C'+x1+' '+my+' '+x2+' '+my+' '+x2+' '+y2);
+        e[3]=e[0].getTotalLength();
+      });
+    }
+    if('ResizeObserver' in window) new ResizeObserver(function(){ layout(); if(typeof kick==='function') kick(); }).observe(map); else window.addEventListener('resize',layout);
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layout);
+    layout();
+
+    /* Payment flow: arrows travel from payer to payee along each link.
+       Speed encodes the payer's status (on time = fast, late = slow, default = none).
+       Hover/focus a company to follow only its links; leave the map to see all. Paused off-screen and for reduced motion. */
+    var focusId=null;
+    /* One selection model for map nodes, phone rows and default chips:
+       hover/focus = preview, click/tap = pin (again to release). Everything is drawn from the effective id. */
+    var sel={pin:null,prev:null};
+    function render(){
+      var id=sel.prev||sel.pin; focusId=id;
+      inspect(id||'pif');
+      Object.keys(els).forEach(function(k){
+        els[k].setAttribute('aria-pressed',k===sel.pin?'true':'false');
+        rows[k].setAttribute('aria-pressed',k===sel.pin?'true':'false');
+      });
+      var dl=document.getElementById('defList');
+      if(dl) [].forEach.call(dl.children,function(c){ c.setAttribute('aria-pressed',c.getAttribute('data-id')===sel.pin?'true':'false'); });
+      paintFocus(); kick();
+    }
+    function preview(id){ sel.prev=id; render(); }
+    function unpreview(){ if(sel.prev===null) return; sel.prev=null; render(); }
+    function togglePin(id){ sel.pin=(sel.pin===id)?null:id; sel.prev=null; render(); }
+    var arrowsG=document.createElementNS(ns,'g'); arrowsG.setAttribute('class','map-arrows'); svg.appendChild(arrowsG);
+    var flows=paths.map(function(e){
+      return {e:e, arrows:[0,.5].map(function(off){
+        var a=document.createElementNS(ns,'path'); a.setAttribute('d','M-6 -5L6 0L-6 5z'); arrowsG.appendChild(a);
+        return {el:a, off:off};
+      }), t:0};
+    });
+    var SPEED={idle:80, healthy:80, warning:26, critical:12, 'default':0}; /* px per second */
+    function flowStatus(f){ return els[f.e[1]].getAttribute('data-status'); }
+    function paintFocus(){
+      flows.forEach(function(f){
+        var on=focusId===null||f.e[1]===focusId||f.e[2]===focusId;
+        f.e[0].classList.toggle('dim',!on);
+        f.arrows.forEach(function(a){ a.el.style.opacity=on?'':'0'; });
+      });
+    }
+    function placeArrows(dt){
+      var any=false;
+      flows.forEach(function(f){
+        var st=flowStatus(f), sp=SPEED[st]||0, path=f.e[0], L=f.e[3]||0;
+        var atRest=st==='idle'&&focusId===null; /* before a simulation: still, unless a company is hovered */
+        var related=focusId===null||f.e[1]===focusId||f.e[2]===focusId;
+        var show=sp>0 && !reduceMQ.matches && !atRest && related;
+        if(show) any=true;
+        f.t=(f.t+sp*dt)%Math.max(L,1);
+        f.arrows.forEach(function(a){
+          if(!show||!L){ a.el.setAttribute('visibility','hidden'); return; }
+          var d=(f.t+a.off*L)%L, p1=path.getPointAtLength(d), p2=path.getPointAtLength(Math.min(L,d+1));
+          var ang=Math.atan2(p2.y-p1.y,p2.x-p1.x)*180/Math.PI;
+          a.el.setAttribute('visibility','visible');
+          a.el.setAttribute('class',st==='idle'?'':st);
+          a.el.setAttribute('transform','translate('+p1.x.toFixed(1)+' '+p1.y.toFixed(1)+') rotate('+ang.toFixed(1)+')');
+        });
+      });
+      return any;
+    }
+    var visible=true, raf=0, last=0;
+    function loop(ts){
+      var dt=last?Math.min(.05,(ts-last)/1000):0; last=ts;
+      var any=placeArrows(dt);
+      /* suspend when nothing is moving; render(), setStatus() and visibility changes restart it */
+      raf=(any&&visible&&!document.hidden&&!reduceMQ.matches)?requestAnimationFrame(loop):0;
+      if(!raf) last=0;
+    }
+    function kick(){ if(!raf&&visible&&!document.hidden&&!reduceMQ.matches) raf=requestAnimationFrame(loop); }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){ visible=en[0].isIntersecting; kick(); }).observe(map);
+    }
+    document.addEventListener('visibilitychange',kick);
+    if(reduceMQ.addEventListener) reduceMQ.addEventListener('change',function(){ placeArrows(0); paintFocus(); kick(); });
+    map.addEventListener('mouseleave',unpreview);
+    map.addEventListener('click',function(e){ if(!e.target.closest('.mn')){ sel.pin=null; sel.prev=null; render(); } });
+    placeArrows(0); paintFocus(); kick();
+
+    function setStatus(id,st){
+      var b=els[id], li=rows[id], txt=payText(id,st);
+      b.setAttribute('data-status',st); b.querySelector('.ps').textContent=txt;
+      li.setAttribute('data-status',st); li.querySelector('.pt').textContent=txt;
+      paths.forEach(function(e){ if(e[1]===id){ if(st==='idle') e[0].removeAttribute('class'); else e[0].setAttribute('class',st); } });
+      if(typeof paintFocus==='function'){ paintFocus(); placeArrows(0); kick(); }
+      if(st!=='idle'&&!reduceMQ.matches){b.classList.add('hit'); setTimeout(function(){b.classList.remove('hit');},600);}
+    }
+    function payersOf(id){return links.filter(function(l){return l[1]===id;}).map(function(l){return l[0];});}
+    function payeesOf(id){return links.filter(function(l){return l[0]===id;}).map(function(l){return l[1];});}
+    function names(ids){
+      var n=ids.map(function(k){return info[k].name;});
+      return n.length<2?n.join(''):n.slice(0,-1).join(', ')+' and '+n[n.length-1];
+    }
+    function how(k){
+      var st=els[k].getAttribute('data-status'), d=info[k].days;
+      if(st==='idle'||st==='healthy') return info[k].name+' (paying on time)';
+      if(st==='default') return info[k].name+' (stopped paying)';
+      return info[k].name+' ('+d+' days late)';
+    }
+    function whyText(id,st){
+      var i=info[id], up=payersOf(id), down=payeesOf(id), d=i.days;
+      if(id==='pif'){
+        if(st==='idle') return 'The project owner. It pays the three main contractors, so every payment on this map starts here.';
+        return 'The project owner is holding back payments by '+d+' days. Everything below starts here: '+names(down)+' are now waiting for their money.';
+      }
+      var paidBy=up.map(how).join(' and ');
+      if(st==='idle'){
+        return 'Paid by '+names(up)+(down.length?'. It passes payment down to '+names(down)+'.':'. Its own suppliers and bank sit outside this map, but it still owes them every month.');
+      }
+      var lateUp=up.filter(function(k){var s2=els[k].getAttribute('data-status');return s2!=='idle'&&s2!=='healthy';});
+      var okUp=up.filter(function(k){return lateUp.indexOf(k)<0;});
+      var lateBy=lateUp.map(how).join(' and ');
+      var okNote=okUp.length?' '+names(okUp)+' still '+(okUp.length>1?'pay':'pays')+' on time, but that is not enough to cover the gap.':'';
+      if(st==='healthy'){
+        return lateUp.length
+          ? 'Its buyer '+lateBy+' is paying late, but it still has enough cash to pay its own suppliers on time.'
+          : 'Its buyer '+paidBy+', so it is unaffected and keeps paying its own suppliers on time.';
+      }
+      if(st==='default'){
+        return 'Paid late or not at all by '+(lateBy||paidBy)+', it ran out of cash and stopped paying its own suppliers and bank.'+okNote+' It is now '+d+' days overdue on what it owes.';
+      }
+      return 'Waiting on '+(lateBy||paidBy)+'.'+okNote+' With that cash late, it is now '+d+' days late paying '+(down.length?names(down):'its own suppliers')+'.';
+    }
+    var cur='pif';
+    function inspect(id){
+      cur=id; var i=info[id];
+      $('i-name').textContent=i.name; $('i-tier').textContent=i.tierLabel;
+      $('i-score').textContent=i.score+' / 1000'; $('i-exp').textContent=i.exp;
+      $('i-pay').textContent=payText(id,els[id].getAttribute('data-status'));
+      $('i-why').textContent=whyText(id,els[id].getAttribute('data-status'));
+      var sh=$('i-shared');
+      if(shared[id]){
+        var buyers=links.filter(function(l){return l[1]===id;}).map(function(l){return info[l[0]].name;});
+        sh.textContent='Shared supplier: '+i.name+' sells to 2 buyers on this project, '+buyers.join(' and ')+'. If both pay late at the same time, it is hit twice and has no other customer here to fall back on. That is concentration risk.';
+        sh.hidden=false;
+      } else { sh.hidden=true; }
+    }
+    var simBtn=$('simBtn'), resetBtn=$('resetBtn'), msg=$('simMsg'), cnt=$('defCount'), timers=[];
+    var defBtn=$('defBtn'), defList=$('defList'), tierList=$('tierList');
+    function setMsg(text){ msg.textContent=text||''; msg.hidden=!text; }
+    var lastIds='';
+    /* the count highlights all defaulted companies: hover/focus previews, click pins (again to release) */
+    var flagPin=false;
+    function flagging(on){ map.classList.toggle('flagging',on); tierList.classList.toggle('flagging',on); }
+    function flagRest(){ flagging(flagPin); defBtn.setAttribute('aria-pressed',flagPin?'true':'false'); }
+    function updateDefaults(){
+      var ids=Object.keys(els).filter(function(k){return els[k].getAttribute('data-status')==='default';});
+      cnt.textContent=ids.length; defBtn.disabled=ids.length===0; defList.hidden=ids.length===0;
+      var key=ids.join(','); if(key===lastIds) return; lastIds=key;
+      /* rebuild only when the set changes, and keep keyboard focus on the same company */
+      var ae=document.activeElement, keep=ae&&ae.parentNode===defList?ae.getAttribute('data-id'):null;
+      defList.innerHTML='';
+      ids.forEach(function(id){
+        var c=document.createElement('button'); c.type='button'; c.textContent=info[id].name;
+        c.setAttribute('data-id',id); c.setAttribute('aria-pressed',sel.pin===id?'true':'false');
+        c.addEventListener('mouseenter',function(){preview(id);}); c.addEventListener('focus',function(){preview(id);});
+        c.addEventListener('mouseleave',unpreview); c.addEventListener('blur',unpreview);
+        c.addEventListener('click',function(){togglePin(id);});
+        defList.appendChild(c);
+        if(keep===id) c.focus();
+      });
+      if(!ids.length){ flagPin=false; flagRest(); }
+    }
+    defBtn.addEventListener('mouseenter',function(){ if(!defBtn.disabled) flagging(true); });
+    defBtn.addEventListener('focus',function(){ if(!defBtn.disabled) flagging(true); });
+    defBtn.addEventListener('mouseleave',flagRest); defBtn.addEventListener('blur',flagRest);
+    defBtn.addEventListener('click',function(){ flagPin=!flagPin; flagRest(); if(flagPin) flagging(true); });
+    var SHORT=[
+      'Tier 0: the project owner delays payment by 60 days.',
+      'Tier 1: two of the three main contractors start paying late.',
+      'Tier 2: Almabani defaults and two subcontractors fall behind.',
+      'Tier 3: the delay reaches the material suppliers.'
+    ];
+    var MSGS=[
+      'Tier 0: the project owner (PIF Authority) delays payment by 60 days.',
+      'Tier 1: Aramco Eng. and Binladin Group start paying late. Kolin JV stays on time.',
+      'Tier 2: Almabani defaults; Petrofac and Alfanar Elec. are 45 days late. Al Rushaid stays on time.',
+      'Tier 3: Paid late from above, the material suppliers can no longer cover their own bills (raw materials, wages, bank lines) and stop paying their own creditors. The shared suppliers are hit from two buyers at once.'
+    ];
+    var SUMMARY='What happened: the project owner’s 60-day payment delay passed down all four tiers, leaving 5 companies in default (Almabani, Gulf Concrete, Emirates Steel, Gulf Cement and National Tube). They were owed money, but being paid late left them unable to pay their own suppliers and banks. See “Why the bottom of the chain defaults” below the map.';
+    function countDefaults(){var d=0;Object.keys(els).forEach(function(k){if(els[k].getAttribute('data-status')==='default')d++;});return d;}
+    function applyTier(ti){
+      tiers[ti].nodes.forEach(function(n){setStatus(n[0],FINAL[n[0]]);});
+      updateDefaults(); render();
+    }
+    function finish(){
+      var n=countDefaults(); $('simAnnounce').textContent='Simulation complete. '+n+' defaults detected.';
+      var hadFocus=document.activeElement===simBtn||document.activeElement===document.body;
+      resetBtn.disabled=false; if(hadFocus) resetBtn.focus();
+    }
+    simBtn.addEventListener('click',function(){
+      simBtn.disabled=true; resetBtn.disabled=true; setMsg(''); $('simAnnounce').textContent='';
+      if(reduceMQ.matches){[0,1,2,3].forEach(function(ti){tiers[ti].nodes.forEach(function(n){setStatus(n[0],FINAL[n[0]]);});}); updateDefaults(); render(); finish(); return;}
+      [0,1,2,3].forEach(function(ti){timers.push(setTimeout(function(){applyTier(ti); if(ti===3) finish();},150+ti*400));});
+    });
+    resetBtn.addEventListener('click',function(){
+      timers.forEach(clearTimeout); timers=[];
+      Object.keys(els).forEach(function(k){setStatus(k,'idle');});
+      flagPin=false; flagRest(); sel.pin=null; sel.prev=null;
+      updateDefaults(); setMsg('Reset. Payments are flowing normally again. Press Simulate to run it again.');
+      $('simAnnounce').textContent=''; render(); simBtn.disabled=false; resetBtn.disabled=true; simBtn.focus();
+    });
+  })();
+
+  /* Trust Vault tabs */
+  (function(){
+    var tabs=[].slice.call(document.querySelectorAll('.tabs [role="tab"]'));
+    function sel(t,focus){
+      tabs.forEach(function(x){var on=x===t; x.setAttribute('aria-selected',on?'true':'false'); x.tabIndex=on?0:-1; $(x.getAttribute('aria-controls')).hidden=!on;});
+      if(focus) t.focus();
+    }
+    tabs.forEach(function(t,i){
+      t.addEventListener('click',function(){sel(t);});
+      t.addEventListener('keydown',function(e){
+        var j=null;
+        if(e.key==='ArrowRight') j=(i+1)%tabs.length;
+        else if(e.key==='ArrowLeft') j=(i-1+tabs.length)%tabs.length;
+        else if(e.key==='Home') j=0;
+        else if(e.key==='End') j=tabs.length-1;
+        if(j===null) return; e.preventDefault(); sel(tabs[j],true);
+      });
+    });
+  })();
+
+  /* TMC-ID anatomy */
+  var segs=[].slice.call(document.querySelectorAll('#anat button'));
+  /* same model as the supply-chain map: hover/focus previews, click pins (again to release),
+     leaving returns to the pinned segment, or to nothing selected */
+  var segPin=null;
+  function seg(b){ /* b = null shows nothing */
+    segs.forEach(function(s){ s.classList.toggle('on',s===b); s.setAttribute('aria-pressed',s===segPin?'true':'false'); });
+    $('anat-v').textContent=b?b.textContent:''; $('anat-k').textContent=b?b.getAttribute('data-k'):'';
+  }
+  function segRest(){ seg(segPin); }
+  segs.forEach(function(b){
+    b.addEventListener('mouseenter',function(){seg(b);}); b.addEventListener('focus',function(){seg(b);});
+    b.addEventListener('mouseleave',segRest); b.addEventListener('blur',segRest);
+    b.addEventListener('click',function(){ segPin=(segPin===b)?null:b; seg(segPin||b); });
+  });
+  segRest();
+
+  /* form */
+  $('signup').addEventListener('submit',function(e){e.preventDefault();$('msg').hidden=false;});
+})();
+</script>
+
+<script>
+/* The opportunity: click/keyboard tabs. All panels render visible without JS; the script hides the inactive ones. */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.opp-tabs [role="tab"]'));
+  if(!tabs.length) return;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var fwTimer=null;
+  function spinFlywheel(){
+    var nodes=[].slice.call(document.querySelectorAll('.fw-node'));
+    clearTimeout(fwTimer); nodes.forEach(function(n){n.classList.remove('on');});
+    if(reduce.matches) return;
+    var i=0;
+    (function step(){
+      nodes.forEach(function(n){n.classList.remove('on');});
+      if(i<nodes.length){nodes[i].classList.add('on'); i++; fwTimer=setTimeout(step,380);}
+    })();
+  }
+  function select(i,focus){
+    tabs.forEach(function(t,j){
+      var on=j===i, p=document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected',on?'true':'false'); t.tabIndex=on?0:-1;
+      p.hidden=!on;
+      if(on){p.classList.remove('enter'); void p.offsetWidth; p.classList.add('enter');}
+    });
+    if(focus) tabs[i].focus();
+    if(tabs[i].id==='ot-moat') spinFlywheel();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(i,false);});
+    t.addEventListener('keydown',function(e){
+      var k=e.key, n=tabs.length, j=null;
+      if(k==='ArrowRight'||k==='ArrowDown') j=(i+1)%n;
+      else if(k==='ArrowLeft'||k==='ArrowUp') j=(i-1+n)%n;
+      else if(k==='Home') j=0; else if(k==='End') j=n-1;
+      if(j!==null){e.preventDefault(); select(j,true);}
+    });
+  });
+  tabs.forEach(function(t,j){ if(j>0) document.getElementById(t.getAttribute('aria-controls')).hidden=true; });
+})();
+</script>
+<script>
+/* Hero background: credit lines between Gulf cities. Decorative and hero-only.
+   Fades in after the credit-line card has assembled, plays a 5-second intro (two pulses), then rests as a still map.
+   Ending within 5s meets WCAG 2.2.2 without a pause control. A still frame for reduced motion. */
+(function(){
+  var cv=document.getElementById('heroNet'); if(!cv||!cv.getContext) return;
+  var hero=cv.parentNode, ctx=cv.getContext('2d');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var css=getComputedStyle(document.documentElement);
+  function tok(n,f){var v=css.getPropertyValue(n).trim();return v||f;}
+  var INK=tok('--on-teal','#E3F0EE'), AMB=tok('--amber','#F2B65A');
+  // [name, longitude, latitude, labelled]
+  var C=[['Riyadh',46.7,24.7,1],['Jeddah',39.2,21.5,1],['Dammam',50.1,26.4,1],['Medina',39.6,24.5,0],['Tabuk',36.6,28.4,0],
+    ['Jubail',49.6,27.0,0],['Hofuf',49.6,25.4,0],['Buraidah',44.0,26.3,0],['Hail',41.7,27.5,0],['Yanbu',38.1,24.1,0],
+    ['Abha',42.5,18.2,0],['Jazan',42.6,16.9,0],['Najran',44.1,17.5,0],['Duba',35.7,27.4,0],
+    ['Dubai',55.3,25.2,1],['Abu Dhabi',54.4,24.5,1],['Sharjah',55.45,25.35,0],['Al Ain',55.7,24.2,0],['Ruwais',52.7,24.1,0],['Fujairah',56.3,25.1,0],['Ras Al Khaimah',55.95,25.8,0]];
+  var LON0=34.2, LON1=57.2, LAT0=16.2, LAT1=29.6;
+  var pts=[], edges=[], W=0, H=0, dpr=1, base=null, small=false, cardR=null, started=false, done=false;
+  var T0=0, WINDOW=5000, PLAN=[[300,2000],[2700,1800]]; /* two pulses, all motion ends by 5s */
+  function project(){
+    /* centre the network on the credit-line card and draw it larger, so the card sits inside a ring of cities */
+    var hr=hero.getBoundingClientRect(), doc=hero.querySelector('.doc'), d=doc?doc.getBoundingClientRect():null;
+    var rx,rw,ry,rh;
+    cardR=d&&d.width?{l:d.left-hr.left,t:d.top-hr.top,r:d.right-hr.left,b:d.bottom-hr.top}:null;
+    if(d&&d.width){ rx=d.left-hr.left-d.width*.55; rw=d.width*2.1; ry=d.top-hr.top-d.height*.28; rh=d.height*1.56; }
+    else { rx=W*.4; rw=W*.58; ry=H*.08; rh=H*.84; }
+    rx=Math.max(rx,W*.28); rw=Math.min(rw,W-rx);
+    var kx=Math.cos(23*Math.PI/180), sx=rw/((LON1-LON0)*kx), sy=rh/(LAT1-LAT0), sc=Math.min(sx,sy);
+    var ox=rx+(rw-(LON1-LON0)*kx*sc)/2, oy=ry+(rh-(LAT1-LAT0)*sc)/2;
+    pts=C.map(function(c){return {n:c[0],x:ox+(c[1]-LON0)*kx*sc,y:oy+(LAT1-c[2])*sc,l:c[3],ring:0};});
+  }
+  function buildEdges(){
+    var seen={}; edges=[];
+    function add(a,b){var k=a<b?a+'-'+b:b+'-'+a; if(a===b||seen[k])return; seen[k]=1;
+      var A=pts[a],B=pts[b],mx=(A.x+B.x)/2,my=(A.y+B.y)/2,dx=B.x-A.x,dy=B.y-A.y,len=Math.hypot(dx,dy)||1;
+      edges.push({a:a,b:b,cx:mx-dy/len*len*.18,cy:my+dx/len*len*.18});}
+    pts.forEach(function(p,i){
+      pts.map(function(q,j){return [j,Math.hypot(q.x-p.x,q.y-p.y)];}).sort(function(u,v){return u[1]-v[1];}).slice(1,3).forEach(function(d){add(i,d[0]);});
+    });
+    function idx(n){for(var i=0;i<pts.length;i++) if(pts[i].n===n) return i;}
+    [['Riyadh','Jeddah'],['Riyadh','Dubai'],['Riyadh','Dammam'],['Dammam','Abu Dhabi'],['Jeddah','Medina'],['Riyadh','Abu Dhabi'],['Jeddah','Dubai'],['Tabuk','Riyadh'],['Riyadh','Abha']].forEach(function(r){add(idx(r[0]),idx(r[1]));});
+  }
+  function qp(e,t){var A=pts[e.a],B=pts[e.b],u=1-t;return {x:u*u*A.x+2*u*t*e.cx+t*t*B.x,y:u*u*A.y+2*u*t*e.cy+t*t*B.y};}
+  function drawBase(){
+    base=document.createElement('canvas'); base.width=cv.width; base.height=cv.height;
+    var b=base.getContext('2d'); b.setTransform(dpr,0,0,dpr,0,0);
+    b.lineWidth=1; b.strokeStyle=INK; b.globalAlpha=.09;
+    edges.forEach(function(e){var A=pts[e.a],B=pts[e.b]; b.beginPath(); b.moveTo(A.x,A.y); b.quadraticCurveTo(e.cx,e.cy,B.x,B.y); b.stroke();});
+    b.globalAlpha=1;
+    pts.forEach(function(p){
+      b.fillStyle=INK; b.globalAlpha=p.l?.40:.26; b.beginPath(); b.arc(p.x,p.y,p.l?2.6:1.8,0,Math.PI*2); b.fill();
+      if(p.l){ b.globalAlpha=.25; b.font='600 11px Figtree, "Segoe UI", sans-serif'; b.fillText(p.n,p.x+7,p.y+4); }
+    });
+    b.globalAlpha=1;
+  }
+  function size(){
+    var r=hero.getBoundingClientRect(); W=r.width; H=r.height; dpr=Math.min(2,window.devicePixelRatio||1);
+    small=W<=700; cv.style.display=small?'none':'';
+    if(small){ if(raf){cancelAnimationFrame(raf);raf=0;} return; }
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    project(); buildEdges(); drawBase(); frame(performance.now());
+    if(started){ if(reduce.matches) stillFrame(); else kick(); }
+  }
+  var pulses=[], planIdx=0;
+  function spawn(now,dur){
+    /* prefer routes that are visible around the card, not hidden behind it */
+    var seen=edges.filter(function(e){ if(!cardR) return true; var m=qp(e,.5), A=pts[e.a], B=pts[e.b];
+      function out(q){return q.x<cardR.l-6||q.x>cardR.r+6||q.y<cardR.t-6||q.y>cardR.b+6;}
+      return out(m)&&(out(A)||out(B)); });
+    var pool=seen.length?seen:edges, e=pool[(Math.random()*pool.length)|0], fwd=Math.random()<.5;
+    var A=pts[e.a],B=pts[e.b],len=Math.hypot(B.x-A.x,B.y-A.y)*1.1;
+    pulses.push({e:e,fwd:fwd,t0:now,dur:dur});
+  }
+  function frame(now){
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height);
+    if(base) ctx.drawImage(base,0,0);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    pulses=pulses.filter(function(p){
+      var k=(now-p.t0)/p.dur; if(k>=1){ var end=pts[p.fwd?p.e.b:p.e.a]; end.ring=now; return false; }
+      var ease=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2, t=p.fwd?ease:1-ease;
+      // lit trail along the arc
+      ctx.strokeStyle=AMB; ctx.lineWidth=1.6; ctx.globalAlpha=.30*Math.sin(Math.PI*k);
+      ctx.beginPath(); var t0=Math.max(0,Math.min(1,p.fwd?t-.22:t+.22)), steps=14;
+      for(var i=0;i<=steps;i++){var tt=t0+(t-t0)*i/steps, q=qp(p.e,tt); if(i)ctx.lineTo(q.x,q.y); else ctx.moveTo(q.x,q.y);} ctx.stroke();
+      var h=qp(p.e,t); ctx.globalAlpha=.60*Math.sin(Math.PI*k); ctx.fillStyle=AMB; ctx.beginPath(); ctx.arc(h.x,h.y,2.6,0,Math.PI*2); ctx.fill();
+      return true;
+    });
+    pts.forEach(function(pt){ if(!pt.ring) return; var a=(now-pt.ring)/500; if(a>1){pt.ring=0;return;}
+      ctx.globalAlpha=.25*(1-a); ctx.strokeStyle=AMB; ctx.lineWidth=1.4; ctx.beginPath(); ctx.arc(pt.x,pt.y,3+a*8,0,Math.PI*2); ctx.stroke(); });
+    ctx.globalAlpha=1;
+  }
+  var visible=true, raf=0;
+  function loop(now){
+    var el=now-T0;
+    if(planIdx<PLAN.length && el>=PLAN[planIdx][0]){ spawn(now,PLAN[planIdx][1]); planIdx++; }
+    if(el>=WINDOW){ done=true; pulses=[]; pts.forEach(function(pt){pt.ring=0;}); }
+    frame(now);
+    raf=(!done&&started&&!small&&visible&&!document.hidden&&!reduce.matches)?requestAnimationFrame(loop):0;
+  }
+  function kick(){ if(!raf&&!done&&started&&!small&&visible&&!document.hidden&&!reduce.matches) raf=requestAnimationFrame(loop); }
+  function stillFrame(){ // reduced motion: a single calm frame with two lit lines
+    if(!edges.length||small) return;
+    pulses=[]; frame(0); ctx.setTransform(dpr,0,0,dpr,0,0); ctx.strokeStyle=AMB; ctx.lineWidth=1.4; ctx.globalAlpha=.4;
+    [0,Math.floor(edges.length/2)].forEach(function(i){var e=edges[i],A=pts[e.a],B=pts[e.b]; ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.quadraticCurveTo(e.cx,e.cy,B.x,B.y); ctx.stroke();});
+    ctx.globalAlpha=1;
+  }
+  size();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ size(); });
+  setTimeout(size,800); /* after the card's entrance settles */
+  if('ResizeObserver' in window) new ResizeObserver(function(){ size(); if(reduce.matches) stillFrame(); }).observe(hero); else window.addEventListener('resize',size);
+  if('IntersectionObserver' in window) new IntersectionObserver(function(en){ visible=en[0].isIntersecting; kick(); }).observe(hero);
+  document.addEventListener('visibilitychange',kick);
+  if(reduce.addEventListener) reduce.addEventListener('change',function(){ if(reduce.matches) stillFrame(); else kick(); });
+  // start after the hero card has assembled (~1.6s), so the two motions don't compete
+  var startDelay=reduce.matches?0:1700;
+  setTimeout(function(){ started=true; cv.classList.add('on'); if(reduce.matches) stillFrame(); else { T0=performance.now(); kick(); } }, startDelay);
+})();
+</script>
+<script>
+/* Platform: 6 category tabs, each showing its own services. Click or arrow keys. */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.cats [role="tab"]')); if(!tabs.length) return;
+  function select(i,focus){
+    tabs.forEach(function(t,j){
+      var on=j===i, pnl=document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected',on?'true':'false'); t.tabIndex=on?0:-1; pnl.hidden=!on;
+      if(on){ pnl.classList.remove('enter'); void pnl.offsetWidth; pnl.classList.add('enter'); }
+    });
+    if(focus) tabs[i].focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(i,false);});
+    t.addEventListener('keydown',function(e){
+      var n=tabs.length, j=null;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown') j=(i+1)%n; else if(e.key==='ArrowLeft'||e.key==='ArrowUp') j=(i-1+n)%n;
+      else if(e.key==='Home') j=0; else if(e.key==='End') j=n-1;
+      if(j!==null){ e.preventDefault(); select(j,true); }
+    });
+  });
+  tabs.forEach(function(t,j){ if(j>0) document.getElementById(t.getAttribute('aria-controls')).hidden=true; });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "tagmycredit-app",
+  "private": true,
+  "packageManager": "pnpm@10.18.3",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "db:start": "bash scripts/db.sh start",
+    "db:stop": "bash scripts/db.sh stop",
+    "db:reset": "bash scripts/db.sh reset && pnpm --filter @tmc/db migrate && pnpm --filter @tmc/db seed",
+    "dev": "pnpm --parallel --filter @tmc/web --filter @tmc/worker dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "e2e": "pnpm --filter @tmc/e2e e2e"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@tmc/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@tmc/db": "workspace:*",
+    "@tmc/domain": "workspace:*",
+    "drizzle-orm": "0.45.4",
+    "pg": "8.23.1"
+  }
+}
