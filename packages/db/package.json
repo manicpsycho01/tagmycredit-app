@@ -5,7 +5,9 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./schema": "./src/schema.ts"
+    "./schema": "./src/schema.ts",
+    "./clock": "./src/clock.ts",
+    "./jobs": "./src/jobs/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -16,12 +18,15 @@
     "test": "vitest run"
   },
   "devDependencies": {
+    "@types/nodemailer": "8.0.2",
     "@types/pg": "8.23.1",
     "drizzle-kit": "0.31.11"
   },
   "dependencies": {
     "@tmc/domain": "workspace:*",
+    "better-auth": "1.7.12",
     "drizzle-orm": "0.45.4",
+    "nodemailer": "10.0.14",
     "pg": "8.23.1"
   }
 }

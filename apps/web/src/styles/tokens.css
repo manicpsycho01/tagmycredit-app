@@ -1,0 +1,47 @@
+/* Design tokens — copied from the website (docs/reference/concept-4-gulf-merged.html, Concept 4 · Gulf merged).
+   Fonts come from next/font (see app/fonts.ts) through --font-display / --font-body / --font-ar. */
+:root {
+  --ground: #F6F9F9; --surface: #FFFFFF; --ink: #0C1F1E; --muted: #4D6260; --line: #D5E1E0; --line-strong: #B7C9C7;
+  --teal: #0B3D3A; --teal-2: #135550; --teal-text: #135550; --on-teal: #ECF5F3; --on-teal-muted: #A8C6C1; --star: rgba(255,255,255,.07);
+  --amber: #E9A23B; --amber-ink: #8A5200; --amber-soft: #FCEFDA; --on-amber: #1E1300;
+  --ok: #157046; --warn: #8A6100; --bad: #B02E23; --ok-soft: #E1F2E8; --warn-soft: #FBF0D3; --bad-soft: #F9E2DF;
+  --crit: #D2691E; --crit-text: #A2480C;
+  --focus: #9A5B00;
+  --shadow-lg: 0 40px 80px -40px rgba(0,0,0,.45);
+  --shadow-md: 0 18px 40px -28px rgba(11,61,58,.45);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.12);
+  --display: var(--font-display, "Schibsted Grotesk"), var(--font-ar, "Noto Kufi Arabic"), "Segoe UI", system-ui, sans-serif;
+  --body: var(--font-body, "Figtree"), var(--font-ar, "Noto Kufi Arabic"), "Segoe UI", system-ui, sans-serif;
+  --ar: var(--font-ar, "Noto Kufi Arabic"), "Segoe UI", Tahoma, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --radius: 12px;
+  --header-h: 64px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #061211; --surface: #0C1D1C; --ink: #E3EFED; --muted: #93ACA8; --line: #1C3432; --line-strong: #2B4A47;
+    --teal: #0E2C2A; --teal-2: #17423F; --teal-text: #7FD1C6; --on-teal: #E3F0EE; --on-teal-muted: #93B5B0; --star: rgba(255,255,255,.05);
+    --amber: #F2B65A; --amber-ink: #F2B65A; --amber-soft: #2A1E0B; --on-amber: #1E1300;
+    --ok: #45C98B; --warn: #E6BA4C; --bad: #F2725F; --ok-soft: #0E2A1E; --warn-soft: #2A220C; --bad-soft: #2E1512;
+    --crit: #F08A3E; --crit-text: #F29A55;
+    --focus: #F2B65A;
+    --shadow-lg: 0 40px 80px -40px rgba(0,0,0,.8);
+    --shadow-md: 0 18px 40px -28px rgba(0,0,0,.8);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #061211; --surface: #0C1D1C; --ink: #E3EFED; --muted: #93ACA8; --line: #1C3432; --line-strong: #2B4A47;
+  --teal: #0E2C2A; --teal-2: #17423F; --teal-text: #7FD1C6; --on-teal: #E3F0EE; --on-teal-muted: #93B5B0; --star: rgba(255,255,255,.05);
+  --amber: #F2B65A; --amber-ink: #F2B65A; --amber-soft: #2A1E0B; --on-amber: #1E1300;
+  --ok: #45C98B; --warn: #E6BA4C; --bad: #F2725F; --ok-soft: #0E2A1E; --warn-soft: #2A220C; --bad-soft: #2E1512;
+  --crit: #F08A3E; --crit-text: #F29A55;
+  --focus: #F2B65A;
+  --shadow-lg: 0 40px 80px -40px rgba(0,0,0,.8);
+  --shadow-md: 0 18px 40px -28px rgba(0,0,0,.8);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
