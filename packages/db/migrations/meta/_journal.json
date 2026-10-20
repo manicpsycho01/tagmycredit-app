@@ -15,6 +15,20 @@
       "when": 1792531202225,
       "tag": "0001_rls",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792531995822,
+      "tag": "0002_snapshot_quarantine",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792532036936,
+      "tag": "0003_dispute_escalated",
+      "breakpoints": true
     }
   ]
 }

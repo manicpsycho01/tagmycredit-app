@@ -37,6 +37,10 @@ Full rules: `docs/SPEC.md`.
 | P9 | Below the floor, show nothing: no score, light, ranges, counts or alerts | F1 applied to every output. |
 | P10 | Confidence (High/Medium/Low) shown next to the score, based on supplier count and months of history | Honest about thin data, without penalising small companies. |
 | P11 | Every score stores its factor values and plain-language reasons | Explainable to CFOs and to the company being scored. |
+| P12 | **Timing:** the release on the 15th of month M+1 scores month M. Each line uses its month-M snapshot, else its month M−1 snapshot. *(Codex final review.)* | Reports for M are due on the 10th of M+1, so the rule must say which data a release uses. |
+| P13 | Current delinquency counts **all** overdue buckets, weighted 0.25 / 0.5 / 0.8 / 1.0 for 1–30 / 31–60 / 61–90 / 90+ days. *(Codex final review.)* | Persistent 1–60-day lateness is the early warning the product promises. |
+| P14 | **Quarantine** suspicious supplier data: a 31+-day overdue share up more than 40 points month on month, or outstanding above 150 % of the limit. The snapshot is held out of the score until ops releases or rejects it; the supplier must explain it. *(Codex final review.)* | Supplier data drives buyer scores, so one inaccurate supplier mustn't be able to sink a buyer. |
+| P15 | The product shows **4 factors + "bad-debt history"** (the default caps). Financial strength is deferred until there's financial-statement data. *(Codex final review.)* | Honest demos. **Founder to-do:** the website mentions 8 factors; update that copy later (I haven't touched the repo). |
 
 ## Verification and revocation (C+X, debated)
 | # | Decision | Reason |
@@ -46,8 +50,8 @@ Full rules: `docs/SPEC.md`.
 | R3 | Any change to limit, terms or date creates a new version that needs CFO OTP again; the old version stays in force meanwhile | The buyer only ever agrees to terms they've seen. |
 | R4 | Supplier can **close** a line any time with no consent; history still counts | It's the supplier's credit to withdraw. |
 | R5 | Buyer CFO can **request closure**; supplier must close or object within 14 days; silence closes it | Buyers aren't stuck with relationships that have ended. |
-| R6 | Buyer can't delete a confirmed line, only **dispute** it (within 30 days). The line keeps counting while open; supplier silence for 14 days suspends it; ops decides (rejected → stays, upheld → voided) | Stops buyers erasing bad history, while giving them a real remedy. |
-| R7 | 3 rejected disputes in 12 months → further disputes need evidence | Discourages buyers from disputing every unfavourable line. |
+| R6 | Buyer can't delete a confirmed line, only **dispute** it (within 30 days, **evidence always required**). The line keeps counting while the dispute is open. Supplier silence for 14 days **escalates** the dispute to ops (10-day target) instead of suspending the line; only ops can suspend it. Ops decides: rejected → line stays, upheld → line voided. *(Changed after Codex final review.)* | Earlier rule let a buyer push lines out of its score just by disputing them, and also push itself below the floor. |
+| R7 | After a rejected dispute, the buyer can't dispute the same line again for 90 days unless it cites a newer snapshot | Stops the same claim being raised over and over. |
 | R8 | Ops can **void** a fraudulent line; it's removed from all calculations, current and historical | Fake lines must not poison scores. |
 | R9 | A line with no snapshot for 90 days closes automatically | Stale relationships stop affecting exposure. |
 | R10 | Default reports need 90+ days overdue in the latest snapshot plus evidence; the buyer gets 10 days to reply; alerts never name the filer or amount | Fair process; keeps the reporter anonymous. |

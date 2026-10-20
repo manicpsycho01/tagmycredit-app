@@ -91,7 +91,7 @@ export const memberRole = pgEnum("member_role", ["OWNER", "ADMIN", "CREDIT_MANAG
 export const cfoStatus = pgEnum("cfo_status", ["NOMINATED", "APPROVED", "ACTIVE", "REJECTED", "ENDED"]);
 export const lineStatus = pgEnum("line_status", ["PENDING", "ACTIVE", "DECLINED", "EXPIRED", "CLOSED", "VOIDED"]);
 export const versionStatus = pgEnum("version_status", ["PENDING", "CONFIRMED", "DECLINED", "EXPIRED", "SUPERSEDED"]);
-export const disputeStatus = pgEnum("dispute_status", ["OPEN", "RESPONDED", "SUSPENDED", "REJECTED", "UPHELD"]);
+export const disputeStatus = pgEnum("dispute_status", ["OPEN", "RESPONDED", "ESCALATED", "REJECTED", "UPHELD"]);
 export const closureStatus = pgEnum("closure_status", ["OPEN", "ACCEPTED", "OBJECTED", "AUTO_CLOSED"]);
 export const defaultStatus = pgEnum("default_status", [
   "UNDER_REVIEW",
@@ -305,9 +305,20 @@ export const snapshots = pgTable(
     settledOnTime: money("settled_on_time").notNull(),
     submittedBy: text("submitted_by").notNull(),
     submittedAt: ts("submitted_at").notNull().defaultNow(),
+    /** Anomaly rule hit (SPEC §4): excluded from scoring until ops releases or rejects it. */
+    quarantined: boolean("quarantined").notNull().default(false),
+    /** Rule key that quarantined it, e.g. 'OVERDUE_JUMP' | 'OVER_LIMIT'. */
+    quarantineReason: text("quarantine_reason"),
+    /** Supplier's explanation, required when the anomaly rule fires. */
+    supplierNote: text("supplier_note"),
+    reviewedBy: text("reviewed_by"),
+    reviewedAt: ts("reviewed_at"),
+    /** Ops rejected the snapshot as inaccurate: never used for scoring. */
+    rejected: boolean("rejected").notNull().default(false),
   },
   (t) => [
     uniqueIndex("snapshot_line_period").on(t.lineId, t.period),
+    index("snapshots_quarantine_idx").on(t.quarantined).where(sql`${t.quarantined}`),
     check("snapshot_period_first_of_month", sql`extract(day from ${t.period}) = 1`),
     check(
       "snapshot_non_negative",
@@ -345,7 +356,7 @@ export const disputes = pgTable(
   (t) => [
     uniqueIndex("one_open_dispute_per_line")
       .on(t.lineId)
-      .where(sql`${t.status} in ('OPEN', 'RESPONDED', 'SUSPENDED')`),
+      .where(sql`${t.status} in ('OPEN', 'RESPONDED', 'ESCALATED')`),
   ],
 );
 

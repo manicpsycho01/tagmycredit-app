@@ -10,6 +10,9 @@ Goal: a polished, deployable MVP used to **pitch to investors and customers**. I
 | **Backend** | `packages/domain/src/**`, `packages/db/src/**` (except `schema.ts` — schema changes go through a new migration and a note in HANDOFF), `packages/db/migrations/**` (new files only), `apps/web/src/server/**` (replace the stubs in `queries.ts`/`actions.ts`, keep `contracts.ts` stable — additive changes only, logged in HANDOFF), `apps/web/src/app/api/**`, `apps/web/src/lib/auth.ts`, `apps/web/src/lib/auth-client.ts`, `apps/web/src/proxy.ts` (Next 16 middleware), `apps/worker/**`, `docs/I18N_KEYS.md` |
 | **Frontend** | `apps/web/src/app/**` (except `api/`), `apps/web/src/components/**`, `apps/web/src/styles/**`, `apps/web/src/i18n/**`, `apps/web/public/**` |
 | **Testing** | every `test/` folder (`packages/*/test`, `apps/web/test`), `apps/e2e/**`, vitest configs, `docs/TEST_REPORT.md` |
+| **Mobile** | Phase 1: `apps/web/src/components/mobile/**`, `apps/web/src/styles/mobile.css`, `apps/web/src/app/manifest.ts`, `apps/web/public/icons/**`, `docs/MOBILE.md`. Phase 2 (after frontend finishes, lead triggers): all UI files for the mobile pass |
+| **Principal architect** | `docs/ARCHITECTURE.md`, `docs/ARCHITECTURE_REVIEW.md` — reviews only, sends fixes to owners |
+| **Supervisor** | `docs/STATUS.md` — progress, clashes, blockers; no product code |
 | **Lead (Claude)** | `docs/SPEC.md`, `DECISIONS.md`, `TECH_STACK.md`, `README.md`, root config, `contracts.ts` arbitration |
 
 ## Conventions

@@ -133,6 +133,12 @@ export interface LineVersionView {
 export interface SnapshotView extends SnapshotInput {
   id: string;
   submittedAt: string;
+  /** Held out of scoring until ops reviews (SPEC §4). */
+  quarantined: boolean;
+  quarantineReason: "OVERDUE_JUMP" | "OVER_LIMIT" | null;
+  supplierNote: string | null;
+  /** Ops rejected it as inaccurate; never scored. */
+  rejected: boolean;
 }
 
 export interface AttachmentView {
@@ -330,6 +336,8 @@ export interface OpsQueue {
   cfos: (CfoView & { company: CompanyRef; authorityDoc: AttachmentView | null })[];
   disputes: (DisputeView & { line: { id: string; tclId: string }; supplier: CompanyRef; buyer: CompanyRef })[];
   defaults: (DefaultView & { line: { id: string; tclId: string }; supplier: CompanyRef; buyer: CompanyRef })[];
+  /** Quarantined snapshots awaiting review (SPEC §4). */
+  snapshots: (SnapshotView & { line: { id: string; tclId: string }; supplier: CompanyRef; buyer: CompanyRef; previous: SnapshotView | null; limitHalalas: number })[];
 }
 
 export interface ReleaseView {
@@ -417,7 +425,8 @@ export interface Actions {
   createLine(input: NewLineInput): Promise<ActionResult<{ lineId: string; tclId: string }>>;
   amendLine(input: { lineId: string; limitSar: number; termsDays: TermsDays; effectiveDate: string }): Promise<ActionResult>;
   closeLine(input: { lineId: string; reason: string }): Promise<ActionResult>;
-  submitSnapshot(input: { lineId: string } & SnapshotInput): Promise<ActionResult>;
+  /** If the quarantine rule fires and no `supplierNote` is given, returns error `errors.snapshotNeedsNote` with fieldErrors.supplierNote and saves nothing; resubmit with the note. */
+  submitSnapshot(input: { lineId: string; supplierNote?: string } & SnapshotInput): Promise<ActionResult<{ quarantined: boolean }>>;
   uploadSnapshotsCsv(form: FormData /* file */): Promise<ActionResult<{ accepted: number; errors: { row: number; error: string }[] }>>;
   respondDispute(input: { disputeId: string; response: string }): Promise<ActionResult>;
   respondClosure(input: { closureId: string; accept: boolean; objection?: string }): Promise<ActionResult>;
@@ -429,7 +438,8 @@ export interface Actions {
   requestOtp(input: { versionId: string }): Promise<ActionResult<{ sentTo: string; expiresAt: string }>>;
   confirmVersion(input: { versionId: string; code: string }): Promise<ActionResult>;
   declineVersion(input: { versionId: string; reason?: string }): Promise<ActionResult>;
-  openDispute(form: FormData /* lineId, reason, files[] */): Promise<ActionResult>;
+  /** Evidence file(s) always required (SPEC §2). */
+  openDispute(form: FormData /* lineId, reason, files[] (≥ 1) */): Promise<ActionResult>;
   requestClosure(input: { lineId: string; reason: string }): Promise<ActionResult>;
   replyDefault(input: { defaultId: string; reply: string }): Promise<ActionResult>;
 
@@ -448,6 +458,10 @@ export interface Actions {
   decideDefault(input: { defaultId: string; decision: "UPHOLD" | "REJECT" | "REQUEST_INFO"; note: string }): Promise<ActionResult>;
   confirmDefaultSettled(input: { defaultId: string }): Promise<ActionResult>;
   voidLine(input: { lineId: string; reason: string }): Promise<ActionResult>;
+  /** Ops: suspend/unsuspend a line while reviewing an escalated dispute. */
+  setLineSuspended(input: { lineId: string; suspended: boolean; note: string }): Promise<ActionResult>;
+  /** Ops: release (counts from next release) or reject (never counts) a quarantined snapshot. */
+  decideSnapshot(input: { snapshotId: string; release: boolean; note: string }): Promise<ActionResult>;
   runScoreRelease(input?: { period?: string }): Promise<ActionResult<ReleaseView>>;
   runTick(): Promise<ActionResult<Record<string, number>>>;
 }
