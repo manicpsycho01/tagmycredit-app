@@ -7,7 +7,9 @@ import {
   CLOSURE_RESPONSE_DAYS,
   CONFIRM_WINDOW_DAYS,
   DEFAULT_REPLY_DAYS,
+  defaultReportErrors,
   DISPUTE_RESPONSE_DAYS,
+  disputeNeedsNewerSnapshot,
   effectiveDateError,
   formatSar,
   isLimitInRange,
@@ -93,8 +95,12 @@ export async function respondDispute(input: { disputeId: string; response: strin
     const [d] = await rows<{ line_id: string }>(tx, sql`select line_id from disputes where id = ${input.disputeId} for update`);
     if (!d) return fail("errors.notFound");
     const f = await assertLineAction(tx, m, d.line_id, "RESPOND_DISPUTE");
-    await tx.execute(sql`update disputes set status = 'RESPONDED', supplier_response = ${input.response}, responded_by = ${m.userId}, responded_at = ${t}
-                         where id = ${input.disputeId} and status in ('OPEN', 'ESCALATED')`);
+    const done = await rows<{ id: string }>(
+      tx,
+      sql`update disputes set status = 'RESPONDED', supplier_response = ${input.response}, responded_by = ${m.userId}, responded_at = ${t}
+          where id = ${input.disputeId} and status = 'OPEN' and respond_by > ${t} returning id`,
+    );
+    if (done.length === 0) fail("errors.disputeResponseClosed");
     await notify(tx, [{ companyId: f.buyerId, kind: "DISPUTE_OPENED", lineId: d.line_id, params: { tclId: f.tclId, responded: 1 }, href: hrefs.line(d.line_id) }]);
     await audit(tx, { actor: m.userId, companyId: m.company.id, entityType: "dispute", entityId: input.disputeId, action: "dispute.responded", data: {} });
   });
@@ -121,11 +127,11 @@ export async function fileDefault(input: { lineId: string; amountSar: number; ol
   const t = now();
   const amount = parseSar(input.amountSar);
   if (amount === null || amount <= 0) fail("errors.validation", { amountSar: "errors.amountInvalid" });
-  if (input.oldestDueDate > riyadhIsoDate(t)) fail("errors.validation", { oldestDueDate: "errors.dateInFuture" });
   const files = evidenceFiles(input.files, true);
   await getDb().transaction(async (tx) => {
     const f = await assertLineAction(tx, m, input.lineId, "FILE_DEFAULT");
-    if (amount! > f.latestD90Plus) fail("errors.validation", { amountSar: "errors.defaultAmountTooHigh" });
+    const errors = defaultReportErrors({ amount: amount!, oldestDueDate: input.oldestDueDate, latestD90Plus: f.latestD90Plus, today: riyadhIsoDate(t), files: files.length });
+    if (Object.keys(errors).length) fail("errors.validation", errors);
     const [r] = await rows<{ id: string }>(
       tx,
       sql`insert into default_reports (line_id, reported_by, amount_halalas, oldest_due_date, note, buyer_reply_by, created_at)
@@ -164,6 +170,13 @@ export async function openDispute(input: { lineId: string; reason: string; files
   const files = evidenceFiles(input.files, true);
   await getDb().transaction(async (tx) => {
     const f = await assertLineAction(tx, m, input.lineId, "DISPUTE");
+    if (disputeNeedsNewerSnapshot(f, t)) {
+      const [newer] = await rows<{ ok: boolean }>(
+        tx,
+        sql`select exists (select 1 from snapshots where line_id = ${input.lineId} and submitted_at > ${f.lastRejectedDisputeAt}) as ok`,
+      );
+      if (!newer?.ok) fail("errors.disputeNeedsNewerSnapshot");
+    }
     const [d] = await rows<{ id: string }>(
       tx,
       sql`insert into disputes (line_id, raised_by, reason, respond_by, created_at)

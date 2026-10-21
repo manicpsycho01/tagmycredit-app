@@ -24,7 +24,7 @@ Lines carry **versions** (limit, terms, effective date). Version status: `PENDIN
 
 | Transition | Who | Rule |
 |---|---|---|
-| Create line (v1 PENDING) | Supplier OWNER/ADMIN/CREDIT_MANAGER, both companies VERIFIED, buyer has ACTIVE CFO | Buyer found by exact TMC-ID or exact CR only. Limit SAR 10,000–500,000,000; terms 30/45/60/90/120 days. One non-closed line per supplier–buyer pair. |
+| Create line (v1 PENDING) | Supplier OWNER/ADMIN/CREDIT_MANAGER, both companies VERIFIED, buyer has ACTIVE CFO | Buyer found by exact TMC-ID or exact CR only. Limit SAR 10,000–500,000,000; terms 30/45/60/90/120 days. One open (PENDING or ACTIVE) line per supplier–buyer pair; a new line may be tagged after a decline, expiry, closure or void. |
 | Confirm (v → CONFIRMED, line ACTIVE) | Buyer CFO + SMS OTP | Within **14 days** else EXPIRED. |
 | Decline | Buyer CFO (no OTP needed, reason optional) | Line DECLINED (v1) or amendment DECLINED (old version stays). |
 | Amend (new version PENDING) | Supplier | Limit/terms/effective date changes. Old confirmed version stays in force until CFO confirms; 14-day expiry. Max one pending amendment. |

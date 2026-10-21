@@ -206,7 +206,7 @@ async function lockVersion(tx: Parameters<typeof rows>[0], versionId: string, bu
         from credit_line_versions v join credit_lines l on l.id = v.line_id where v.id = ${versionId} for update of v, l`,
   );
   if (!v || v.buyer_company_id !== buyerId) return fail("errors.notFound");
-  if (v.status !== "PENDING") fail("errors.versionNotPending");
+  if (v.status !== "PENDING" || (v.line_status !== "PENDING" && v.line_status !== "ACTIVE")) fail("errors.versionNotPending");
   if (new Date(v.expires_at) <= now()) fail("errors.versionExpired");
   return v;
 }
@@ -355,6 +355,7 @@ export async function verifyCompany(input: { companyId: string; approve: boolean
 
 export async function decideCfo(input: { cfoId: string; approve: boolean; waiveCoolingOff?: boolean; note?: string }) {
   const s = await requireStaff();
+  if (input.approve && input.waiveCoolingOff && !input.note?.trim()) fail("errors.validation", { note: "errors.waiveNeedsReason" });
   const t = now();
   await getDb().transaction(async (tx) => {
     const [d] = await rows<{ id: string; company_id: string }>(
@@ -384,6 +385,7 @@ export async function decideDispute(input: { disputeId: string; uphold: boolean;
       .update(creditLines)
       .set(input.uphold ? { status: "VOIDED", voidedAt: t, voidReason: `Dispute upheld: ${input.note}`, suspended: false } : { suspended: false })
       .where(eq(creditLines.id, d.line_id));
+    if (input.uphold) await tx.execute(sql`update credit_line_versions set status = 'EXPIRED', decided_at = ${t} where line_id = ${d.line_id} and status = 'PENDING'`);
     const outcome = input.uphold ? "UPHELD" : "REJECTED";
     await notify(
       tx,
