@@ -4,9 +4,9 @@ import { getT } from "@/i18n/server";
 import { DateText, EmptyState, PageHead, Panel } from "@/components/ui/Basics";
 import { ResponsiveTable } from "@/components/mobile";
 import { companyName, formatMoney, formatPeriod } from "@/components/format";
-import { DecideButtons, ReleaseButtons } from "./OpsClient";
+import { CaseButtons, DecideButtons, ReleaseButtons } from "./OpsClient";
 
-const TABS = ["verification", "cfos", "quality", "release"] as const;
+const TABS = ["verification", "cfos", "disputes", "defaults", "quality", "release"] as const;
 type Tab = (typeof TABS)[number];
 
 export default async function OpsPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
@@ -14,8 +14,8 @@ export default async function OpsPage({ searchParams }: { searchParams: Promise<
   if (!session?.isStaff) return <EmptyState title={t("ops.staffOnly")} />;
   const tab: Tab = (TABS as readonly string[]).includes(sp.tab ?? "") ? (sp.tab as Tab) : "verification";
   const [q, releases] = await Promise.all([getOpsQueue(), tab === "release" ? listReleases() : Promise.resolve([])]);
-  const label = { verification: t("ops.tabVerification"), cfos: t("ops.tabCfos"), quality: t("ops.tabQuality"), release: t("ops.tabRelease") };
-  const count = { verification: q.companies.length, cfos: q.cfos.length, quality: q.snapshots.length, release: 0 };
+  const label = { verification: t("ops.tabVerification"), cfos: t("ops.tabCfos"), disputes: t("ops.tabDisputes"), defaults: t("ops.tabDefaults"), quality: t("ops.tabQuality"), release: t("ops.tabRelease") };
+  const count = { verification: q.companies.length, cfos: q.cfos.length, disputes: q.disputes.length, defaults: q.defaults.length, quality: q.snapshots.length, release: 0 };
   return (
     <div className="stack-lg">
       <PageHead title={t("ops.title")} sub={t("ops.sub")} actions={session.demoMode ? <Link className="btn btn-line" href="/dev/outbox">{t("nav.outbox")}</Link> : undefined} />
@@ -37,6 +37,30 @@ export default async function OpsPage({ searchParams }: { searchParams: Promise<
             <div className="row-between"><div className="stack" style={{ gap: 2 }}><b>{c.name} · {c.title}</b><span className="small muted">{companyName(c.company, t.locale)} · {c.mobileMasked}</span></div>
               {c.authorityDoc && <a className="link small" href={c.authorityDoc.url} target="_blank" rel="noreferrer">{t("ops.authorityDoc")}: {c.authorityDoc.fileName}</a>}</div>
             <DecideButtons kind="cfo" id={c.id} />
+          </div>
+        ))}</div>
+      ))}
+      {tab === "disputes" && (q.disputes.length === 0 ? <EmptyState title={t("ops.emptyDisputes")} /> : (
+        <div className="ops-list">{q.disputes.map((d) => (
+          <div className="ops-card" key={d.id}>
+            <div className="row-between"><b><Link className="link" href={`/lines/${d.line.id}`}>{d.line.tclId}</Link> · {t.dyn(`disputeStatus.${d.status}`)}</b>
+              <span className="small muted">{companyName(d.buyer, t.locale)} {t("ops.against")} {companyName(d.supplier, t.locale)} · <DateText iso={d.createdAt} locale={t.locale} /></span></div>
+            <blockquote className="case" style={{ margin: 0 }}>{d.reason}</blockquote>
+            {d.supplierResponse && <blockquote className="case" style={{ margin: 0 }}>{d.supplierResponse}</blockquote>}
+            {d.attachments.map((a) => <a key={a.id} className="link small" href={a.url} target="_blank" rel="noreferrer">{a.fileName}</a>)}
+            <CaseButtons kind="dispute" id={d.id} />
+          </div>
+        ))}</div>
+      ))}
+      {tab === "defaults" && (q.defaults.length === 0 ? <EmptyState title={t("ops.emptyDefaults")} /> : (
+        <div className="ops-list">{q.defaults.map((r) => (
+          <div className="ops-card" key={r.id}>
+            <div className="row-between"><b><Link className="link" href={`/lines/${r.line.id}`}>{r.line.tclId}</Link> · {t.dyn(`defaultStatus.${r.status}`)}</b>
+              <span className="small muted">{t("ops.filedBy")} {companyName(r.supplier, t.locale)} · {companyName(r.buyer, t.locale)} · {t("ops.amount")} {formatMoney(r.amountHalalas, t.locale)}</span></div>
+            <blockquote className="case" style={{ margin: 0 }}>{r.note}</blockquote>
+            {r.buyerReply && <blockquote className="case" style={{ margin: 0 }}>{r.buyerReply}</blockquote>}
+            {r.attachments.map((a) => <a key={a.id} className="link small" href={a.url} target="_blank" rel="noreferrer">{a.fileName}</a>)}
+            <CaseButtons kind={r.status === "UPHELD" ? "settled" : "default"} id={r.id} />
           </div>
         ))}</div>
       ))}

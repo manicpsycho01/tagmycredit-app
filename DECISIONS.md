@@ -71,3 +71,12 @@ Full rules: `docs/SPEC.md`.
 | A8 | The supply-chain map uses real published scores; "cascade view" highlights who is exposed downstream | Keeps the website's map, built on real data instead of a scripted simulation. |
 | A9 | One user belongs to one company | Simpler permissions for the MVP. |
 | A10 | Arabic/English chosen by a cookie, with right-to-left layout | Saudi users; no URL clutter. |
+
+## Build-time decisions (Claude, 21 Oct)
+| # | Decision | Reason |
+|---|---|---|
+| B1 | TMC-ID check character uses **ISO 7064 MOD 37,36** | The first version (weighted sum mod 36) missed some single-digit typos; a test caught it. |
+| B2 | Amount fields accept Arabic-Indic digits (٠-٩, ۰-۹) | Arabic keyboards type them by default. |
+| B3 | After a CFO confirms, the confirmation page keeps showing the signed document with a "Confirmed" state for 15 minutes | The page refresh after confirming was replacing the success moment with "nothing pending" — bad for demos. |
+| B4 | Server month values (`2026-09-01`) are always shown as "September 2026" via the shared translator | One fix instead of one per screen. |
+| B5 | **Not built yet (scope cut for time and credits):** team invites and role changes, CFO nomination form, CSV snapshot upload, project editor (add/remove companies and links), ops void tab | Not needed for the pitch path; the demo data covers these states. Their buttons are hidden or return "not available yet". |

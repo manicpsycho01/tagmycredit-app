@@ -1,6 +1,6 @@
 "use client";
 import { useState, useTransition } from "react";
-import { decideCfo, decideSnapshot, runScoreRelease, runTick, verifyCompany } from "@/server/actions";
+import { confirmDefaultSettled, decideCfo, decideDefault, decideDispute, decideSnapshot, runScoreRelease, runTick, verifyCompany } from "@/server/actions";
 import type { ActionResult } from "@/server/contracts";
 import { useT } from "@/i18n/client";
 import { useToast } from "@/components/ui/Toast";
@@ -48,6 +48,37 @@ export function ReleaseButtons() {
         const r = await runTick();
         toast(r.ok ? t("ops.tickDone") : t.dyn(r.error), r.ok ? "success" : "error");
       })}>{t("ops.runTick")}</button>
+    </div>
+  );
+}
+
+/** Ops decisions on disputes, default reports and settlement claims (SPEC §2, §6). Notes are required and audited. */
+export function CaseButtons({ kind, id }: { kind: "dispute" | "default" | "settled"; id: string }) {
+  const t = useT();
+  const toast = useToast();
+  const [note, setNote] = useState("");
+  const [pending, start] = useTransition();
+  const run = (fn: () => Promise<ActionResult>, ok: string) => start(async () => {
+    if (kind !== "settled" && !note.trim()) { toast(t("ops.noteRequired"), "error"); return; }
+    const r = await fn();
+    toast(r.ok ? ok : t.dyn(r.error), r.ok ? "success" : "error");
+  });
+  if (kind === "settled") return (
+    <div className="row"><button type="button" className="btn btn-amber btn-sm" disabled={pending} onClick={() => run(() => confirmDefaultSettled({ defaultId: id }), t("ops.settledConfirmed"))}>{t("ops.confirmSettled")}</button></div>
+  );
+  return (
+    <div className="stack" style={{ gap: 10 }}>
+      <input className="input" value={note} onChange={(e) => setNote(e.target.value)} placeholder={t("ops.notePlaceholder")} aria-label={t("ops.note")} />
+      <div className="row">
+        {kind === "dispute" ? <>
+          <button type="button" className="btn btn-amber btn-sm" disabled={pending} onClick={() => run(() => decideDispute({ disputeId: id, uphold: true, note }), t("ops.disputeDecided"))}>{t("ops.upholdDispute")}</button>
+          <button type="button" className="btn btn-line btn-sm" disabled={pending} onClick={() => run(() => decideDispute({ disputeId: id, uphold: false, note }), t("ops.disputeDecided"))}>{t("ops.rejectDispute")}</button>
+        </> : <>
+          <button type="button" className="btn btn-amber btn-sm" disabled={pending} onClick={() => run(() => decideDefault({ defaultId: id, decision: "UPHOLD", note }), t("ops.defaultDecided"))}>{t("ops.uphold")}</button>
+          <button type="button" className="btn btn-line btn-sm" disabled={pending} onClick={() => run(() => decideDefault({ defaultId: id, decision: "REQUEST_INFO", note }), t("ops.defaultDecided"))}>{t("ops.requestInfo")}</button>
+          <button type="button" className="btn btn-line btn-sm" disabled={pending} onClick={() => run(() => decideDefault({ defaultId: id, decision: "REJECT", note }), t("ops.defaultDecided"))}>{t("ops.reject")}</button>
+        </>}
+      </div>
     </div>
   );
 }
