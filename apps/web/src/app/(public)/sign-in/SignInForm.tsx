@@ -36,6 +36,7 @@ export function SignInForm({ demoMode }: { demoMode: boolean }) {
         <FormError message={error} />
         <SubmitButton pending={pending} pendingText={t("auth.signingIn")} className="btn-block">{t("auth.signIn")}</SubmitButton>
       </form>
+      <p className="muted small">{t("auth.noAccount")} <Link href="/register">{t("auth.registerLink")}</Link></p>
     </>
   );
 }

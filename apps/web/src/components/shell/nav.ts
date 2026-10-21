@@ -10,11 +10,13 @@ export function navItems(s: SessionContext, unread: number): NavItem[] {
   if (s.company) {
     items.push(
       { href: "/home", label: "nav.home", icon: "home" },
-      { href: "/credit-given", label: "nav.given", icon: "given", match: ["/lines", "/snapshots"] },
+      { href: "/credit-given", label: "nav.given", icon: "given", match: ["/lines"] },
       { href: "/credit-received", label: "nav.received", icon: "received" },
       { href: "/check", label: "nav.check", icon: "check" },
       { href: "/projects", label: "nav.projects", icon: "projects" },
       { href: "/alerts", label: "nav.alerts", icon: "alerts", badge: unread || undefined },
+      { href: "/snapshots", label: "nav.snapshots", icon: "snapshots" },
+      { href: "/company", label: "nav.company", icon: "company" },
     );
   } else {
     items.push({ href: "/alerts", label: "nav.alerts", icon: "alerts", badge: unread || undefined });

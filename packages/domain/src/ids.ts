@@ -1,8 +1,7 @@
 /**
  * Identifiers.
  * TMC-ID `TMC-SA-AAAA-BBBB-NN-K`: AAAA random digits (not reversible to identity), BBBB last 4 CR digits,
- * NN collision sequence 01–99, K check character. K = alphabet[(Σ (i+1)·dᵢ over the 10 digits AAAABBBBNN) mod 36],
- * alphabet 0-9A-Z; position weights catch single-digit errors and most transpositions.
+ * NN collision sequence 01–99, K = ISO 7064 MOD 37,36 check character over the 10 digits AAAABBBBNN (alphabet 0-9A-Z).
  * Credit line ID `TCL-SA-NNNNNNN` (7-digit sequence).
  */
 const ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -12,10 +11,15 @@ const CR_RE = /^\d{10}$/;
 
 export const isCrNumber = (s: string): boolean => CR_RE.test(s);
 
+/** ISO 7064 MOD 37,36 hybrid check character: detects every single-character substitution and most transpositions. */
 export function tmcCheckChar(digits: string): string {
-  let sum = 0;
-  for (let i = 0; i < digits.length; i++) sum += (i + 1) * Number(digits[i]);
-  return ALPHABET[sum % 36]!;
+  let p = 36;
+  for (const ch of digits) {
+    let s = (p + ALPHABET.indexOf(ch)) % 36;
+    if (s === 0) s = 36;
+    p = (s * 2) % 37;
+  }
+  return ALPHABET[(37 - p) % 36]!;
 }
 
 /** Build a TMC-ID from 4 random digits, the CR number and the collision sequence (1–99). */

@@ -23,6 +23,15 @@ function humanize(key: string): string {
   return spaced.charAt(0).toUpperCase() + spaced.slice(1);
 }
 
+/** Server params carry months as 'YYYY-MM-01'; show them as "September 2026". */
+const PERIOD = /^\d{4}-\d{2}-01$/;
+function withReadablePeriod(params: Params | undefined, locale: Locale): Params | undefined {
+  if (!params || typeof params.period !== "string" || !PERIOD.test(params.period)) return params;
+  const [y, m] = params.period.split("-").map(Number);
+  const label = new Intl.DateTimeFormat(locale === "ar" ? "ar-SA-u-nu-latn-ca-gregory" : "en-GB", { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(y!, m! - 1, 1)));
+  return { ...params, period: label };
+}
+
 export interface Translator {
   locale: Locale;
   /** Typed key lookup. */
@@ -37,7 +46,8 @@ export function makeT(locale: Locale, messages: Messages): Translator {
   const t = ((key: MessageKey, params?: Params) => interpolate(messages[key] ?? key, params)) as Translator;
   t.locale = locale;
   t.has = has;
-  t.dyn = (key: string, params?: Params) => {
+  t.dyn = (key: string, rawParams?: Params) => {
+    const params = withReadablePeriod(rawParams, locale);
     if (has(key)) return interpolate(messages[key], params);
     if (process.env.NODE_ENV !== "production") console.warn(`[i18n] missing key: ${key}`);
     return interpolate(humanize(key), params);

@@ -953,6 +953,7 @@ export const en = {
   "errors.notFound": "Not found.",
   "errors.required": "Required.",
   "errors.network": "Couldn't reach the server. Check your connection and try again.",
+  "errors.emailTaken": "An account with this email already exists. Sign in instead.",
   "errors.companyNotVerified": "Your company must be verified first.",
   "errors.notCfo": "Only the company's active CFO can do this.",
   "errors.otpInvalid": "That code isn't right. Check the SMS and try again.",

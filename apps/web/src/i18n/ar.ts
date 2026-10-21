@@ -955,6 +955,7 @@ export const ar: Record<MessageKey, string> = {
   "errors.notFound": "غير موجود.",
   "errors.required": "مطلوب.",
   "errors.network": "تعذّر الوصول إلى الخادم. تحقق من اتصالك وحاول مجددًا.",
+  "errors.emailTaken": "يوجد حساب بهذا البريد الإلكتروني بالفعل. سجّل الدخول بدلًا من ذلك.",
   "errors.companyNotVerified": "يجب توثيق شركتك أولًا.",
   "errors.notCfo": "لا يمكن تنفيذ هذا الإجراء إلا من المدير المالي النشط للشركة.",
   "errors.otpInvalid": "الرمز غير صحيح. تحقق من الرسالة وحاول مجددًا.",

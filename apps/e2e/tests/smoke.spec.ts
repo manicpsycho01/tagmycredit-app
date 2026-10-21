@@ -30,7 +30,7 @@ test.describe("demo smoke path", () => {
     await noOverflow(page);
     await page.getByRole("button", { name: /Sara/ }).or(page.getByRole("link", { name: /Sara/ })).first().click();
     await expect(page).toHaveURL(/\/home/, { timeout: 30_000 });
-    await expect(page.getByText(/Al Noor Building Materials/).first()).toBeVisible();
+    await expect(page.getByText(/Al Noor Building Materials/).filter({ visible: true }).first()).toBeVisible();
     await expect(page.locator("main").getByText(/Barq MEP Contractors/).first()).toBeVisible(); // watchlist / alert
     await noOverflow(page);
   });
@@ -89,7 +89,7 @@ test.describe("demo smoke path", () => {
     await noOverflow(page);
 
     await main.getByRole("button", { name: /send|request|get.*code/i }).first().click();
-    const otp = page.getByLabel(/code/i).first();
+    const otp = page.locator(".otp input:not([type=hidden])").first();
     await expect(otp).toBeVisible();
     // wrong code first: an error, line stays pending
     await otp.fill("000001");
@@ -99,7 +99,7 @@ test.describe("demo smoke path", () => {
     const code = await latestOtpFromOutbox(page);
     await otp.fill(code);
     await main.getByRole("button", { name: /^confirm/i }).first().click();
-    await expect(page.getByText(/confirmed|active/i).first()).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText(/is now active and part of the network/i).first()).toBeVisible({ timeout: 20_000 });
     const [after] = await q<{ status: string }>("select status from credit_lines where id = $1", [line_id]);
     expect(after!.status).toBe("ACTIVE");
     await noOverflow(page);

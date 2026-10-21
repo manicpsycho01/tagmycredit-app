@@ -6,12 +6,17 @@ import { auth } from "@/lib/auth";
 import type { Actions } from "./contracts";
 import { fail, parse, runAction } from "./guard";
 import { DEMO_PERSONAS } from "./services/demo";
+import * as c from "./services/cases";
 import * as w from "./services/writes";
 import { isDemoMode } from "./session";
 
 const required = (max = 200) => z.string().trim().min(1, { error: "errors.required" }).max(max, { error: "errors.tooLong" });
 const uuid = z.uuid({ error: "errors.invalid" });
 const amount = z.number({ error: "errors.amountInvalid" }).int({ error: "errors.amountInvalid" }).min(0, { error: "errors.amountInvalid" });
+
+/** FormData → plain object of its string fields (files excluded). */
+const formObject = (form: FormData) => Object.fromEntries([...form.entries()].filter(([, v]) => typeof v === "string"));
+const formFiles = (form: FormData) => form.getAll("files").filter((v): v is File => typeof v !== "string");
 
 const notImplemented = async () => ({ ok: false as const, error: "errors.notImplemented" });
 
@@ -120,22 +125,31 @@ export const runTick: Actions["runTick"] = async () => runAction(() => w.tickNow
 export const inviteMember: Actions["inviteMember"] = notImplemented;
 export const changeMemberRole: Actions["changeMemberRole"] = notImplemented;
 export const nominateCfo: Actions["nominateCfo"] = notImplemented;
-export const amendLine: Actions["amendLine"] = notImplemented;
+export const amendLine: Actions["amendLine"] = async (input) =>
+  runAction(() => c.amendLine(parse(z.object({ lineId: uuid, limitSar: z.number({ error: "errors.amountInvalid" }).positive({ error: "errors.amountInvalid" }), termsDays: z.union(TERMS_DAYS.map((d) => z.literal(d))), effectiveDate: z.iso.date({ error: "errors.dateInvalid" }) }), input)));
 export const uploadSnapshotsCsv: Actions["uploadSnapshotsCsv"] = notImplemented;
-export const respondDispute: Actions["respondDispute"] = notImplemented;
-export const respondClosure: Actions["respondClosure"] = notImplemented;
-export const fileDefault: Actions["fileDefault"] = notImplemented;
-export const retractDefault: Actions["retractDefault"] = notImplemented;
-export const markDefaultSettled: Actions["markDefaultSettled"] = notImplemented;
-export const openDispute: Actions["openDispute"] = notImplemented;
-export const requestClosure: Actions["requestClosure"] = notImplemented;
-export const replyDefault: Actions["replyDefault"] = notImplemented;
+export const respondDispute: Actions["respondDispute"] = async (input) => runAction(() => c.respondDispute(parse(z.object({ disputeId: uuid, response: required(2000) }), input)));
+export const respondClosure: Actions["respondClosure"] = async (input) =>
+  runAction(() => c.respondClosure(parse(z.object({ closureId: uuid, accept: z.boolean(), objection: z.string().trim().max(2000).optional() }), input)));
+export const fileDefault: Actions["fileDefault"] = async (form) =>
+  runAction(() =>
+    c.fileDefault({
+      ...parse(z.object({ lineId: uuid, amountSar: z.coerce.number({ error: "errors.amountInvalid" }).positive({ error: "errors.amountInvalid" }), oldestDueDate: z.iso.date({ error: "errors.dateInvalid" }), note: required(2000) }), formObject(form)),
+      files: formFiles(form),
+    }),
+  );
+export const retractDefault: Actions["retractDefault"] = async (input) => runAction(() => c.retractDefault(parse(z.object({ defaultId: uuid }), input)));
+export const markDefaultSettled: Actions["markDefaultSettled"] = async (input) => runAction(() => c.markDefaultSettled(parse(z.object({ defaultId: uuid }), input)));
+export const openDispute: Actions["openDispute"] = async (form) =>
+  runAction(() => c.openDispute({ ...parse(z.object({ lineId: uuid, reason: required(2000) }), formObject(form)), files: formFiles(form) }));
+export const requestClosure: Actions["requestClosure"] = async (input) => runAction(() => c.requestClosure(parse(z.object({ lineId: uuid, reason: required(2000) }), input)));
+export const replyDefault: Actions["replyDefault"] = async (input) => runAction(() => c.replyDefault(parse(z.object({ defaultId: uuid, reply: required(2000) }), input)));
 export const createProject: Actions["createProject"] = notImplemented;
 export const addProjectMember: Actions["addProjectMember"] = notImplemented;
 export const removeProjectMember: Actions["removeProjectMember"] = notImplemented;
 export const addProjectLink: Actions["addProjectLink"] = notImplemented;
 export const removeProjectLink: Actions["removeProjectLink"] = notImplemented;
-export const confirmDefaultSettled: Actions["confirmDefaultSettled"] = notImplemented;
-export const voidLine: Actions["voidLine"] = notImplemented;
-export const setLineSuspended: Actions["setLineSuspended"] = notImplemented;
-export const decideSnapshot: Actions["decideSnapshot"] = notImplemented;
+export const confirmDefaultSettled: Actions["confirmDefaultSettled"] = async (input) => runAction(() => c.confirmDefaultSettled(parse(z.object({ defaultId: uuid }), input)));
+export const voidLine: Actions["voidLine"] = async (input) => runAction(() => c.voidLine(parse(z.object({ lineId: uuid, reason: required(2000) }), input)));
+export const setLineSuspended: Actions["setLineSuspended"] = async (input) => runAction(() => c.setLineSuspended(parse(z.object({ lineId: uuid, suspended: z.boolean(), note: required(2000) }), input)));
+export const decideSnapshot: Actions["decideSnapshot"] = async (input) => runAction(() => c.decideSnapshot(parse(z.object({ snapshotId: uuid, release: z.boolean(), note: required(2000) }), input)));

@@ -159,12 +159,15 @@ button.link { background: none; border: 0; padding: 0; font: inherit; cursor: po
 
 /* signals list (website .sig) */
 .signals { display: grid; margin: 0; min-width: 0; }
-.sig { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: center; }
+.sig { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: center; }
 .sig:first-child { padding-top: 0; }
 .sig:last-child { border-bottom: 0; }
 .sig dt { font-size: .8rem; color: var(--muted); font-weight: 600; }
 .sig dd { margin: 0; font-weight: 600; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
 @media (max-width: 700px) { .sig { grid-template-columns: 1fr; gap: 4px; } }
+.signals { container-type: inline-size; min-width: 0; }
+@container (max-width: 380px) { .sig { grid-template-columns: 1fr; gap: 4px; } }
+.light-row { flex-wrap: wrap; min-width: 0; }
 
 /* alert box (website .alert) */
 .alert { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--ground); }

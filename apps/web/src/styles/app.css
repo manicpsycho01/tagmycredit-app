@@ -332,3 +332,13 @@
 .loading-grid { display: grid; gap: 16px; }
 .loading-grid .skel.h { height: 34px; width: min(320px, 70%); }
 .loading-grid .skel.b { height: 140px; }
+
+/* registration steps */
+ol.steps { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; flex-wrap: wrap; counter-reset: step; }
+ol.steps li { counter-increment: step; display: inline-flex; align-items: center; gap: 8px; font: 600 .82rem/1 var(--body); color: var(--muted); padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+ol.steps li::before { content: counter(step); display: grid; place-items: center; inline-size: 20px; block-size: 20px; border-radius: 50%; background: var(--line); color: var(--ink); font-size: .72rem; }
+ol.steps li[aria-current="step"] { color: var(--ink); border-color: var(--amber); }
+ol.steps li[aria-current="step"]::before { background: var(--amber); color: var(--on-amber); }
+ol.steps li.done::before { content: "✓"; background: var(--ok); color: #fff; }
+
+.home-company { font-weight: 600; color: var(--on-teal); overflow-wrap: anywhere; }

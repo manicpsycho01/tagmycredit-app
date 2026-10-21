@@ -14,11 +14,23 @@ export default async function ConfirmPage({ params }: { params: Promise<{ lineId
   if (!d) notFound();
   const v = d.versions.find((x) => x.status === "PENDING");
   const canConfirm = d.actions.includes("CONFIRM");
+  // Just confirmed (the action refreshes this page): keep showing the signed document with a success state.
+  const justConfirmed = !v ? d.versions.find((x) => x.status === "CONFIRMED" && x.decidedAt && Date.now() - Date.parse(x.decidedAt) < 15 * 60_000) : undefined;
   return (
     <div className="stack-lg">
       <PageHead title={v && v.version > 1 ? t("confirm.titleAmend", { tclId: d.line.tclId }) : t("confirm.title", { tclId: d.line.tclId })} sub={t("confirm.sub")}
         crumbs={<Link href={`/lines/${d.line.id}`}>{d.line.tclId}</Link>} />
-      {!v ? <EmptyState title={t("confirm.nothingPending")} actions={<Link className="btn btn-line" href={`/lines/${d.line.id}`}>{t("newLine.viewLine")}</Link>} /> : (
+      {justConfirmed ? (
+        <div className="confirm-grid">
+          <CreditLineDoc t={t} tclId={d.line.tclId} supplier={d.supplier} buyer={d.buyer} limitHalalas={justConfirmed.limitHalalas} termsDays={justConfirmed.termsDays}
+            effectiveDate={justConfirmed.effectiveDate} version={justConfirmed.version} stamp="verified" attestation={justConfirmed.attestation} />
+          <div className="panel panel-accent stack done-state" role="status">
+            <span className="big-tick" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 16 16"><path d="M2 8.5 6 12l8-8" fill="none" stroke="currentColor" strokeWidth="2.2" /></svg></span>
+            <h2>{t("confirm.doneTitle")}</h2><p className="muted">{t("confirm.doneBody", { tclId: d.line.tclId })}</p>
+            <Link className="btn btn-amber" href={`/lines/${d.line.id}`}>{t("newLine.viewLine")}</Link>
+          </div>
+        </div>
+      ) : !v ? <EmptyState title={t("confirm.nothingPending")} actions={<Link className="btn btn-line" href={`/lines/${d.line.id}`}>{t("newLine.viewLine")}</Link>} /> : (
         <div className="confirm-grid">
           <CreditLineDoc t={t} tclId={d.line.tclId} supplier={d.supplier} buyer={d.buyer} limitHalalas={v.limitHalalas} termsDays={v.termsDays} effectiveDate={v.effectiveDate}
             version={v.version} stamp="pending" attestation={v.attestation} tag={<span className="eg-tag">{t("confirm.kicker")}</span>} />

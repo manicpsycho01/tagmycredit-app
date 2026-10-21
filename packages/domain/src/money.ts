@@ -7,7 +7,13 @@ const SAR_RE = /^(\d{1,15})(?:\.(\d{1,2}))?$/;
  * Returns null for anything that is not a non-negative amount with at most 2 decimals.
  */
 export function parseSar(input: string | number): number | null {
-  const text = (typeof input === "number" ? String(input) : input).trim().replace(/[,\s٬]/g, "");
+  const text = (typeof input === "number" ? String(input) : input)
+    .trim()
+    // Arabic-Indic (٠-٩) and Eastern Arabic-Indic (۰-۹) digits, Arabic decimal separator, then drop grouping.
+    .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06f0))
+    .replace(/٫/g, ".")
+    .replace(/[,\s٬]/g, "");
   const m = SAR_RE.exec(text);
   if (!m) return null;
   const halalas = Number(m[1]) * 100 + Number((m[2] ?? "").padEnd(2, "0"));

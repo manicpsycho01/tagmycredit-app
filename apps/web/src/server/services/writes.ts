@@ -56,7 +56,7 @@ import { loadLineFacts, type LoadedFacts } from "./lines";
 const otpSecret = () => process.env.OTP_SECRET ?? fail("errors.serverMisconfigured");
 
 /** Facts for a line the member's company is party to, with the action check applied (same rule as the UI). */
-async function assertLineAction(ex: Parameters<typeof loadLineFacts>[0], m: Member, lineId: string, action: LineAction): Promise<LoadedFacts> {
+export async function assertLineAction(ex: Parameters<typeof loadLineFacts>[0], m: Member, lineId: string, action: LineAction): Promise<LoadedFacts> {
   const facts = await loadLineFacts(ex, lineId, true);
   if (!facts || (facts.supplierId !== m.company.id && facts.buyerId !== m.company.id)) return fail("errors.notFound");
   const side = facts.supplierId === m.company.id ? "SUPPLIER" : "BUYER";

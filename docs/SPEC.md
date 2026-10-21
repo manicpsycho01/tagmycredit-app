@@ -6,7 +6,7 @@ Every rule here has a reason in `DECISIONS.md`.
 ## 1. People and companies
 - **Company**: legal name (EN + optional AR), CR number (10 digits, unique), city, sector. Gets a **TMC-ID immediately** at registration; status `UNVERIFIED` → ops verifies → `VERIFIED` (or `SUSPENDED`).
   - UNVERIFIED companies can sign in, set up their team and CFO, but cannot create lines, be confirmed into the network, or see network scores.
-- **TMC-ID format**: `TMC-SA-AAAA-BBBB-NN-K` — `AAAA` = 4 random digits, `BBBB` = last 4 digits of CR, `NN` = sequence 01–99 for collisions, `K` = check character (mod-36 over the digits, alphabet `0-9A-Z`). Not reversible to identity (random part).
+- **TMC-ID format**: `TMC-SA-AAAA-BBBB-NN-K` — `AAAA` = 4 random digits, `BBBB` = last 4 digits of CR, `NN` = sequence 01–99 for collisions, `K` = ISO 7064 MOD 37,36 check character over the 10 digits (alphabet `0-9A-Z`; catches every single-digit typo). Not reversible to identity (random part).
 - **Credit line ID**: `TCL-SA-NNNNNNN` (7-digit sequence).
 - **Member roles**: `OWNER`, `ADMIN`, `CREDIT_MANAGER`, `VIEWER`. One user belongs to exactly one company.
   - Create/amend/close lines, submit snapshots, file defaults, respond to disputes/closure requests: OWNER, ADMIN, CREDIT_MANAGER.
