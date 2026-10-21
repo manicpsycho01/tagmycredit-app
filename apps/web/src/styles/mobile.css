@@ -135,13 +135,10 @@ body { padding-block-end: var(--tabbar-space); }
   position: fixed; inset-inline: 0; inset-block-end: 0; z-index: var(--z-tabbar);
   padding-block-end: var(--safe-bottom);
   padding-inline: var(--safe-left) var(--safe-right);
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  background: var(--surface);
   border-block-start: 1px solid var(--line);
-  backdrop-filter: saturate(1.4) blur(14px);
-  -webkit-backdrop-filter: saturate(1.4) blur(14px);
   transform: translateZ(0);            /* own layer: no repaint jank while the page scrolls */
 }
-@supports not (backdrop-filter: blur(1px)) { .m-tabbar { background: var(--surface); } }
 .m-tabbar ul { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); max-width: 640px; height: var(--tabbar-h); }
 .m-tab {
   all: unset; box-sizing: border-box; cursor: pointer; width: 100%; height: 100%;

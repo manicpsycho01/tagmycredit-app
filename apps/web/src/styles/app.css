@@ -164,7 +164,8 @@
 /* lookup */
 .lookup { display: flex; gap: 10px; align-items: stretch; flex-wrap: wrap; }
 .lookup .input { flex: 1 1 260px; font-family: var(--mono); }
-.lookup-hero { padding: clamp(18px, 3vw, 28px); border-radius: 16px; display: grid; gap: 14px; }
+.lookup-hero { padding: clamp(18px, 3vw, 28px); border-radius: 16px; display: grid; gap: 14px; overflow: hidden; }
+.lookup-hero .input::placeholder { font-size: .85em; }
 .lookup-hero label { color: var(--on-teal-muted); font-weight: 600; font-size: .88rem; }
 .lookup-hero .input { background: rgba(255,255,255,.95); color: #0C1F1E; border-color: transparent; }
 .lookup-hero .hint { color: var(--on-teal-muted); font-size: .8rem; }
@@ -341,4 +342,13 @@ ol.steps li[aria-current="step"] { color: var(--ink); border-color: var(--amber)
 ol.steps li[aria-current="step"]::before { background: var(--amber); color: var(--on-amber); }
 ol.steps li.done::before { content: "✓"; background: var(--ok); color: #fff; }
 
-.home-company { font-weight: 600; color: var(--on-teal); overflow-wrap: anywhere; }
+.home-company { font-weight: 600; color: var(--on-teal); display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; row-gap: 2px; }
+.home-tmc { font: 600 .82rem/1.4 var(--mono); color: var(--on-teal-muted); white-space: nowrap; }
+@media (max-width: 700px) {
+  .hero-strip { gap: 14px; padding: 18px; }
+  .hero-strip h1 { font-size: 1.35rem; }
+  .home-sub { display: none; }
+  .home-company { flex-direction: column; font-size: .95rem; }
+  .home-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .home-cta .btn { min-height: 44px; padding: 10px 12px; font-size: .9rem; }
+}

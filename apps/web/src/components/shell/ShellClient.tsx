@@ -109,7 +109,7 @@ export function ShellTabBar({ items, theme, account }: { items: NavItem[]; theme
   const locale = useLocale();
   const so = useSignOut();
   const map = (i: NavItem) => ({ href: i.href, label: t(i.label), icon: i.icon, match: i.match, badge: i.badge, badgeLabel: i.badge ? t("ui.notificationsUnread", { n: i.badge }) : undefined });
-  const tabs = items.slice(0, 4).map(map);
+  const tabs = items.slice(0, 4).map((i) => ({ ...map(i), label: t(i.short ?? i.label) }));
   const more = items.slice(4).map(map);
   const moreBadge = more.reduce((n, i) => n + (i.badge ?? 0), 0);
   return (

@@ -35,11 +35,11 @@ export default async function HomePage() {
       <div className="hero-strip band">
         <div className="stack" style={{ gap: 6 }}>
           <h1>{t("home.title", { name: first })}</h1>
-          {session?.company && <p className="home-company"><b>{session.company.legalName}</b> · <span className="ltr">{session.company.tmcId}</span></p>}
-          <p>{t("home.sub")}</p>
+          {session?.company && <p className="home-company"><b>{session.company.legalName}</b> <span className="home-tmc ltr">{session.company.tmcId}</span></p>}
+          <p className="home-sub">{t("home.sub")}</p>
           <div className="hero-strip steps" style={{ padding: 0, marginTop: 6 }}><span>{t("home.steps")}</span></div>
         </div>
-        <div className="row">
+        <div className="row home-cta">
           <Link className="btn btn-amber" href="/lines/new">{t("home.tagLine")}</Link>
           <Link className="btn btn-line" href="/check">{t("home.checkBuyer")}</Link>
         </div>
