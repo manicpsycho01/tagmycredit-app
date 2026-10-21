@@ -56,13 +56,11 @@
 .mnav a { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 13px 4px; text-decoration: none; color: var(--on-teal); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,.08); }
 .mnav a[aria-current="page"] { color: var(--amber); }
 .mnav li:last-child a { border-bottom: 0; }
-@media (max-width: 960px) {
-  .app-nav { display: none; }
-  .menu-btn { display: inline-grid; }
+@media (max-width: 1023px) {
+  .app-nav, .hdr-desktop { display: none !important; }
   .user-menu .uname { display: none; }
   .user-menu > button { padding: 3px; }
 }
-@media (min-width: 961px) { .mnav { display: none !important; } }
 @media (max-width: 640px) {
   .co-id { display: none; }
   .hdr-tools { gap: 6px; }

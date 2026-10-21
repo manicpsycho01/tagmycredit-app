@@ -965,5 +965,25 @@ export const ar: Record<MessageKey, string> = {
   "state.errorBody": "تعذّر تحميل هذه الصفحة. تم تسجيل المشكلة، حاول مجددًا بعد قليل.",
   "state.notFoundTitle": "الصفحة غير موجودة",
   "state.notFoundBody": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
-  "state.goHome": "العودة إلى الرئيسية",
+  "state.goHome": "العودة إلى الرئيسية",  /* added */
+  "score.badDebt": "سجل الديون المعدومة",
+  "score.badDebtHint": "حالات التعثّر المؤيَّدة تحدّ من التقييم",
+  "score.badDebtNone": "لا توجد حالات تعثّر مؤيَّدة خلال آخر 24 شهرًا، فلا حدّ أقصى.",
+  "ui.themeLightShort": "فاتح",
+  "ui.themeDarkShort": "داكن",
+  "ui.themeSystem": "حسب النظام",
+  /* added */
+  "snap.held": "قيد المراجعة",
+  "snap.rejected": "مرفوض",
+  "snap.noteLabel": "وضّح سبب التغيير",
+  "snap.noteHint": "تغيّرت هذه الأرقام بشكل حاد أو تجاوزت الحد. أضف ملاحظة قصيرة، وسيراجعها فريق عمليات TMC قبل احتسابها.",
+  "errors.snapshotNeedsNote": "أضف ملاحظة توضح هذه الأرقام.",
+  "errors.evidenceRequired": "أرفق ملفًا داعمًا واحدًا على الأقل.",
+  /* added */
+  "ops.tabQuality": "جودة البيانات",
+  "ops.emptyQuality": "لا توجد تقارير محتجزة للمراجعة.",
+  "ops.previous": "السابق",
+  "ops.releaseSnapshot": "اعتماد (يُحتسب في الإصدار التالي)",
+  "ops.snapshotReleased": "تم اعتماد التقرير.",
+
 };

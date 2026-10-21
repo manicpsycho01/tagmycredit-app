@@ -964,6 +964,26 @@ export const en = {
   "state.notFoundTitle": "Page not found",
   "state.notFoundBody": "The page you're looking for doesn't exist or has moved.",
   "state.goHome": "Go home",
+  /* added */
+  "score.badDebt": "Bad-debt history",
+  "score.badDebtHint": "Upheld defaults cap the score",
+  "score.badDebtNone": "No upheld defaults in the last 24 months — no cap.",
+  "ui.themeLightShort": "Light",
+  "ui.themeDarkShort": "Dark",
+  "ui.themeSystem": "System",
+  /* added */
+  "snap.held": "Held for review",
+  "snap.rejected": "Rejected",
+  "snap.noteLabel": "Explain the change",
+  "snap.noteHint": "These figures changed sharply or exceed the limit. Add a short note; TMC Operations reviews it before it counts.",
+  "errors.snapshotNeedsNote": "Add a note explaining these figures.",
+  "errors.evidenceRequired": "Attach at least one evidence file.",
+  /* added */
+  "ops.tabQuality": "Data quality",
+  "ops.emptyQuality": "No snapshots held for review.",
+  "ops.previous": "previous",
+  "ops.releaseSnapshot": "Release (counts next release)",
+  "ops.snapshotReleased": "Snapshot released.",
 } as const satisfies Record<string, string>;
 
 export type MessageKey = keyof typeof en;

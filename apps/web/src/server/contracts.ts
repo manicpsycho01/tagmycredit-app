@@ -85,6 +85,8 @@ export interface ScoreCard {
   supplierBand: string | null;
   factors: ScoreFactorView[];
   caps: { key: string; cap: number }[];
+  /** The "Bad-debt history" row (SPEC §5): i18n key + params; null when not published. */
+  defaultsReason: { key: string; params: Record<string, string | number> } | null;
   /** Upheld unresolved default exists (only when published). */
   activeAlert: boolean;
   /** Score history for a sparkline (published releases only, oldest first). */
@@ -179,6 +181,8 @@ export interface DefaultView {
   buyerReplyBy: string;
   decisionNote: string | null;
   alertSent: boolean | null;
+  /** Supplier reported the default as settled (awaiting ops confirmation while status is UPHELD). */
+  settledAt: string | null;
   createdAt: string;
   attachments: AttachmentView[];
 }
