@@ -153,6 +153,7 @@
 .co-head .nm h2 { font-size: 1.3rem; }
 .co-head .nm small { color: var(--muted); font-size: .84rem; display: flex; flex-wrap: wrap; gap: 4px 10px; }
 @media (max-width: 760px) { .scorecard { grid-template-columns: 1fr; } }
+.scorecard.compact { grid-template-columns: 1fr; }
 .floor { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px; align-items: center; padding: clamp(18px, 3vw, 28px); border-radius: 14px; background: var(--ground); border: 1px dashed var(--line-strong); }
 .floor .dots { display: flex; gap: 6px; }
 .floor .dots i { width: 22px; height: 22px; border-radius: 50%; border: 2px dashed var(--line-strong); }

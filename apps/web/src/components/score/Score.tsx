@@ -151,7 +151,7 @@ export function ScoreCardView({ card, t, own = false, compact = false }: { card:
         </div>
       )}
       {!shown ? <FloorState card={card} t={t} own={own} /> : (
-        <div className="scorecard">
+        <div className={compact ? "scorecard compact" : "scorecard"}>
           <div className="left">
             <ScoreGauge score={card.score} band={card.band} t={t} caption={card.releasePeriod ? t("score.release", { period: formatPeriod(card.releasePeriod, t.locale) }) : undefined} />
             {card.frozen && <p className="frozen">{t("score.frozen")}</p>}
