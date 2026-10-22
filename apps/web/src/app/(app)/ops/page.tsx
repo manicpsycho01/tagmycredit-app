@@ -44,7 +44,7 @@ export default async function OpsPage({ searchParams }: { searchParams: Promise<
         <div className="ops-list">{q.disputes.map((d) => (
           <div className="ops-card" key={d.id}>
             <div className="row-between"><b><Link className="link" href={`/lines/${d.line.id}`}>{d.line.tclId}</Link> · {t.dyn(`disputeStatus.${d.status}`)}</b>
-              <span className="small muted">{companyName(d.buyer, t.locale)} {t("ops.against")} {companyName(d.supplier, t.locale)} · <DateText iso={d.createdAt} locale={t.locale} /></span></div>
+              <span className="small muted">{companyName(d.buyer, t.locale)} · {t("ops.against", { name: companyName(d.supplier, t.locale) })} · <DateText iso={d.createdAt} locale={t.locale} /></span></div>
             <blockquote className="case" style={{ margin: 0 }}>{d.reason}</blockquote>
             {d.supplierResponse && <blockquote className="case" style={{ margin: 0 }}>{d.supplierResponse}</blockquote>}
             {d.attachments.map((a) => <a key={a.id} className="link small" href={a.url} target="_blank" rel="noreferrer">{a.fileName}</a>)}
@@ -56,7 +56,7 @@ export default async function OpsPage({ searchParams }: { searchParams: Promise<
         <div className="ops-list">{q.defaults.map((r) => (
           <div className="ops-card" key={r.id}>
             <div className="row-between"><b><Link className="link" href={`/lines/${r.line.id}`}>{r.line.tclId}</Link> · {t.dyn(`defaultStatus.${r.status}`)}</b>
-              <span className="small muted">{t("ops.filedBy")} {companyName(r.supplier, t.locale)} · {companyName(r.buyer, t.locale)} · {t("ops.amount")} {formatMoney(r.amountHalalas, t.locale)}</span></div>
+              <span className="small muted">{t("ops.filedBy", { name: companyName(r.supplier, t.locale) })} · {companyName(r.buyer, t.locale)} · {t("ops.amount")} {formatMoney(r.amountHalalas, t.locale)}</span></div>
             <blockquote className="case" style={{ margin: 0 }}>{r.note}</blockquote>
             {r.buyerReply && <blockquote className="case" style={{ margin: 0 }}>{r.buyerReply}</blockquote>}
             {r.attachments.map((a) => <a key={a.id} className="link small" href={a.url} target="_blank" rel="noreferrer">{a.fileName}</a>)}
