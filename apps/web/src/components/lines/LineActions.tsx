@@ -124,5 +124,7 @@ export function LineActions({ d, snapshotPeriod }: { d: LineDetail; snapshotPeri
     }
   };
   if (d.actions.length === 0) return <p className="muted small">{t("line.noActions")}</p>;
-  return <div className="action-bar">{d.actions.map(render)}</div>;
+  // While a closure request is open, "Close the line" (accept) already closes it — don't show a second close button.
+  const shown = openClosure && d.actions.includes("RESPOND_CLOSURE") ? d.actions.filter((a) => a !== "CLOSE") : d.actions;
+  return <div className="action-bar">{shown.map(render)}</div>;
 }
