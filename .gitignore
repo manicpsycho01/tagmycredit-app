@@ -11,3 +11,4 @@ test-results
 .DS_Store
 .env.deploy
 .vercel
+.env*
