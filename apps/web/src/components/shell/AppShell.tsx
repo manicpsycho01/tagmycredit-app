@@ -36,9 +36,11 @@ export function AppShell({ session, unread, theme, t, children }: { session: Ses
             </div>
           )}
           <div className="hdr-tools">
-            <Link href="/alerts" className="icon-btn" aria-label={unread ? t("ui.notificationsUnread", { n: unread }) : t("ui.notifications")}>
-              <MobileIcon name="alerts" />{unread > 0 && <span className="badge" aria-hidden="true">{unread > 99 ? "99+" : unread}</span>}
-            </Link>
+            {c && (
+              <Link href="/alerts" className="icon-btn" aria-label={unread ? t("ui.notificationsUnread", { n: unread }) : t("ui.notifications")}>
+                <MobileIcon name="alerts" />{unread > 0 && <span className="badge" aria-hidden="true">{unread > 99 ? "99+" : unread}</span>}
+              </Link>
+            )}
             <span className="hdr-desktop row" style={{ gap: 8 }}>
               <LocaleButton />
               <ThemeButton />

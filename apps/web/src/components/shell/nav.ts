@@ -18,9 +18,8 @@ export function navItems(s: SessionContext, unread: number): NavItem[] {
       { href: "/snapshots", label: "nav.snapshots", icon: "snapshots" },
       { href: "/company", label: "nav.company", icon: "company" },
     );
-  } else {
-    items.push({ href: "/alerts", label: "nav.alerts", icon: "alerts", badge: unread || undefined });
   }
+  // Alerts are company-scoped: staff without a company have none (and /alerts sends them to the ops console).
   if (s.isStaff) items.splice(s.company ? 4 : 0, 0, { href: "/ops", label: "nav.ops", icon: "ops" });
   if (s.demoMode) items.push({ href: "/dev/outbox", label: "nav.outbox", icon: "outbox" });
   return items;
