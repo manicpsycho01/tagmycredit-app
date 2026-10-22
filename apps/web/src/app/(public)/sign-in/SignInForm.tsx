@@ -20,7 +20,7 @@ export function SignInForm({ demoMode }: { demoMode: boolean }) {
     start(async () => {
       try {
         const r = await signIn.email({ email: String(fd.get("email")).trim(), password: String(fd.get("password")) });
-        if (r.error) { setError(t("auth.invalid")); return; }
+        if (r.error) { setError(t(r.error.status === 429 ? "auth.tooMany" : "auth.invalid")); return; }
         router.push("/home");
         router.refresh();
       } catch { setError(t("errors.network")); }
