@@ -12,6 +12,8 @@ import { isDemoMode } from "./session";
 
 const required = (max = 200) => z.string().trim().min(1, { error: "errors.required" }).max(max, { error: "errors.tooLong" });
 const uuid = z.uuid({ error: "errors.invalid" });
+/** ISO date where an empty field reads "Required" rather than "Date invalid". */
+const isoDate = z.iso.date({ error: (issue) => (issue.input === "" || issue.input === undefined ? "errors.required" : "errors.dateInvalid") });
 const amount = z.number({ error: "errors.amountInvalid" }).int({ error: "errors.amountInvalid" }).min(0, { error: "errors.amountInvalid" });
 
 /** FormData → plain object of its string fields (files excluded). */
@@ -126,7 +128,7 @@ export const inviteMember: Actions["inviteMember"] = notImplemented;
 export const changeMemberRole: Actions["changeMemberRole"] = notImplemented;
 export const nominateCfo: Actions["nominateCfo"] = notImplemented;
 export const amendLine: Actions["amendLine"] = async (input) =>
-  runAction(() => c.amendLine(parse(z.object({ lineId: uuid, limitSar: z.number({ error: "errors.amountInvalid" }).positive({ error: "errors.amountInvalid" }), termsDays: z.union(TERMS_DAYS.map((d) => z.literal(d))), effectiveDate: z.iso.date({ error: "errors.dateInvalid" }) }), input)));
+  runAction(() => c.amendLine(parse(z.object({ lineId: uuid, limitSar: z.number({ error: "errors.amountInvalid" }).positive({ error: "errors.amountInvalid" }), termsDays: z.union(TERMS_DAYS.map((d) => z.literal(d))), effectiveDate: isoDate }), input)));
 export const uploadSnapshotsCsv: Actions["uploadSnapshotsCsv"] = notImplemented;
 export const respondDispute: Actions["respondDispute"] = async (input) => runAction(() => c.respondDispute(parse(z.object({ disputeId: uuid, response: required(2000) }), input)));
 export const respondClosure: Actions["respondClosure"] = async (input) =>
@@ -134,7 +136,7 @@ export const respondClosure: Actions["respondClosure"] = async (input) =>
 export const fileDefault: Actions["fileDefault"] = async (form) =>
   runAction(() =>
     c.fileDefault({
-      ...parse(z.object({ lineId: uuid, amountSar: z.coerce.number({ error: "errors.amountInvalid" }).positive({ error: "errors.amountInvalid" }), oldestDueDate: z.iso.date({ error: "errors.dateInvalid" }), note: required(2000) }), formObject(form)),
+      ...parse(z.object({ lineId: uuid, amountSar: z.coerce.number({ error: "errors.amountInvalid" }).positive({ error: "errors.amountInvalid" }), oldestDueDate: isoDate, note: required(2000) }), formObject(form)),
       files: formFiles(form),
     }),
   );

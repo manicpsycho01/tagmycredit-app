@@ -66,11 +66,20 @@ export async function amendLine(input: { lineId: string; limitSar: number; terms
   if (dateErr) fail("errors.validation", { effectiveDate: dateErr });
   await getDb().transaction(async (tx) => {
     const f = await assertLineAction(tx, m, input.lineId, "AMEND");
-    const [v] = await rows<{ version: number; buyer_name: string }>(
+    const [v] = await rows<{ version: number; buyer_name: string; cur_limit: string | null; cur_terms: number | null; cur_date: string | null }>(
       tx,
-      sql`select max(v.version)::int as version, (select legal_name from companies where id = ${f.buyerId}) as buyer_name
-          from credit_line_versions v where v.line_id = ${input.lineId}`,
+      sql`select max(v.version)::int as version, (select legal_name from companies where id = ${f.buyerId}) as buyer_name,
+            c.limit_halalas as cur_limit, c.terms_days as cur_terms, c.effective_date::text as cur_date
+          from credit_line_versions v
+          left join credit_lines l on l.id = v.line_id
+          left join credit_line_versions c on c.line_id = l.id and c.version = l.current_version
+          where v.line_id = ${input.lineId}
+          group by c.limit_halalas, c.terms_days, c.effective_date`,
     );
+    // An amendment identical to the terms in force would only make the buyer's CFO re-confirm the same thing.
+    if (v && Number(v.cur_limit) === limit && v.cur_terms === input.termsDays && v.cur_date === input.effectiveDate) {
+      fail("errors.amendNoChange");
+    }
     const version = (v?.version ?? 0) + 1;
     await tx.insert(creditLineVersions).values({
       lineId: input.lineId,

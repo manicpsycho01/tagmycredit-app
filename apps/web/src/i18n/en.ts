@@ -963,6 +963,7 @@ export const en = {
   "errors.defaultNotOverdue": "A default needs an invoice at least 90 days past its due date.",
   "errors.defaultNeeds90Plus": "The latest snapshot shows nothing 90+ days late, so a default can't be filed yet.",
   "errors.defaultAmountRange": "The amount must be more than zero and no more than the 90+ days late balance in the latest snapshot.",
+  "errors.amendNoChange": "Nothing changed — adjust the limit, terms or date to propose an amendment.",
   "errors.emailTaken": "An account with this email already exists. Sign in instead.",
   "errors.companyNotVerified": "Your company must be verified first.",
   "errors.notCfo": "Only the company's active CFO can do this.",
