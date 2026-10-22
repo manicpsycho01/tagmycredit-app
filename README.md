@@ -51,7 +51,7 @@ The browser smoke signs in many times in a few seconds; Better Auth's sign-in ra
 2. In Vercel: **Add New → Project**, import the code, set **Root Directory** to `apps/web`; Vercel detects Next.js (install command `pnpm install` at the repo root is automatic in a pnpm workspace).
 3. Environment variables: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (your https URL), `OTP_SECRET`, `CRON_SECRET`, `DEMO_MODE=true`, `MESSAGING_MODE=outbox`.
 4. Load the schema and demo data once from your laptop: `DATABASE_URL=<hosted url> pnpm --filter @tmc/db migrate && DATABASE_URL=<hosted url> pnpm --filter @tmc/db seed`.
-5. `apps/web/vercel.json` calls `/api/cron/tick` hourly (Vercel sends the `CRON_SECRET` automatically). On the free Hobby plan crons can only run daily — change the schedule to `7 0 * * *`.
+5. `apps/web/vercel.json` calls `/api/cron/tick` daily (Vercel sends the `CRON_SECRET` automatically; the free Hobby plan allows daily crons). On Pro you can make it hourly.
 
 ### B. Real customers — Google Cloud, Dammam (data stays in Saudi Arabia)
 Cloud Run (web) + Cloud SQL Postgres 17 + Secret Manager + Cloud Scheduler (POST `/api/cron/tick` with `Authorization: Bearer $CRON_SECRET` every minute), all in `me-central2`. Set `DEMO_MODE=false`, `MESSAGING_MODE=live` with Unifonic (SMS) and SMTP credentials, and run migrations on deploy. Get Saudi PDPL advice before loading real customer data (see `DECISIONS.md`).

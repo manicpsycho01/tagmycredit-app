@@ -1,0 +1,12 @@
+# Never upload local state or secrets to Vercel.
+.pgdata
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+**/node_modules
+**/.next
+**/test-results
+**/playwright-report
+.vercel
